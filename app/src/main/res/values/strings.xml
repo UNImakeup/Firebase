@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Firebase</string>
+    <string name="play_sound">play sound</string>
+    <string name="show_data">show data</string>
+</resources>

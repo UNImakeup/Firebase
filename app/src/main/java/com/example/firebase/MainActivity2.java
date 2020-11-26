@@ -44,11 +44,14 @@ public class MainActivity2 extends AppCompatActivity {
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                             //display.setText(dataSnapshot.child(userName.getText().toString()).child("password").getValue().toString());
-
-                            if(dataSnapshot.child(userName.getText().toString()).child("password").getValue().toString().equals(password.getText().toString())){
-                                display.setText("You have inputtet a matching pair of username and password! :)");
-                            } else{
-                                display.setText("wrong username or password. :(");
+                            if(dataSnapshot.child(userName.getText().toString()).exists()) {
+                                if (dataSnapshot.child(userName.getText().toString()).child("password").getValue().toString().equals(password.getText().toString())) {
+                                    display.setText("You have inputtet a matching pair of username and password! :)");
+                                } else {
+                                    display.setText("wrong password. :(");
+                                }
+                            } else {
+                                display.setText("Wrong username and/or password");
                             }
 
 

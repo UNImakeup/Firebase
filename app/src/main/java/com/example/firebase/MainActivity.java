@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         final EditText password = this.findViewById(R.id.editTextTextPersonName3);
 
         final Button loginBtn = this.findViewById(R.id.login_button);
-        loginBtn.setVisibility(View.INVISIBLE);
+        //loginBtn.setVisibility(View.INVISIBLE);
 
         img.setImageResource(R.drawable.boat);
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         if(userIs == false) {
                             myRef.child(username.getText().toString()).child("password").setValue(password.getText().toString()); //Send data to database
                             showData.setText("user created");
-                            loginBtn.setVisibility(View.VISIBLE);
+                            //loginBtn.setVisibility(View.VISIBLE);
                         }
 
                         userIs = false;

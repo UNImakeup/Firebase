@@ -2,6 +2,8 @@ package com.example.firebase;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.media.MediaPlayer;
 
 
@@ -38,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         final EditText username = this.findViewById(R.id.editTextTextPersonName);
 
         final EditText password = this.findViewById(R.id.editTextTextPersonName3);
+
+        final Button loginBtn = this.findViewById(R.id.login_button);
+        loginBtn.setVisibility(View.INVISIBLE);
 
         img.setImageResource(R.drawable.boat);
 
@@ -81,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                         if(userIs == false) {
                             myRef.child(username.getText().toString()).child("password").setValue(password.getText().toString()); //Send data to database
                             showData.setText("user created");
+                            loginBtn.setVisibility(View.VISIBLE);
                         }
 
                         userIs = false;
@@ -121,6 +127,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+            }
+        });
+
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+                startActivity(intent);
 
             }
         });

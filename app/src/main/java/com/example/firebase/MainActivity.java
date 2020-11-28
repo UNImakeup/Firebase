@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,6 +50,16 @@ public class MainActivity extends AppCompatActivity {
 
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
+
+        //Skrive på harddisk, gemme hvem der er login. Kunne også gemme password i guess, for at tjekke hashcode og sådan.
+        final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
+        final String user = gemmeobjekt.getString("username", "");
+
+        if(user.isEmpty()){
+            showData.setText("hello bro" /*+ user*/ );
+            //gemmeobjekt.edit().remove("username").apply();
+        }
+
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

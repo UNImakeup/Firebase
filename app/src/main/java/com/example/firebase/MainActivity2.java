@@ -92,7 +92,7 @@ public class MainActivity2 extends AppCompatActivity {
         HomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent homeIntent = new Intent(MainActivity2.this, Home.class);
+                Intent homeIntent = new Intent(MainActivity2.this, HomeNavigation.class);
                 startActivity(homeIntent);
             }
         });

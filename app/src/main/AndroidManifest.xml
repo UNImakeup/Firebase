@@ -9,7 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Home"></activity>
+        <activity android:name=".Situp"></activity>
+        <activity android:name=".Backbends" />
+        <activity android:name=".Squat" />
+        <activity android:name=".Pushups" />
+        <activity android:name=".Notifications" />
+        <activity android:name=".Settings" />
+        <activity android:name=".Insights" />
+        <activity android:name=".Exercises" />
+        <activity android:name=".Profile" />
+        <activity android:name=".HomeNavigation" />
+        <activity android:name=".Home" />
         <activity android:name=".MainActivity2" />
         <activity
             android:name=".ui.login.LoginActivity"

@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
         if(user.isEmpty()){
             showData.setText("hello bro" /*+ user*/ );
             //gemmeobjekt.edit().remove("username").apply();
+        } else {
+            Intent loggedIn = new Intent(MainActivity.this, HomeNavigation.class);
+            startActivity(loggedIn);
         }
 
 

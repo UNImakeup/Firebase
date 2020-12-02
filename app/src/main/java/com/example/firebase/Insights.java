@@ -2,12 +2,17 @@ package com.example.firebase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class Insights extends AppCompatActivity {
 
@@ -26,11 +31,19 @@ public class Insights extends AppCompatActivity {
         Weight=(EditText) findViewById(R.id.Weight);
         answer=(TextView) findViewById(R.id.answer);
         calculate=(Button) findViewById(R.id.calculate);
+        final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
+        final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
+
+        final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
+        final String user = gemmeobjekt.getString("username", "");
+        //Burde være gemt i bruger objekt, så vi kunne hente det derfra. Kunne lave brugerobjekt der kun indeholder det faktisk.
+
 
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 calculateBMI();
+                myRef.child(user).child("BMI").setValue(calculateBMI());
                 //Error message if nothing typed
                 String str1 = Weight.getText().toString();
                 String str2 = Height.getText().toString();
@@ -54,7 +67,7 @@ public class Insights extends AppCompatActivity {
     }
 
     //Nedenstående kan nemt komme i egen klasse. Lave de andre ud fra det.
-    private void calculateBMI(){
+    private float calculateBMI(){
         String heightStr=Height.getText().toString();
         String weightStr=Weight.getText().toString();
 
@@ -65,9 +78,9 @@ public class Insights extends AppCompatActivity {
             float bmi =weightValue/(heightvalue * heightvalue);
 
             displayBMI(bmi);
-
+            return bmi;
         }
-
+        return 0;
     }
     private void displayBMI(float bmi){
         String bmiLabel="";

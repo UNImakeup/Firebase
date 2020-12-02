@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(loggedIn);
         }
 
-
+/*
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+ */
+
         playsound.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { //When button playsound is clicked.
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
                         //String a= dataSnapshot.getValue().toString();
                         if(dataSnapshot.child(username.getText().toString()).exists()) { //Kan se om en bestemt bruger eksisterer. Kan bruges når vi skal oprette ny bruger. Hvis den ikke eksisterer, tilføjer vi data, ved at sige setValue, ved et bestemt child.
                             showData.setText("username taken"); //Den kan nu se at brugernavnet er taget, skal så bare stoppe den fra at lave det nye.
+                            //Tror dEN ENE AF nedenstående kan slettes.
                             userExists[0] = true;
                             userIs = true;
                         }

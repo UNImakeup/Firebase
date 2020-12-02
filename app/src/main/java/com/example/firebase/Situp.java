@@ -61,8 +61,11 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         double lastValue = currentValue;
 
         if(reps == 2){
-            Intent exercise3 = new Intent(Situp.this, Backbends.class);
+            //onStop();
+            //onDestroy();
+            Intent exercise3 = new Intent(Situp.this, Squat.class);
             startActivity(exercise3);
+            onStop();
         }
     }
 
@@ -75,8 +78,9 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
 
     }
     @Override
-    protected void onPause(){
-        super.onPause();
-        sensorManager.unregisterListener(this);
+    protected void onStop(){
+        super.onStop();
+        sensorManager.unregisterListener(Situp.this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
+
     }

@@ -57,8 +57,12 @@ public class Pushups extends AppCompatActivity {
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(reps));
                 if(reps == 2){
+                    //onStop();
+                    //onDestroy();
+
                     Intent exercise2 = new Intent(Pushups.this, Situp.class);
                     startActivity(exercise2);
+                    onStop();
                 }
             }
 
@@ -73,8 +77,8 @@ public class Pushups extends AppCompatActivity {
         sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
     }
     @Override
-    protected void onPause(){
-        super.onPause();
+    protected void onStop(){
+        super.onStop();
         sensorManager.unregisterListener(proximitySensorListener);
     }
     }

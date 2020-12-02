@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -24,7 +25,7 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(Squat.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
-        textview = (TextView) findViewById(R.id.textView2);
+        textview = (TextView) findViewById(R.id.textView69);
 
 
     }
@@ -36,7 +37,7 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
     }
 
     int reps = 0;
-    boolean squat;
+    boolean situp;
     double currentValue;
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -46,20 +47,25 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
         //System.out.println(i);
 
         //for(int i = 0; reps < 10; i++){
-        if(/*sensorEvent.values[1] > 0 lastValue < 0.0 && */currentValue < 0.0) {
-            squat = true;
+        if(/*sensorEvent.values[1] > 0 lastValue < 0.0 && */currentValue < 1.0) {
+            situp = true;
             //int a = 1;
         }
-        if(squat == true && currentValue > 4.0){ //Ny værdi, så den først tæller når man kommer op.
+        if(situp==true && currentValue > 8.0){
             //reps++;
-            squat=false;
+            situp=false;
             reps++;
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
         textview.setText(reps);
+        double lastValue = currentValue;
+
         if(reps == 2){
-            Intent exercise4 = new Intent(Squat.this, HomeNavigation.class);
-            startActivity(exercise4);
+            //onStop();
+            //onDestroy();
+            Intent exercise3 = new Intent(Squat.this, Backbends.class);
+            startActivity(exercise3);
+            onStop();
         }
     }
 
@@ -72,8 +78,9 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
 
     }
     @Override
-    protected void onPause(){
-        super.onPause();
-        sensorManager.unregisterListener(this);
+    protected void onStop(){
+        super.onStop();
+        sensorManager.unregisterListener(Squat.this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
-    }
+
+}

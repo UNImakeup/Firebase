@@ -59,9 +59,11 @@ public class Backbends extends AppCompatActivity {
                 textview.setText(String.valueOf(reps - 1)); //-1, fordi den starter på 1 af en eller anden grund.
 
                 if ((reps - 1) == 2){
+                    //onStop();
                     //Burde nok tilføje en slutskærm, hvor man viser reps og sådan
-                    Intent workoutDone = new Intent(Backbends.this, Squat.class);
+                    Intent workoutDone = new Intent(Backbends.this, HomeNavigation.class);
                     startActivity(workoutDone);
+                    onStop();
                 }
             }
 
@@ -74,8 +76,8 @@ public class Backbends extends AppCompatActivity {
         sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
     }
     @Override
-    protected void onPause(){
-        super.onPause();
+    protected void onStop(){
+        super.onStop();
         sensorManager.unregisterListener(proximitySensorListener);
     }
     }

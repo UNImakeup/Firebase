@@ -18,4 +18,10 @@
     <string name="logout">Logout</string>
     <string name="time">time</string>
     <string name="squat">Squats</string>
+    <string name="pushups">Pushups</string>
+    <string name="pushupTimer">Time</string>
+    <string name="weight">weight</string>
+    <string name="height">height</string>
+    <string name="Get_BMI">Get BMI</string>
+    <string name="input_bmi">Input your height and weight and get your BMI</string>
 </resources>

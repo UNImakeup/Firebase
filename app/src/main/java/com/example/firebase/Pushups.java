@@ -54,6 +54,7 @@ public class Pushups extends AppCompatActivity {
                     getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                 }
                 System.out.println(reps);
+                //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(reps));
                 if(reps == 2){
                     Intent exercise2 = new Intent(Pushups.this, Situp.class);

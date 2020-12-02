@@ -55,11 +55,12 @@ public class Backbends extends AppCompatActivity {
                     rep = true;
                 }
                 System.out.println(reps);
+                //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(reps - 1)); //-1, fordi den starter på 1 af en eller anden grund.
 
                 if ((reps - 1) == 2){
                     //Burde nok tilføje en slutskærm, hvor man viser reps og sådan
-                    Intent workoutDone = new Intent(Backbends.this, HomeNavigation.class);
+                    Intent workoutDone = new Intent(Backbends.this, Squat.class);
                     startActivity(workoutDone);
                 }
             }

@@ -50,15 +50,15 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
             squat = true;
             //int a = 1;
         }
-        if(squat==true && currentValue > 8.0){ //Ny værdi, så den først tæller når man kommer op.
+        if(squat == true && currentValue > 4.0){ //Ny værdi, så den først tæller når man kommer op.
             //reps++;
             squat=false;
             reps++;
         }
-
-        textview.setText(sensorEvent.values[1] + " " + reps);
+//Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
+        textview.setText(reps);
         if(reps == 2){
-            Intent exercise4 = new Intent(Squat.this, Backbends.class);
+            Intent exercise4 = new Intent(Squat.this, HomeNavigation.class);
             startActivity(exercise4);
         }
     }
@@ -70,5 +70,10 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        sensorManager.unregisterListener(this);
     }
     }

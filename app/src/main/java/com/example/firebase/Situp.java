@@ -56,12 +56,12 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             situp=false;
             reps++;
         }
-
+//Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
         textview.setText(sensorEvent.values[1] + " " + reps);
         double lastValue = currentValue;
 
         if(reps == 2){
-            Intent exercise3 = new Intent(Situp.this, Squat.class);
+            Intent exercise3 = new Intent(Situp.this, Backbends.class);
             startActivity(exercise3);
         }
     }
@@ -73,5 +73,10 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
 
+    }
+    @Override
+    protected void onPause(){
+        super.onPause();
+        sensorManager.unregisterListener(this);
     }
     }

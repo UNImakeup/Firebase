@@ -8,7 +8,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Squats extends AppCompatActivity implements SensorEventListener {
@@ -26,6 +28,29 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         acceleroMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(Squats.this, acceleroMeterSensor,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView69);
+        final TextView squatTimer = findViewById(R.id.squatTimer);
+
+
+        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                squatTimer.setText(millisUntilFinished/1000 + " Seconds left");
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(Squats.this,"finish",Toast.LENGTH_SHORT).show();
+                Intent exercise3 = new Intent(Squats.this, Situp.class);
+                startActivity(exercise3);
+                onStop();
+                finish();
+            }
+        };
+
+        Toast.makeText(Squats.this,"time start", Toast.LENGTH_SHORT).show();
+        countDownTimer.start(); //Skal måske rykkes ned til metoden?
+
+
 
 
     }
@@ -59,7 +84,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
         textview.setText("Squats: " + reps);
         double lastValue = currentValue;
-
+/*
         if(reps == 2){
             //onStop();
             //onDestroy();
@@ -67,6 +92,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             startActivity(exercise3);
             onStop();
         }
+
+ */
     }
 
     //System.out.println(sensorEvent.values[1]);

@@ -24,4 +24,7 @@
     <string name="height">height</string>
     <string name="Get_BMI">Get BMI</string>
     <string name="input_bmi">Input your height and weight and get your BMI</string>
+    <string name="squatTimeLeft" />
+    <string name="backBendTimer" />
+    <string name="situpTimer" />
 </resources>

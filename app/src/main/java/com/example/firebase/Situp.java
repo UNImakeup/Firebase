@@ -8,7 +8,9 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Situp extends AppCompatActivity implements SensorEventListener {
@@ -26,6 +28,27 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         acceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(Situp.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView2);
+        final TextView situpTimer = findViewById(R.id.situpTimer);
+
+        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                situpTimer.setText(millisUntilFinished/1000 + " Seconds left");
+            }
+
+            @Override
+            public void onFinish() { //Kunne starte ny timer i stedet og ændre textviews, for at have pause før øvelsen begynder. Når den første timer er slut kunne man registerlistener.
+                Toast.makeText(Situp.this,"finish",Toast.LENGTH_SHORT).show();
+                Intent exercise3 = new Intent(Situp.this, Backbends.class);
+                startActivity(exercise3);
+                onStop();
+                finish();
+            }
+        };
+
+        Toast.makeText(Situp.this,"time start", Toast.LENGTH_SHORT).show(); //Kan måske fjernes. Man kan se den er gået i gang.
+        countDownTimer.start(); //Skal måske rykkes ned til metoden?
+
 
 
     }
@@ -60,6 +83,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         textview.setText("Situps: " + reps);
         double lastValue = currentValue;
 
+        /*
         if(reps == 2){
             //onStop();
             //onDestroy();
@@ -67,6 +91,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             startActivity(exercise3);
             onStop();
         }
+         */
     }
 
     //System.out.println(sensorEvent.values[1]);

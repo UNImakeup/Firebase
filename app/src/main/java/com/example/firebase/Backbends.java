@@ -12,6 +12,7 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,11 +31,33 @@ public class Backbends extends AppCompatActivity {
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         final TextView textview=(TextView) findViewById(R.id.textView4);
+        final TextView backbendTimer = findViewById(R.id.backBendTimer);
+
 
         if(proximitySensor == null){
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
             finish();
         }
+
+        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                backbendTimer.setText(millisUntilFinished/1000 + " Seconds left");
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(Backbends.this,"Workout Done",Toast.LENGTH_SHORT).show();
+                Intent goHome = new Intent(Backbends.this, HomeNavigation.class);
+                startActivity(goHome);
+                onStop();
+                finish();
+            }
+        };
+
+        Toast.makeText(Backbends.this,"time start", Toast.LENGTH_SHORT).show();
+        countDownTimer.start(); //Skal måske rykkes ned til metoden?
+
 
         proximitySensorListener = new SensorEventListener() {
             int reps = 0;
@@ -57,7 +80,7 @@ public class Backbends extends AppCompatActivity {
                 System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(reps - 1)); //-1, fordi den starter på 1 af en eller anden grund.
-
+/*
                 if ((reps - 1) == 2){
                     //onStop();
                     //Burde nok tilføje en slutskærm, hvor man viser reps og sådan
@@ -65,6 +88,8 @@ public class Backbends extends AppCompatActivity {
                     startActivity(workoutDone);
                     onStop();
                 }
+
+ */
             }
 
             @Override

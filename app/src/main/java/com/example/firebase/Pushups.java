@@ -48,6 +48,7 @@ public class Pushups extends AppCompatActivity {
             public void onFinish() {
                 Toast.makeText(Pushups.this,"finish",Toast.LENGTH_SHORT).show();
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
+                //exercise2.putExtra("PushupReps")
                 startActivity(exercise2);
                 onStop();
                 finish();

@@ -102,7 +102,7 @@ public class Exercises extends AppCompatActivity {
 
                 t1.setText("time finish");
                 Toast.makeText(Exercises.this,"finish",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(Exercises.this, Pushups.class);
+                Intent intent = new Intent(Exercises.this, Pushups.class); //Kan sige putExtra med sværhedsgraden. 
                 startActivity(intent);
                 finish();
 

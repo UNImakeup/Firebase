@@ -47,7 +47,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         //System.out.println(i);
 
         //for(int i = 0; reps < 10; i++){
-        if(/*sensorEvent.values[1] > 0 lastValue < 0.0 && */currentValue < 1.0) {
+        if(/*sensorEvent.values[1] > 0 lastValue < 0.0 && */currentValue < 1.0) { //Kunne nok være i egen klasse, metode man kalder
             situp = true;
             //int a = 1;
         }
@@ -57,13 +57,13 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             reps++;
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
-        textview.setText(sensorEvent.values[1] + " " + reps);
+        textview.setText("Situps: " + reps);
         double lastValue = currentValue;
 
         if(reps == 2){
             //onStop();
             //onDestroy();
-            Intent exercise3 = new Intent(Situp.this, Squat.class);
+            Intent exercise3 = new Intent(Situp.this, Backbends.class);
             startActivity(exercise3);
             onStop();
         }

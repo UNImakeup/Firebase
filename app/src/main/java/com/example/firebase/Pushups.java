@@ -3,7 +3,6 @@ package com.example.firebase;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.RequiresApi;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -13,11 +12,8 @@ import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.PowerManager;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import android.os.Bundle;
 
 
 public class Pushups extends AppCompatActivity {
@@ -51,7 +47,7 @@ public class Pushups extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Toast.makeText(Pushups.this,"finish",Toast.LENGTH_SHORT).show();
-                Intent exercise2 = new Intent(Pushups.this, Situp.class);
+                Intent exercise2 = new Intent(Pushups.this, Squats.class);
                 startActivity(exercise2);
                 onStop();
                 finish();

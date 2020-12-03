@@ -11,9 +11,9 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 
-public class Squat extends AppCompatActivity implements SensorEventListener {
+public class Squats extends AppCompatActivity implements SensorEventListener {
     private SensorManager sensorManager;
-    private Sensor acceleroMeter;
+    private Sensor acceleroMeterSensor;
     private SensorEventListener acceleroSensorListener;
     TextView textview;
 
@@ -23,8 +23,8 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
         setContentView(R.layout.activity_squat);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-        acceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(Squat.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
+        acceleroMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        sensorManager.registerListener(Squats.this, acceleroMeterSensor,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView69);
 
 
@@ -37,7 +37,7 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
     }
 
     int reps = 0;
-    boolean situp;
+    boolean squat;
     double currentValue;
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
@@ -48,22 +48,22 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
 
         //for(int i = 0; reps < 10; i++){
         if(/*sensorEvent.values[1] > 0 lastValue < 0.0 && */currentValue < 1.0) {
-            situp = true;
+            squat = true;
             //int a = 1;
         }
-        if(situp==true && currentValue > 8.0){
+        if(squat == true && currentValue > 8.0){
             //reps++;
-            situp=false;
+            squat =false;
             reps++;
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
-        textview.setText(reps);
+        textview.setText("Squats: " + reps);
         double lastValue = currentValue;
 
         if(reps == 2){
             //onStop();
             //onDestroy();
-            Intent exercise3 = new Intent(Squat.this, Backbends.class);
+            Intent exercise3 = new Intent(Squats.this, Situp.class);
             startActivity(exercise3);
             onStop();
         }
@@ -80,7 +80,7 @@ public class Squat extends AppCompatActivity implements SensorEventListener {
     @Override
     protected void onStop(){
         super.onStop();
-        sensorManager.unregisterListener(Squat.this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
+        sensorManager.unregisterListener(Squats.this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
 
 }

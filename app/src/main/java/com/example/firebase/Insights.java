@@ -27,8 +27,8 @@ public class Insights extends AppCompatActivity {
 
         //implementation of BMI calculator
 
-        Height=(EditText) findViewById(R.id.Height);
-        Weight=(EditText) findViewById(R.id.Weight);
+        Height=(EditText) findViewById(R.id.height);
+        Weight=(EditText) findViewById(R.id.weight);
         answer=(TextView) findViewById(R.id.answer);
         calculate=(Button) findViewById(R.id.calculate);
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
@@ -42,19 +42,23 @@ public class Insights extends AppCompatActivity {
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                calculateBMI();
-                myRef.child(user).child("BMI").setValue(calculateBMI());
-                //Error message if nothing typed
-                String str1 = Weight.getText().toString();
-                String str2 = Height.getText().toString();
+                String weight = Weight.getText().toString();
+                String height = Height.getText().toString();
 
-                if(TextUtils.isEmpty(str1)){
+                BMIModel bmiModel = new BMIModel(height, weight);
+
+                myRef.child(user).child("BMI").setValue(bmiModel.calculateBMI());
+
+                answer.setText(bmiModel.displayBMI(bmiModel.calculateBMI()));
+                //Error message if nothing typed
+
+                if(TextUtils.isEmpty(weight)){
                     Weight.setError("You need to enter your weight in order to calculate your BMI");
                     Weight.requestFocus();
                     return;
                 }
 
-                if(TextUtils.isEmpty(str2)){
+                if(TextUtils.isEmpty(height)){
                     Height.setError("You need to enter your height in order to calculate your BMI");
                     Height.requestFocus();
                     return;
@@ -62,48 +66,5 @@ public class Insights extends AppCompatActivity {
 
             }
         });
-
-
-    }
-
-    //Nedenstående kan nemt komme i egen klasse. Lave de andre ud fra det.
-    private float calculateBMI(){
-        String heightStr=Height.getText().toString();
-        String weightStr=Weight.getText().toString();
-
-        if(heightStr!=null && !"".equals(heightStr) && weightStr!=null &&!"".equals(weightStr)){
-            float heightvalue=Float.parseFloat(heightStr)/100;
-            float weightValue=Float.parseFloat(weightStr);
-
-            float bmi =weightValue/(heightvalue * heightvalue);
-
-            displayBMI(bmi);
-            return bmi;
-        }
-        return 0;
-    }
-    private void displayBMI(float bmi){
-        String bmiLabel="";
-
-        if (Float.compare(bmi, 15f) <= 0) {
-            bmiLabel = "Very severely underweight";
-        } else if (Float.compare(bmi, 15f) > 0  &&  Float.compare(bmi, 16f) <= 0) {
-            bmiLabel = "very underweight";
-        } else if (Float.compare(bmi, 16f) > 0  &&  Float.compare(bmi, 18.5f) <= 0) {
-            bmiLabel = "Underweight";
-        } else if (Float.compare(bmi, 18.5f) > 0  &&  Float.compare(bmi, 25f) <= 0) {
-            bmiLabel = "Normal";
-        } else if (Float.compare(bmi, 25f) > 0  &&  Float.compare(bmi, 30f) <= 0) {
-            bmiLabel = "Overweight";
-        } else if (Float.compare(bmi, 30f) > 0  &&  Float.compare(bmi, 35f) <= 0) {
-            bmiLabel = "Very Overweight";
-        } else if (Float.compare(bmi, 35f) > 0  &&  Float.compare(bmi, 40f) <= 0) {
-            bmiLabel = "Obese";
-        } else {
-            bmiLabel = "Fat fuck";
-        }
-
-        bmiLabel = bmi + "\n\n" + bmiLabel;
-        answer.setText(bmiLabel);
     }
 }

@@ -39,7 +39,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onFinish() { //Kunne starte ny timer i stedet og ændre textviews, for at have pause før øvelsen begynder. Når den første timer er slut kunne man registerlistener.
                 Toast.makeText(Situp.this,"finish",Toast.LENGTH_SHORT).show();
-                Intent exercise3 = new Intent(Situp.this, Backbends.class);
+                Intent exercise3 = new Intent(Situp.this, Backbends.class); //Putextra med sværhedsgrad, måske andet objekt med exercise, hvor vi gemmer reps.
                 startActivity(exercise3);
                 onStop();
                 finish();

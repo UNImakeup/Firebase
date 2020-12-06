@@ -20,10 +20,11 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     private SensorEventListener acceleroSensorListener;
     TextView textview;
     final SquatExercise squatExercise = new SquatExercise(1);
+    /*
     final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
     final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
     final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
-
+     */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +96,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         textview.setText("Squats: " + squatExercise.getReps());
         double lastValue = currentValue;
 
+        /*
         switch (squatExercise.getReps()){
             case 10:
                 haidokenSound.start();
@@ -105,6 +107,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             case 20:
                 yesSound.start();
         }
+
+         */
 
 /*
         if(reps == 2){

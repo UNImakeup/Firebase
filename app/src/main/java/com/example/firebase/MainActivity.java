@@ -55,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
         final String user = gemmeobjekt.getString("username", "");
 
-        if(user.isEmpty()){
+        User user1 = User.getInstance(this); //Altid her den laves først, så altid den context der bruges til at instantiere objektet.
+
+
+        if(/*user.isEmpty()*/ user1.getUser().isEmpty()){ //Har gjort det med brugerobjektet og det virker.
             showData.setText("hello bro" /*+ user*/ );
             //gemmeobjekt.edit().remove("username").apply();
         } else {

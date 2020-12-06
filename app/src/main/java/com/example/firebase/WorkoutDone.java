@@ -29,6 +29,8 @@ public class WorkoutDone extends AppCompatActivity {
         final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
         final ExerciseData exerciseData = ExerciseData.getInstance(); //Hent exerciseData så vi kan printe resultater
 
+        final User user = User.getInstance(this);
+
         //Spille anime wow lyd
         lyd.start();
 
@@ -41,17 +43,19 @@ public class WorkoutDone extends AppCompatActivity {
                 "\n\n Total Reps: " + exerciseData.getSum()
         );
 
-        /*
+
         //Mangler bare at kunne hente fra bruger objektet.
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             int totalReps = 0;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(user.getUser).child("TotalReps").exists()){
-                    totalReps += dataSnapshot.child(user.getUser).child("TotalReps"); //add current totalreps.
+
+                if(dataSnapshot.child(user.getUser()).child("TotalReps").exists()){
+                    totalReps +=  dataSnapshot.child(user.getUser()).child("TotalReps").getValue(Integer.class); //add current totalreps.//Virker lige nu første gang, prøver at få det til at virke nå den nuværende værdi skal oveni. Tror værdierne fucker. Det var det, nu virker det. 
                 }
+
                 totalReps += exerciseData.getSum();
-                myRef.child(user.getUser).child("TotalReps").setValue(totalReps); //For at sætte totalreps.
+                myRef.child(user.getUser()).child("TotalReps").setValue(totalReps); //For at sætte totalreps.
             }
 
             @Override
@@ -59,7 +63,7 @@ public class WorkoutDone extends AppCompatActivity {
 
             }
         });
-         */
+
 
         //Knap til homeNavigation
         workoutDoneBtn.setOnClickListener(new View.OnClickListener() {

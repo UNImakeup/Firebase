@@ -20,6 +20,7 @@ public class Notifications extends AppCompatActivity {
         final DatabaseReference myRefComp = database[0].getReference("Competition"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
         final DatabaseReference myRefUser = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
 
+        User user = User.getInstance(this);
 
         //onButtonClick: //Ved tryk på join competition knap
         //Skal have skrevet i tekstfelt. Hvis child med det id eksisterer, så skriv deres navn ind og sig "you have now joined". Ellers sig wrong number.
@@ -29,6 +30,7 @@ public class Notifications extends AppCompatActivity {
         /*
         Random random = new Random();
         int randomCompNumber = random.nextInt(1000);
+        setText("Competition Number: " + randomCompNumber)
         if(Totalreps(på database).exists) {
             myRef.child(String.valueOf(randomCompNumber)).child(user.getUser).setValue(myRefUser.child(user.getUser).child(TotalReps));
         }

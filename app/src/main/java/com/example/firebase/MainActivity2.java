@@ -39,8 +39,9 @@ public class MainActivity2 extends AppCompatActivity {
 
         final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
         final String user = gemmeobjekt.getString("username", "");
+        final User user1 = User.getInstance(this); //Henter bare den samme bruger.
 
-        if(!user.isEmpty()){ //Hvis der er en bruger logget ind. Burde nok gøre det på den første side. Så kan man enten lave en bruger eller logge ind, hvis man ikke er det.
+        if(!user.isEmpty() /* !user1.getUser.isEmpty() */){ //Hvis der er en bruger logget ind. Burde nok gøre det på den første side. Så kan man enten lave en bruger eller logge ind, hvis man ikke er det.
             Intent homeIntent = new Intent(MainActivity2.this, Home.class);
             startActivity(homeIntent);
         }
@@ -64,6 +65,7 @@ public class MainActivity2 extends AppCompatActivity {
                         if(dataSnapshot.child(userName.getText().toString()).exists()) {
                             if (dataSnapshot.child(userName.getText().toString()).child("password").getValue().toString().equals(password.getText().toString())) {
                                 gemmeobjekt.edit().putString("username", userName.getText().toString()).commit();
+                                //user1.setUser(userName.getText().toString()); //Gør det samme som ovenstående. Dette er dog den rigtige.
                                 //User thisUser = new User(gemmeobjekt.getString("username", "")); //Prøver at lave et brugerobjekt med brugernavnet, men tror singleton giver mening her, da vi skal bruge den samme bruger, men hellere vil have den fra rammen end harddisk.
                                 display.setText("You have inputtet a matching pair of username and password! :) welcome " + gemmeobjekt.getString("username", "User"));
                                 HomeButton.setVisibility(View.VISIBLE);

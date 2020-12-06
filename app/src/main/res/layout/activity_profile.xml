@@ -10,69 +10,69 @@
         android:id="@+id/homeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="37dp"
-        android:layout_marginEnd="237dp"
-        android:layout_marginRight="237dp"
+        android:layout_marginTop="48dp"
         android:text="@string/homeName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView2" />
 
     <Button
         android:id="@+id/logoutButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="77dp"
+        android:layout_marginRight="77dp"
         android:layout_marginBottom="100dp"
         android:text="@string/logout"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.761"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/profilePic"
         android:layout_width="215dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="133dp"
-        android:layout_marginBottom="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:layout_height="208dp"
+        android:layout_marginTop="65dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_save"
         app:srcCompat="@drawable/profil" />
 
     <Button
         android:id="@+id/btn_save"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Save picture"
+        android:layout_marginTop="20dp"
         android:background="#FFFFC0CB"
-        android:layout_marginTop="20dp" />
+        android:text="Save picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="0dp"
+        android:layout_width="11dp"
         android:layout_height="0dp"
-        android:layout_marginStart="143dp"
-        android:layout_marginLeft="143dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="34dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginBottom="48dp"
         android:text="1"
-        app:layout_constraintBottom_toTopOf="@+id/logoutButton"
-        app:layout_constraintEnd_toStartOf="@+id/homeName"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/logoutButton"
+        app:layout_constraintEnd_toStartOf="@+id/logoutButton"
+        app:layout_constraintStart_toEndOf="@+id/uploadImage"
         app:layout_constraintTop_toBottomOf="@+id/profilePic" />
 
     <Button
         android:id="@+id/uploadImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="96dp"
-        android:layout_marginLeft="96dp"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="43dp"
+        android:layout_marginRight="43dp"
         android:text="Upload IMG"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/logoutButton"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

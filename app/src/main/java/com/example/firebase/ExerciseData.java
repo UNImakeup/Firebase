@@ -37,6 +37,7 @@ public class ExerciseData {
     }
 
     //Måske getSum(), hvor vi lægger alle repsne sammen, så det kan lægges op på databasen.
+    //https://stackoverflow.com/questions/16242733/sum-all-the-elements-java-arraylist
     public int getSum(){
         int sum = 0;
         for(int i = 0; i < exercises.size(); i++){

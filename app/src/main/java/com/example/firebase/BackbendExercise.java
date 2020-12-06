@@ -1,5 +1,7 @@
 package com.example.firebase;
 
+import android.media.MediaPlayer;
+
 public class BackbendExercise extends Exercise {
     public BackbendExercise(int difficulty) {
         super(difficulty);

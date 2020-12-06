@@ -10,6 +10,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -33,6 +34,9 @@ public class Backbends extends AppCompatActivity {
         final TextView textview=(TextView) findViewById(R.id.textView4);
         final TextView backbendTimer = findViewById(R.id.backBendTimer);
         final BackbendExercise backbendExercise = new BackbendExercise(1);
+        final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
+        final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
+        final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
 
 
         if(proximitySensor == null){
@@ -84,6 +88,17 @@ public class Backbends extends AppCompatActivity {
                 //System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf((backbendExercise.getReps() - 1))); //-1, fordi den starter på 1 af en eller anden grund.
+
+                switch (backbendExercise.getReps()){
+                    case 10:
+                        haidokenSound.start();
+                        break;
+                    case 15:
+                        bruhexplosionSound.start();
+                        break;
+                    case 20:
+                        yesSound.start();
+                }
 /*
                 if ((reps - 1) == 2){
                     //onStop();

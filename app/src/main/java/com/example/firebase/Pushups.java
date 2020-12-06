@@ -9,6 +9,7 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -33,13 +34,19 @@ public class Pushups extends AppCompatActivity {
         final TextView textview=(TextView) findViewById(R.id.textView);
         final TextView pushupTimer = findViewById(R.id.pushupTimer);
         final PushupExercise pushupExercise = new PushupExercise(1); //Starter med nul reps
+        final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
+        final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
+        final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
+
+
+
 
         if(proximitySensor == null){
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
             finish();
         }
 
-        countDownTimer = new CountDownTimer(5000, 1000) {
+        countDownTimer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 pushupTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -76,6 +83,17 @@ public class Pushups extends AppCompatActivity {
                 //System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(pushupExercise.getReps()));
+                switch (pushupExercise.getReps()){
+                    case 10:
+                        haidokenSound.start();
+                        break;
+                    case 15:
+                        bruhexplosionSound.start();
+                        break;
+                    case 20:
+                        yesSound.start();
+                }
+
                 /*
                 if(reps == 2){
                     //onStop();

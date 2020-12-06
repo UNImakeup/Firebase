@@ -18,6 +18,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     private Sensor acceleroMeterSensor;
     private SensorEventListener acceleroSensorListener;
     TextView textview;
+    final SquatExercise squatExercise = new SquatExercise(1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         final TextView squatTimer = findViewById(R.id.squatTimer);
 
 
+
         CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -40,6 +42,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onFinish() {
                 Toast.makeText(Squats.this,"finish",Toast.LENGTH_SHORT).show();
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(squatExercise);
                 Intent exercise3 = new Intent(Squats.this, Situp.class);
                 startActivity(exercise3);
                 onStop();
@@ -80,9 +84,10 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             //reps++;
             squat =false;
             reps++;
+            squatExercise.addRep();
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
-        textview.setText("Squats: " + reps);
+        textview.setText("Squats: " + squatExercise.getReps());
         double lastValue = currentValue;
 /*
         if(reps == 2){
@@ -109,5 +114,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         super.onStop();
         sensorManager.unregisterListener(Squats.this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
+
+
 
 }

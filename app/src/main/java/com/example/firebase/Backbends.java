@@ -32,6 +32,7 @@ public class Backbends extends AppCompatActivity {
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         final TextView textview=(TextView) findViewById(R.id.textView4);
         final TextView backbendTimer = findViewById(R.id.backBendTimer);
+        final BackbendExercise backbendExercise = new BackbendExercise(1);
 
 
         if(proximitySensor == null){
@@ -48,7 +49,9 @@ public class Backbends extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Toast.makeText(Backbends.this,"Workout Done",Toast.LENGTH_SHORT).show();
-                Intent goHome = new Intent(Backbends.this, HomeNavigation.class);
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(backbendExercise);
+                Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);
                 onStop();
                 finish();
@@ -60,7 +63,7 @@ public class Backbends extends AppCompatActivity {
 
 
         proximitySensorListener = new SensorEventListener() {
-            int reps = 0;
+            //int reps = 0;
             boolean rep;
 
             //Fungerende med rygbøjninger.
@@ -74,12 +77,13 @@ public class Backbends extends AppCompatActivity {
                     rep = false;
                 }
                 if (currentValue == 5.0 && rep == false){
-                    reps++;
+                    //reps++;
+                    backbendExercise.addRep();
                     rep = true;
                 }
-                System.out.println(reps);
+                //System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
-                textview.setText(String.valueOf(reps - 1)); //-1, fordi den starter på 1 af en eller anden grund.
+                textview.setText(String.valueOf(backbendExercise.getReps() - 1)); //-1, fordi den starter på 1 af en eller anden grund.
 /*
                 if ((reps - 1) == 2){
                     //onStop();

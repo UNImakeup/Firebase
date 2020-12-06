@@ -18,6 +18,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     private Sensor acceleroMeter;
     private SensorEventListener acceleroSensorListener;
     TextView textview;
+    final SitupExercise situpExercise = new SitupExercise(1);
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onFinish() { //Kunne starte ny timer i stedet og ændre textviews, for at have pause før øvelsen begynder. Når den første timer er slut kunne man registerlistener.
                 Toast.makeText(Situp.this,"finish",Toast.LENGTH_SHORT).show();
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(situpExercise);
                 Intent exercise3 = new Intent(Situp.this, Backbends.class); //Putextra med sværhedsgrad, måske andet objekt med exercise, hvor vi gemmer reps.
                 startActivity(exercise3);
                 onStop();
@@ -78,9 +82,10 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             //reps++;
             situp=false;
             reps++;
+            situpExercise.addRep();
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
-        textview.setText("Situps: " + reps);
+        textview.setText("Situps: " + situpExercise.getReps());
         double lastValue = currentValue;
 
         /*

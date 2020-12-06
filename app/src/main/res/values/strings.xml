@@ -27,4 +27,6 @@
     <string name="squatTimeLeft" />
     <string name="backBendTimer" />
     <string name="situpTimer" />
+    <string name="workoutDone" />
+    <string name="workoutDoneBtn">Go Home</string>
 </resources>

@@ -32,6 +32,7 @@ public class Pushups extends AppCompatActivity {
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         final TextView textview=(TextView) findViewById(R.id.textView);
         final TextView pushupTimer = findViewById(R.id.pushupTimer);
+        final PushupExercise pushupExercise = new PushupExercise(1); //Starter med nul reps
 
         if(proximitySensor == null){
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
@@ -47,6 +48,8 @@ public class Pushups extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Toast.makeText(Pushups.this,"finish",Toast.LENGTH_SHORT).show();
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
                 //exercise2.putExtra("PushupReps")
                 startActivity(exercise2);
@@ -59,19 +62,20 @@ public class Pushups extends AppCompatActivity {
         countDownTimer.start(); //Skal måske rykkes ned til metoden?
 
         proximitySensorListener = new SensorEventListener() {
-            int reps = 0;
+            //int reps = 0;
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
 
                 if (sensorEvent.values[0] < proximitySensor.getMaximumRange()){
                     getWindow().getDecorView().setBackgroundColor(Color.RED);
-                    reps++;
+                    //reps++;
+                    pushupExercise.addRep();
                 } else {
                     getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                 }
-                System.out.println(reps);
+                //System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
-                textview.setText(String.valueOf(reps));
+                textview.setText(String.valueOf(pushupExercise.getReps()));
                 /*
                 if(reps == 2){
                     //onStop();

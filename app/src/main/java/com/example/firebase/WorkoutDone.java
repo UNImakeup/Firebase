@@ -26,9 +26,9 @@ public class WorkoutDone extends AppCompatActivity {
         Button workoutDoneBtn = findViewById(R.id.workoutDoneBtn);
         final MediaPlayer lyd = MediaPlayer.create(this, R.raw.wow); //Create sound
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
-        final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
+        final DatabaseReference myRefUser = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
+        final DatabaseReference myRefComp = database[0].getReference("Competition");
         final ExerciseData exerciseData = ExerciseData.getInstance(); //Hent exerciseData så vi kan printe resultater
-
         final User user = User.getInstance(this);
 
         //Spille anime wow lyd
@@ -44,9 +44,12 @@ public class WorkoutDone extends AppCompatActivity {
         );
 
 
-        //Mangler bare at kunne hente fra bruger objektet.
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        //Mangler bare at kunne hente fra bruger objektet.Kan vi nu
+        //Her lægger vi reps op på bruger i  databasen
+        myRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
             int totalReps = 0;
+            int competitionID;
+            int userCompetitionID;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -56,7 +59,15 @@ public class WorkoutDone extends AppCompatActivity {
                 }
 
                 totalReps += exerciseData.getSum();
-                myRef.child(user.getUser()).child("TotalReps").setValue(totalReps); //For at sætte totalreps.
+                myRefUser.child(user.getUser()).child("TotalReps").setValue(totalReps); //For at sætte totalreps.
+
+                if(dataSnapshot.child(user.getUser()).child("CompetitionID").exists()) {
+                    competitionID =  dataSnapshot.child(user.getUser()).child("CompetitionID").getValue(Integer.class);
+                    user.setCompetitionID(competitionID);
+                    userCompetitionID = Integer.parseInt(dataSnapshot.child(user.getUser()).child("CompetitionID" + competitionID).child(user.getUser() + "UserValue").getValue(String.class));
+                    user.setUserCompetitionID(userCompetitionID);
+                }
+
             }
 
             @Override
@@ -65,6 +76,50 @@ public class WorkoutDone extends AppCompatActivity {
             }
         });
 
+        //Fik nedenstående til at virke, tester upload nu.
+        //Alt herunder er for at lægge rep op under comp. Det virker ikke, ved ikke hvorfor. Tror jeg vil prøve at lave databasen om, så man kan kigge i både user og comp i en valueeventlistener. Så de begge  ligger ud for et child/reference.
+/*
+        myRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            //int totalReps = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Først finde compID, så bruge det til at finde brugerID i comp, stadig i brugeren.
+                //Så kan man gå under Comp og gemme ens total reps på samme måde som den anden.
+                //Først tjekke om bruger er i Comp. Derefter, indeni, tjekke om der er compværdi, hvis ja læg oveni. Så læg nuværende sum oveni og gem på DB.
+                if(dataSnapshot.child(user.getUser()).child("CompetitionID").exists()) {
+                    int competitionID = (int) dataSnapshot.child(user.getUser()).child("CompetitionID").getValue(Integer.class);
+                    user.setCompetitionID(competitionID);
+                    int userCompetitionID = (int) dataSnapshot.child(user.getUser()).child("CompetitionID" + competitionID).child(user.getUser() + "UserValue").getValue(Integer.class);
+                    user.setUserCompetitionID(userCompetitionID);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+*/
+        myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
+            int compReps = 0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(String.valueOf(user.getCompetitionID())).exists())//Skal tjekke i comp, skal lige finde ud af hvordan. Tror ikke man kan lave listener herinde)
+                    //Det kan man ikke. Enten lave databasestruktur om eller lægge CompID i sharedPreferences og hente derfra.
+                    // Kunne vel egentlig også bare være i brugerobjekt. Gøre det herinde, før man lægger op.
+                    if(dataSnapshot.child(String.valueOf(user.getCompetitionID())).child(String.valueOf(user.getUserCompetitionID())).child("CompReps").exists()) {
+                        compReps += Integer.parseInt(dataSnapshot.child(String.valueOf(user.getCompetitionID())).child(String.valueOf(user.getUserCompetitionID())).child("CompReps").getValue(String.class));
+                    }
+                compReps += exerciseData.getSum();
+                    myRefComp.child(String.valueOf(user.getCompetitionID())).child(String.valueOf(user.getUserCompetitionID())).child("CompReps").setValue(String.valueOf(compReps));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         //Knap til homeNavigation
         workoutDoneBtn.setOnClickListener(new View.OnClickListener() {

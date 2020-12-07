@@ -8,6 +8,8 @@ public class User {
     private String user;
     private Context contextOfActivity; //https://stackoverflow.com/questions/7491287/android-how-to-use-sharedpreferences-in-non-activity-class
     private final SharedPreferences gemmeobjekt;
+    private int competitionID;
+    private int userCompetitionID;
 
     private static User instance;
 
@@ -33,6 +35,23 @@ public class User {
     public void setUser(String user) { //Kan bruges når man laver bruger, eller når man logger ind. Skal vi bruge i databaseklassen, for at, når man logger ind, at den også gemmer brugeren på harddisken. og her i objektet.
         gemmeobjekt.edit().putString("username", user).apply(); //Hvorfor vi bruger apply(), hurtigere end commit  https://stackoverflow.com/questions/5960678/whats-the-difference-between-commit-and-apply-in-sharedpreferences
         this.user = user;
+    }
+
+    public int getCompetitionID() {
+        return this.competitionID;
+    }
+
+    public void setCompetitionID(int competitionID) {
+        this.competitionID = competitionID;
+    }
+
+
+    public int getUserCompetitionID() {
+        return this.userCompetitionID;
+    }
+
+    public void setUserCompetitionID(int userCompetitionID) {
+        this.userCompetitionID = userCompetitionID;
     }
 
     //Login ville så kræve database og skulle måske derind. Eller hvad.

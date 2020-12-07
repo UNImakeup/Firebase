@@ -59,7 +59,6 @@ public class Notifications extends AppCompatActivity {
                                 } else {
                                     joinCompTxt.setText("Competition does not exist, try inputting a different CompID");
                                 }
-
                             }
                             joinCompTxt.setText("There are already 2 users in this Competition");
                         }
@@ -83,13 +82,14 @@ public class Notifications extends AppCompatActivity {
                 createCompNewInfo.setText("Competition Number: " + randomCompNumber);
                 myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {//Kune tjekke om man allerede er gang med en comp, for at man ikke kan være med i flere på en gang. Så kunne man også stoppe compen ved at fjerne det ID der er.
                         //Se om comp eksisterer, ellers lave den.
                         if(!dataSnapshot.child(String.valueOf(randomCompNumber)).exists()){ //Man skal ikke skrive child("Competition"), da det er fra myRefComp allerede
                             myRefComp.child(String.valueOf(randomCompNumber)).setValue(null); //Læg den nye comp op på database. Kan bare ikke finde ud af at gøre uden value. Men den må vel godt have value. Men kunne være smart bare at tilføje child. Tror det er uden value nu, da string er tom.
                             //Så inde i workoutDone sige hvis bruger har comp, sæt værdi derind og tilføj nuværende oveni hvis den findes.
                             myRefUser.child(user.getUser()).child("CompetitionID" + randomCompNumber).setValue(String.valueOf(randomCompNumber));
                             myRefUser.child(user.getUser()).child("CompetitionID" + randomCompNumber).child(user.getUser() + "UserValue").setValue("1");
+                            myRefUser.child(user.getUser()).child("CompetitionID").setValue(randomCompNumber);
                             myRefComp.child(String.valueOf(randomCompNumber)).child("1").setValue(user.getUser());
                             createCompNewInfo.setText("You have now created a new competiton. Send this CompID: " + randomCompNumber + " to compete with them");
                         } else { //Else lav nyt nummer. fordi det allerede findes.

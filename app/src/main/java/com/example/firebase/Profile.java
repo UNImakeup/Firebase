@@ -50,7 +50,7 @@ public class Profile extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         final TextView homeName = findViewById(R.id.homeName);
-        final Button logoutBtn = findViewById(R.id.logoutButton);
+        final TextView logoutBtn = (TextView) findViewById(R.id.logoutButton);
         ImageView profilePic = findViewById(R.id.profilePic);
         uploadProfilePic = findViewById(R.id.uploadImage);
         btnSave = findViewById(R.id.btn_save);

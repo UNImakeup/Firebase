@@ -114,7 +114,6 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             startActivity(exercise3);
             onStop();
         }
-
  */
     }
 

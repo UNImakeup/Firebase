@@ -129,4 +129,4 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         sensorManager.unregisterListener(Situp.this, sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
     }
 
-    }
+}

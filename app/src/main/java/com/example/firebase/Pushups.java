@@ -98,7 +98,6 @@ public class Pushups extends AppCompatActivity {
                 if(reps == 2){
                     //onStop();
                     //onDestroy();
-
                     Intent exercise2 = new Intent(Pushups.this, Situp.class);
                     startActivity(exercise2);
                     onStop();
@@ -121,4 +120,4 @@ public class Pushups extends AppCompatActivity {
         super.onStop();
         sensorManager.unregisterListener(proximitySensorListener);
     }
-    }
+}

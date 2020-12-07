@@ -28,7 +28,9 @@ public class MainActivity2 extends AppCompatActivity {
         final EditText userName = findViewById(R.id.editTextTextPersonName2);
 
         final EditText password = findViewById(R.id.editTextTextPersonName4);
+
         Button login = findViewById(R.id.button);
+
         final Button HomeButton = findViewById(R.id.HomeButton);
         HomeButton.setVisibility(View.INVISIBLE);
 

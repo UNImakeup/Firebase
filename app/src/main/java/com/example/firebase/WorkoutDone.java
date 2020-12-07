@@ -70,6 +70,7 @@ public class WorkoutDone extends AppCompatActivity {
         workoutDoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.
                 Intent goHome = new Intent(WorkoutDone.this, HomeNavigation.class);
                 startActivity(goHome);
             }

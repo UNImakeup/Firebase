@@ -51,7 +51,8 @@ public class WorkoutDone extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if(dataSnapshot.child(user.getUser()).child("TotalReps").exists()){
-                    totalReps +=  dataSnapshot.child(user.getUser()).child("TotalReps").getValue(Integer.class); //add current totalreps.//Virker lige nu første gang, prøver at få det til at virke nå den nuværende værdi skal oveni. Tror værdierne fucker. Det var det, nu virker det. 
+                    totalReps +=  dataSnapshot.child(user.getUser()).child("TotalReps").getValue(Integer.class); //add current totalreps.//Virker lige nu første gang, prøver at få det til at virke nå den nuværende værdi skal oveni. Tror værdierne fucker. Det var det, nu virker det. https://stackoverflow.com/questions/55042570/cast-datasnapshot-from-firebase-to-integer-failed
+                //Det virker nu, men kommentarer viser tankeprocess.
                 }
 
                 totalReps += exerciseData.getSum();

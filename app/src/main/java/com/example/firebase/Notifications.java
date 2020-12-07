@@ -3,6 +3,9 @@ package com.example.firebase;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -20,6 +23,15 @@ public class Notifications extends AppCompatActivity {
         final DatabaseReference myRefComp = database[0].getReference("Competition"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
         final DatabaseReference myRefUser = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
 
+        final TextView joinCompTxt = findViewById(R.id.joinCompTxt);
+        final EditText joinCompInput = findViewById(R.id.joinCompInput);
+        final Button joinCompBtn = findViewById(R.id.joinCompBtn);
+
+        final TextView createCompTxt = findViewById(R.id.createCompTxt);
+        final Button createCompBtn = findViewById(R.id.createCompBtn);
+        final TextView createCompNewInfo = findViewById(R.id.newCompInfo);
+
+        
         User user = User.getInstance(this);
 
         //onButtonClick: //Ved tryk på join competition knap

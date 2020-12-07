@@ -29,4 +29,9 @@
     <string name="situpTimer" />
     <string name="workoutDone" />
     <string name="workoutDoneBtn">Go Home</string>
+    <string name="joinCompBtn">Join Competition</string>
+    <string name="createCompBtn">Create Competition</string>
+    <string name="newCompInfo" />
+    <string name="createCompTxt">Create a competition by clicking the button</string>
+    <string name="joinCompTxt">Join an existing competition by writing the CompID in the field below</string>
 </resources>

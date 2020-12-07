@@ -99,6 +99,7 @@ public class HomeNavigation extends AppCompatActivity {
     private void openProfile() {
         Intent intent = new Intent(this, Profile.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 
     }
 
@@ -106,11 +107,13 @@ public class HomeNavigation extends AppCompatActivity {
 
         Intent intent = new Intent(this, Exercises.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
 
     }
     private void openInsight() {
 
         Intent intent = new Intent(this, Insights.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
     }
     }

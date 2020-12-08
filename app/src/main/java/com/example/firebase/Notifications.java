@@ -55,12 +55,14 @@ public class Notifications extends AppCompatActivity {
                                     myRefComp.child(joinCompInput.getText().toString()).child("2").setValue(user.getUser());
                                     myRefUser.child(user.getUser()).child("CompetitionID" + joinCompInput.getText().toString()).setValue(joinCompInput.getText().toString());
                                     myRefUser.child(user.getUser()).child("CompetitionID" + joinCompInput.getText().toString()).child(user.getUser() + "UserValue").setValue("2");
+                                myRefUser.child(user.getUser()).child("CompetitionID").setValue(Integer.parseInt(joinCompInput.getText().toString()));
                                     joinCompTxt.setText("You have now joined the competition");
-                                } else {
+                                } else{
                                     joinCompTxt.setText("Competition does not exist, try inputting a different CompID");
                                 }
+                            }else {
+                                joinCompTxt.setText("There are already 2 users in this Competition");
                             }
-                            joinCompTxt.setText("There are already 2 users in this Competition");
                         }
 
                         @Override

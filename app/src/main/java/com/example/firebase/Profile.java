@@ -55,6 +55,7 @@ public class Profile extends AppCompatActivity {
         uploadProfilePic = findViewById(R.id.uploadImage);
         btnSave = findViewById(R.id.btn_save);
         btnSave.setEnabled(false);
+        final TextView compStatus = findViewById(R.id.compStatus);
 
         //Skrive på harddisk, gemme hvem der er login. Kunne også gemme password i guess, for at tjekke hashcode og sådan.
         final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
@@ -63,6 +64,9 @@ public class Profile extends AppCompatActivity {
         //Database
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
+        final DatabaseReference myRefComp = database[0].getReference("Competition");
+        final User user1 = User.getInstance(this); //Context er ligegyldig, den henter alligevel i mainActivity
+
 
         //Hvis pb findes på DB, set profilePic til det. Ellers hav knap hvor man kan hente det. Lige nu bare uploade.
 
@@ -106,10 +110,75 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 gemmeobjekt.edit().remove("username").apply(); //Kun her og ved login at gemmeobjekt skal bruges.
+                user1.logOut();
                 Intent logoutIntent = new Intent(Profile.this, MainActivity.class);
                 startActivity(logoutIntent);
             }
         });
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            int competitionID;
+            int userCompetitionID;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.child(user1.getUser()).child("CompetitionID").exists()) {
+                    competitionID =  dataSnapshot.child(user1.getUser()).child("CompetitionID").getValue(Integer.class);
+                    user1.setCompetitionID(competitionID);
+                    userCompetitionID = Integer.parseInt(dataSnapshot.child(user1.getUser()).child("CompetitionID" + competitionID).child(user1.getUser() + "UserValue").getValue(String.class));
+                    user1.setUserCompetitionID(userCompetitionID);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
+            int otherUserCompReps;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).exists())//Skal tjekke i comp, skal lige finde ud af hvordan. Tror ikke man kan lave listener herinde)
+                    //Det kan man ikke. Enten lave databasestruktur om eller lægge CompID i sharedPreferences og hente derfra.
+                    // Kunne vel egentlig også bare være i brugerobjekt. Gøre det herinde, før man lægger op.
+                    if(user1.getUserCompetitionID() == 1){ //Finder den anden brugers id baseret på ens egen, da der kun burde være 2 i konkurrencen.
+                        int otherUserCompID = 2;
+                        if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
+                            otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
+                            int userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
+                            if(otherUserCompReps > userCompReps){
+                                compStatus.setText("you are losing your competition, get to work " + user1.getUser());
+                            } else {
+                                compStatus.setText("You are winning your competition, "  + user1.getUser()  + " you absolute champion");
+                            }
+                        } else{
+                            compStatus.setText("No one has joined your comp yet. Send the CompID to them, so they can join: " + user1.getCompetitionID());
+                        }
+                        }else if (user1.getUserCompetitionID() == 2){
+                        int otherUserCompID = 1;
+                        if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
+                            otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
+                            int userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
+                            if(otherUserCompReps > userCompReps){
+                                compStatus.setText("you are losing your competition, get to work " + user1.getUser());
+                            } else {
+                                compStatus.setText("You are winning your competition, "  + user1.getUser()  + " you absolute champion");
+                            }
+                        } else{
+                            compStatus.setText("No one has joined your comp yet. Send the CompID to them, so they can join: " + user1.getCompetitionID());
+                        }
+                        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
     }
 
     private void requestImage () {

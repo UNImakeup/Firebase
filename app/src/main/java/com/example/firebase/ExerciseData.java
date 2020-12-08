@@ -43,6 +43,6 @@ public class ExerciseData {
         for(int i = 0; i < exercises.size(); i++){
             sum += exercises.get(i).getReps();
         }
-        return sum-1; //-1 fordi backbends starter på en rep af en eller anden grund. 
+        return sum-1; //-1 fordi backbends starter på en rep af en eller anden grund.
     }
 }

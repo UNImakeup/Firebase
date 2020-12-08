@@ -65,6 +65,7 @@ public class MainActivity2 extends AppCompatActivity {
                         if(dataSnapshot.child(userName.getText().toString()).exists()) {
                             if (dataSnapshot.child(userName.getText().toString()).child("password").getValue().toString().equals(password.getText().toString())) {
                                 gemmeobjekt.edit().putString("username", userName.getText().toString()).commit();
+                                user1.setUser(userName.getText().toString());
                                 //user1.setUser(userName.getText().toString()); //Gør det samme som ovenstående. Dette er dog den rigtige.
                                 //User thisUser = new User(gemmeobjekt.getString("username", "")); //Prøver at lave et brugerobjekt med brugernavnet, men tror singleton giver mening her, da vi skal bruge den samme bruger, men hellere vil have den fra rammen end harddisk.
                                 display.setText("You have inputtet a matching pair of username and password! :) welcome " + gemmeobjekt.getString("username", "User"));

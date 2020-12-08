@@ -63,7 +63,6 @@ public class Insights extends AppCompatActivity {
                     Height.requestFocus();
                     return;
                 }
-
             }
         });
     }

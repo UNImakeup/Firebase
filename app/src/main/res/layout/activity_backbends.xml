@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     tools:context=".Backbends">
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="0dp"
+        android:layout_height="152dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textViewSettings">
+
+        <TextView
+
+            android:id="@+id/txtsttings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Backbends"
+            android:textColor="@color/turkis"
+            android:textSize="35sp" />
+
+    </RelativeLayout>
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"

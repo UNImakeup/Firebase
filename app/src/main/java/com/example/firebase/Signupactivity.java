@@ -8,6 +8,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class signupactivity extends AppCompatActivity {
+public class Signupactivity extends AppCompatActivity {
     private EditText emailEt,passwordEt1,passwordEt2;
     private Button SignUpButton;
     private TextView SignInTv;
@@ -34,6 +35,10 @@ public class signupactivity extends AppCompatActivity {
         passwordEt1=findViewById(R.id.password1);
         passwordEt2=findViewById(R.id.password2);
         SignUpButton=findViewById(R.id.register);
+        final ImageView profileImage = findViewById(R.id.imageView);
+        profileImage.setImageResource(R.drawable.zlogo);
+
+
         progressDialog=new ProgressDialog(this);
         SignInTv=findViewById(R.id.signInTv);
         SignUpButton.setOnClickListener(new View.OnClickListener() {
@@ -46,8 +51,9 @@ public class signupactivity extends AppCompatActivity {
         SignInTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(signupactivity.this,MainActivity.class);
+                Intent intent=new Intent(Signupactivity.this,MainActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
@@ -103,13 +109,14 @@ public class signupactivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(signupactivity.this,"Successfully registered",Toast.LENGTH_LONG).show();
-                    Intent intent=new Intent(signupactivity.this,HomeNavigation.class);
+                    Toast.makeText(Signupactivity.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(Signupactivity.this,HomeNavigation.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
                 }
                 else{
-                    Toast.makeText(signupactivity.this,"Sign up fail!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Signupactivity.this,"Sign up fail!",Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();
             }

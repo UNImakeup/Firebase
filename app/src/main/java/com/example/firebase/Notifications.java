@@ -1,9 +1,13 @@
 package com.example.firebase;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -15,6 +19,42 @@ public class Notifications extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
+
+        //init and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //set home selected
+
+        bottomNavigationView.setSelectedItemId(R.id.notifications);
+
+        //perform itemselectedlistener
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext()
+                                , Settings.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext()
+                                , HomeNavigation.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.notifications:
+
+                        return true;
+
+
+                }
+                return false;
+            }
+        });
 
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRefComp = database[0].getReference("Competition"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.

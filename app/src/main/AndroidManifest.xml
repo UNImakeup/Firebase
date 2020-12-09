@@ -16,18 +16,15 @@
         <activity android:name=".Pushups" />
         <activity android:name=".Notifications" />
         <activity android:name=".Settings" />
-        <activity android:name=".Insights" />
+        <activity android:name=".Insights" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Exercises" />
-        <activity android:name=".Profile" />
-        <activity android:name=".HomeNavigation" />
+        <activity android:name=".Profile" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".HomeNavigation" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Home" />
-        <activity android:name=".signupactivity" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Signupactivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".MainActivity" >
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

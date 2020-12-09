@@ -3,14 +3,14 @@ package com.example.firebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +18,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.spark.submitbutton.SubmitButton;
 
 
 public class MainActivity extends AppCompatActivity {
     private EditText emailEt,passwordEt;
-    private Button SignInButton;
+    private SubmitButton SignInButton;
     private TextView SignUpTv;
     private ProgressDialog progressDialog;
     private FirebaseAuth firebaseAuth;
@@ -32,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
+        final ImageView profileImage = findViewById(R.id.imageLogin);
+        profileImage.setImageResource(R.drawable.zlogo);
+
+        final TextView display = findViewById(R.id.textView);
+
         firebaseAuth=FirebaseAuth.getInstance();
         emailEt=findViewById(R.id.email);
         passwordEt=findViewById(R.id.password);
@@ -47,8 +57,9 @@ public class MainActivity extends AppCompatActivity {
         SignUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity.this,signupactivity.class);
+                Intent intent=new Intent(MainActivity.this, Signupactivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
             }
         });
@@ -81,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this,"Login Successfully",Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(MainActivity.this,HomeNavigation.class);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                     finish();
                 }
                 else{

@@ -3,6 +3,7 @@ package com.example.firebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -10,6 +11,7 @@ import android.media.MediaPlayer;
 
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
         final MediaPlayer lyd = MediaPlayer.create(this, R.raw.yes); //Create sound
 
         final Button playsound = this.findViewById(R.id.play_sound); //Get the button
@@ -46,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         final Button loginBtn = this.findViewById(R.id.login_button);
         //loginBtn.setVisibility(View.INVISIBLE);
 
-        img.setImageResource(R.drawable.boat);
+        img.setImageResource(R.drawable.zlogo);
 
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
@@ -56,11 +61,13 @@ public class MainActivity extends AppCompatActivity {
         final String user = gemmeobjekt.getString("username", "");
 
         if(user.isEmpty()){
-            showData.setText("hello bro" /*+ user*/ );
+            showData.setText("Please choose to register or login." /*+ user*/ );
             //gemmeobjekt.edit().remove("username").apply();
         } else {
             Intent loggedIn = new Intent(MainActivity.this, HomeNavigation.class);
             startActivity(loggedIn);
+            overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+
         }
 
 /*
@@ -92,10 +99,30 @@ public class MainActivity extends AppCompatActivity {
 
                 myRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                        String userNameMain = username.getText().toString();
+                        String passwordMain = password.getText().toString();
+
+
+                        if(TextUtils.isEmpty(userNameMain)){
+                            lyd.start();
+                            username.setError("You need to your Username in order to proceed");
+                            username.requestFocus();
+                            return;
+                        }
+
+                        if(TextUtils.isEmpty(passwordMain)){
+                            lyd.start();
+                            password.setError("You need to enter your password in order to proceed");
+                            password.requestFocus();
+                            return;
+                        }
+
                         //String a= dataSnapshot.getValue().toString();
                         if(dataSnapshot.child(username.getText().toString()).exists()) { //Kan se om en bestemt bruger eksisterer. Kan bruges når vi skal oprette ny bruger. Hvis den ikke eksisterer, tilføjer vi data, ved at sige setValue, ved et bestemt child.
-                            showData.setText("username taken"); //Den kan nu se at brugernavnet er taget, skal så bare stoppe den fra at lave det nye.
+                            showData.setText("Username Taken"); //Den kan nu se at brugernavnet er taget, skal så bare stoppe den fra at lave det nye.
                             //Tror dEN ENE AF nedenstående kan slettes.
                             //userExists[0] = true;
                             userIs = true;
@@ -103,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
                         if(userIs == false) {
                             myRef.child(username.getText().toString()).child("password").setValue(password.getText().toString()); //Send data to database
-                            showData.setText("user created");
+                            showData.setText("User Created");
                             //loginBtn.setVisibility(View.VISIBLE);
                         }
 
@@ -113,14 +140,14 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });
 
                 myRef.addValueEventListener(new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    public void onDataChange(DataSnapshot dataSnapshot) {
                         if(dataSnapshot.exists()){
                             //String greeting = dataSnapshot.child("message").child("childmessage").getValue().toString();
                             String greeting = dataSnapshot.getValue().toString();
@@ -131,14 +158,14 @@ public class MainActivity extends AppCompatActivity {
                             }
                              */
                             //showData.setText(greeting);
-                            img.setImageResource(R.drawable.lol);
+                           // img.setImageResource(R.drawable.lol);
                             //img.setVisibility(View.INVISIBLE);
                         }
 
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
                 });

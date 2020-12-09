@@ -17,6 +17,7 @@
     <color name="prettyRed">#D81B60</color>
     <color name="darkBlue">#4A01031C</color>
     <color name="colorPrimaryTet">#212121</color>
+    <color name="transparent">#212121</color>
 
 
 </resources>

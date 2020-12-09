@@ -3,12 +3,15 @@ package com.example.firebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,9 +27,48 @@ public class Notifications extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
+
+
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRefComp = database[0].getReference("Competition"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
         final DatabaseReference myRefUser = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
+
+        //init and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //set home selected
+
+        bottomNavigationView.setSelectedItemId(R.id.notifications);
+
+        //perform itemselectedlistener
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected( MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext()
+                                , Settings.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext()
+                                , HomeNavigation.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.notifications:
+
+                        return true;
+
+
+                }
+                return false;
+            }
+        });
+
 
         final TextView joinCompTxt = findViewById(R.id.joinCompTxt);
         final EditText joinCompInput = findViewById(R.id.joinCompInput);

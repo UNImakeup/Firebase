@@ -34,10 +34,12 @@ public class Insights extends AppCompatActivity {
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
 
+        /*
         final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
         final String user = gemmeobjekt.getString("username", "");
+         */
         //Burde være gemt i bruger objekt, så vi kunne hente det derfra. Kunne lave brugerobjekt der kun indeholder det faktisk.
-
+        final User user1 = User.getInstance(this); //Bruger context fra MainActivity så det er i orden.
 
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,7 +49,8 @@ public class Insights extends AppCompatActivity {
 
                 BMIModel bmiModel = new BMIModel(height, weight);
 
-                myRef.child(user).child("BMI").setValue(bmiModel.calculateBMI());
+                myRef.child(user1.getUser().toString()).child("BMI").setValue(bmiModel.calculateBMI()); //Også inde i databaseSingleton
+
 
                 answer.setText(bmiModel.displayBMI(bmiModel.calculateBMI()));
                 //Error message if nothing typed

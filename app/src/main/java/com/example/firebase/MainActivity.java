@@ -52,16 +52,18 @@ public class MainActivity extends AppCompatActivity {
         final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
 
         //Skrive på harddisk, gemme hvem der er login. Kunne også gemme password i guess, for at tjekke hashcode og sådan.
+        /*
         final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
         final String user = gemmeobjekt.getString("username", "");
+         */
 
         User user1 = User.getInstance(this); //Altid her den laves først, så altid den context der bruges til at instantiere objektet.
 
-
+        //Hvis brugeren ikke er logget ind.
         if(/*user.isEmpty()*/ user1.getUser().isEmpty()){ //Har gjort det med brugerobjektet og det virker.
             showData.setText("hello bro" /*+ user*/ );
             //gemmeobjekt.edit().remove("username").apply();
-        } else {
+        } else { //Hvis brugeren er logget ind, kommer vi til hjemmeskærmen.
             Intent loggedIn = new Intent(MainActivity.this, HomeNavigation.class);
             startActivity(loggedIn);
         }
@@ -105,14 +107,11 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         if(userIs == false) {
-                            myRef.child(username.getText().toString()).child("password").setValue(password.getText().toString()); //Send data to database
+                            myRef.child(username.getText().toString()).child("password").setValue(password.getText().toString()); //Send data to database //Er kommet i databaseSingleton, så kan bare kalde den med det objekt.
                             showData.setText("user created");
                             //loginBtn.setVisibility(View.VISIBLE);
                         }
-
                         userIs = false;
-
-
                     }
 
                     @Override

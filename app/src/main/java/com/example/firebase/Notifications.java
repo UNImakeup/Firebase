@@ -52,6 +52,7 @@ public class Notifications extends AppCompatActivity {
                             if(!dataSnapshot.child(joinCompInput.getText().toString()).child("2").exists()) {//myRefComp.child(joinCompInput.getText().toString()).child("2").setValue(user.getUser());
                             if(dataSnapshot.child(joinCompInput.getText().toString()).exists()) { //if competition with inputtet ID exists.
                                     //add user to competition
+                                //databaseSingleton.joinComp(user.getUser(), joinCompInput.getText().toString()); //Kan erstatte nedestående.
                                     myRefComp.child(joinCompInput.getText().toString()).child("2").setValue(user.getUser());
                                     myRefUser.child(user.getUser()).child("CompetitionID" + joinCompInput.getText().toString()).setValue(joinCompInput.getText().toString());
                                     myRefUser.child(user.getUser()).child("CompetitionID" + joinCompInput.getText().toString()).child(user.getUser() + "UserValue").setValue("2");
@@ -87,12 +88,16 @@ public class Notifications extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {//Kune tjekke om man allerede er gang med en comp, for at man ikke kan være med i flere på en gang. Så kunne man også stoppe compen ved at fjerne det ID der er.
                         //Se om comp eksisterer, ellers lave den.
                         if(!dataSnapshot.child(String.valueOf(randomCompNumber)).exists()){ //Man skal ikke skrive child("Competition"), da det er fra myRefComp allerede
+
+                            //databaseSingleton.createComp(user.getUser(), randomCompNumber); kan erstate nedenstående
                             myRefComp.child(String.valueOf(randomCompNumber)).setValue(null); //Læg den nye comp op på database. Kan bare ikke finde ud af at gøre uden value. Men den må vel godt have value. Men kunne være smart bare at tilføje child. Tror det er uden value nu, da string er tom.
                             //Så inde i workoutDone sige hvis bruger har comp, sæt værdi derind og tilføj nuværende oveni hvis den findes.
                             myRefUser.child(user.getUser()).child("CompetitionID" + randomCompNumber).setValue(String.valueOf(randomCompNumber));
                             myRefUser.child(user.getUser()).child("CompetitionID" + randomCompNumber).child(user.getUser() + "UserValue").setValue("1");
                             myRefUser.child(user.getUser()).child("CompetitionID").setValue(randomCompNumber);
                             myRefComp.child(String.valueOf(randomCompNumber)).child("1").setValue(user.getUser());
+                            //Alt dette er også inde i databaseSingleton, så kan gøres gennem der.
+
                             createCompNewInfo.setText("You have now created a new competiton. Send this CompID: " + randomCompNumber + " to compete with them");
                         } else { //Else lav nyt nummer. fordi det allerede findes.
                             createCompNewInfo.setText("this CompID already exists, press the button again");

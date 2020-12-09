@@ -112,7 +112,7 @@ public class WorkoutDone extends AppCompatActivity {
                         compReps += Integer.parseInt(dataSnapshot.child(String.valueOf(user.getCompetitionID())).child(String.valueOf(user.getUserCompetitionID())).child("CompReps").getValue(String.class));
                     }
                 compReps += exerciseData.getSum();
-                    myRefComp.child(String.valueOf(user.getCompetitionID())).child(String.valueOf(user.getUserCompetitionID())).child("CompReps").setValue(String.valueOf(compReps));
+                    myRefComp.child(String.valueOf(user.getCompetitionID())).child(String.valueOf(user.getUserCompetitionID())).child("CompReps").setValue(String.valueOf(compReps)); //Dette er kommet i DatabaseSingleton. Skal bare kalde den her.
             }
 
             @Override

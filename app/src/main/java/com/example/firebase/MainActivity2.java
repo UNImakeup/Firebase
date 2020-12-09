@@ -41,7 +41,8 @@ public class MainActivity2 extends AppCompatActivity {
         final String user = gemmeobjekt.getString("username", "");
         final User user1 = User.getInstance(this); //Henter bare den samme bruger.
 
-        if(!user.isEmpty() /* !user1.getUser.isEmpty() */){ //Hvis der er en bruger logget ind. Burde nok gøre det på den første side. Så kan man enten lave en bruger eller logge ind, hvis man ikke er det.
+        //Det vil virke, da man stadig henter fra gemmeobjekt, når man laver user objektet. Så her ser vi bare om der er hentet/om brugeren er logget ind.
+        if(!/*user.isEmpty() */user1.getUser().isEmpty()/* !user1.getUser.isEmpty() */){ //Hvis der er en bruger logget ind. Burde nok gøre det på den første side. Så kan man enten lave en bruger eller logge ind, hvis man ikke er det.
             Intent homeIntent = new Intent(MainActivity2.this, Home.class);
             startActivity(homeIntent);
         }

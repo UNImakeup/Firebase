@@ -3,160 +3,91 @@ package com.example.firebase;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
-
-
 import android.os.Bundle;
-import android.preference.PreferenceManager;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 
 public class MainActivity extends AppCompatActivity {
-    boolean userIs = false;
+    private EditText emailEt,passwordEt;
+    private Button SignInButton;
+    private TextView SignUpTv;
+    private ProgressDialog progressDialog;
+    private FirebaseAuth firebaseAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final MediaPlayer lyd = MediaPlayer.create(this, R.raw.yes); //Create sound
-
-        final Button playsound = this.findViewById(R.id.play_sound); //Get the button
-
-        final TextView showData = this.findViewById(R.id.show_data); //get the textview.
-
-        final ImageView img = this.findViewById(R.id.imageView);
-
-        final EditText username = this.findViewById(R.id.editTextTextPersonName);
-
-        final EditText password = this.findViewById(R.id.editTextTextPersonName3);
-
-        final Button loginBtn = this.findViewById(R.id.login_button);
-        //loginBtn.setVisibility(View.INVISIBLE);
-
-        img.setImageResource(R.drawable.boat);
-
-        final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
-        final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
-
-        //Skrive på harddisk, gemme hvem der er login. Kunne også gemme password i guess, for at tjekke hashcode og sådan.
-        final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
-        final String user = gemmeobjekt.getString("username", "");
-
-        if(user.isEmpty()){
-            showData.setText("hello bro" /*+ user*/ );
-            //gemmeobjekt.edit().remove("username").apply();
-        } else {
-            Intent loggedIn = new Intent(MainActivity.this, HomeNavigation.class);
-            startActivity(loggedIn);
-        }
-
-/*
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseAuth=FirebaseAuth.getInstance();
+        emailEt=findViewById(R.id.email);
+        passwordEt=findViewById(R.id.password);
+        SignInButton=findViewById(R.id.login);
+        progressDialog=new ProgressDialog(this);
+        SignUpTv=findViewById(R.id.signUpTv);
+        SignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //String a= dataSnapshot.getValue().toString();
-                if(dataSnapshot.child("4").exists()) { //Kan se om en bestemt bruger eksisterer. Kan bruges når vi skal oprette ny bruger. Hvis den ikke eksisterer, tilføjer vi data, ved at sige setValue, ved et bestemt child.
-                    showData.setText("has aids");
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onClick(View v) {
+                Login();
             }
         });
-
- */
-
-        playsound.setOnClickListener(new View.OnClickListener() {
+        SignUpTv.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) { //When button playsound is clicked.
-                //final boolean[] userExists = {false};
-
-
-                lyd.start(); //Play sound
-
-                myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        //String a= dataSnapshot.getValue().toString();
-                        if(dataSnapshot.child(username.getText().toString()).exists()) { //Kan se om en bestemt bruger eksisterer. Kan bruges når vi skal oprette ny bruger. Hvis den ikke eksisterer, tilføjer vi data, ved at sige setValue, ved et bestemt child.
-                            showData.setText("username taken"); //Den kan nu se at brugernavnet er taget, skal så bare stoppe den fra at lave det nye.
-                            //Tror dEN ENE AF nedenstående kan slettes.
-                            //userExists[0] = true;
-                            userIs = true;
-                        }
-
-                        if(userIs == false) {
-                            myRef.child(username.getText().toString()).child("password").setValue(password.getText().toString()); //Send data to database
-                            showData.setText("user created");
-                            //loginBtn.setVisibility(View.VISIBLE);
-                        }
-
-                        userIs = false;
-
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-                myRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.exists()){
-                            //String greeting = dataSnapshot.child("message").child("childmessage").getValue().toString();
-                            String greeting = dataSnapshot.getValue().toString();
-                            /*
-                            if(!dataSnapshot.getValue().toString().equals(null)){
-                                System.out.println("wagwan blud, no user");
-                                showData.setText("no User");
-                            }
-                             */
-                            //showData.setText(greeting);
-                            img.setImageResource(R.drawable.lol);
-                            //img.setVisibility(View.INVISIBLE);
-                        }
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-
-
-
-            }
-        });
-
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, MainActivity2.class);
+            public void onClick(View v) {
+                Intent intent=new Intent(MainActivity.this,signupactivity.class);
                 startActivity(intent);
-
+                finish();
             }
         });
+    }
 
+
+    private void Login(){
+        String email=emailEt.getText().toString();
+        String password=passwordEt.getText().toString();
+        //Tjekker om parameter er null, hvis true, dukker en besked op med at der skal indtastes en email brr brr
+        if(TextUtils.isEmpty(email)){
+            emailEt.setError("Enter your email");
+            return;
+        }
+        //Tjekker om parameter er null, hvis true, dukker en besked op med at der skal indtastes en kode brr brr
+
+        else if(TextUtils.isEmpty(password)){
+            passwordEt.setError("Enter your password");
+            return;
+        }
+        //Loading besked efter der er logget in aiwa
+        progressDialog.setMessage("Please wait...");
+        progressDialog.show();
+        progressDialog.setCanceledOnTouchOutside(false);
+        // Når brugerens forsøg på login er succesfuld, vil det føre dem til en tom side som indeholder en knap som returner dem login siden.
+        firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    Toast.makeText(MainActivity.this,"Login Successfully",Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(MainActivity.this,HomeNavigation.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else{
+                    Toast.makeText(MainActivity.this,"Sign In fail!",Toast.LENGTH_LONG).show();
+                }
+                progressDialog.dismiss();
+            }
+        });
     }
 }

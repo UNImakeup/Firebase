@@ -21,7 +21,7 @@
         <activity android:name=".Profile" />
         <activity android:name=".HomeNavigation" />
         <activity android:name=".Home" />
-        <activity android:name=".MainActivity2" />
+        <activity android:name=".signupactivity" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />

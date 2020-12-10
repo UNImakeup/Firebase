@@ -90,6 +90,9 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+        homeName.setText(user1.getUser());
+
+        /*
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -106,16 +109,27 @@ public class Profile extends AppCompatActivity {
             }
         });
 
+         */
+
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gemmeobjekt.edit().remove("username").apply(); //Kun her og ved login at gemmeobjekt skal bruges.
                 user1.logOut();
+                /*
+                firebase.auth().signOut().then(function() {
+                    // Sign-out successful.
+                }).catch(function(error) {
+                    // An error happened.
+                });
+                
+                 */
                 Intent logoutIntent = new Intent(Profile.this, MainActivity.class);
                 startActivity(logoutIntent);
             }
         });
 
+        /*
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             int competitionID;
             int userCompetitionID;
@@ -177,6 +191,8 @@ public class Profile extends AppCompatActivity {
 
             }
         });
+
+         */
 
 
     }

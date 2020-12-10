@@ -12,52 +12,102 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Button;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.SignInButton;
 
 public class Pushups extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
     CountDownTimer countDownTimer;
+    CountDownTimer countDownTimer2;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pushups);
 
+
+        //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+
+       //init timer
         final TextView textview=(TextView) findViewById(R.id.textView);
         final TextView pushupTimer = findViewById(R.id.pushupTimer);
+        final TextView pushupsTimer2 = findViewById(R.id.pushupsTimer2);
+
+
+        //init reps
         final PushupExercise pushupExercise = new PushupExercise(1); //Starter med nul reps
+
+       //init sound
         final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
-        final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
+        final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound]
 
+        //init skip Button
+        /*final Button skipPushups = findViewById(R.id.skipPushups);
+        skipPushups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Pushups.this,Squats.class);
+                startActivity(intent);
+                countDownTimer.cancel();
+                countDownTimer2.cancel();
+                finish();
 
-
+            }
+        });*/
 
         if(proximitySensor == null){
-            Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Proximity sensor not available!", Toast.LENGTH_LONG).show();
             finish();
         }
 
-        countDownTimer = new CountDownTimer(10000, 1000) {
+
+        //implementing timer 1
+
+         countDownTimer = new CountDownTimer(4000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                pushupTimer.setText(millisUntilFinished/1000 + " Seconds left");
+                pushupTimer.setText(millisUntilFinished/1000 + "");
+                pushupsTimer2.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFinish() {
-                Toast.makeText(Pushups.this,"finish",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Pushups.this,"GO",Toast.LENGTH_SHORT).show();
+               pushupTimer.setText("");
+              countDownTimer2.start();
+            }
+        };
+
+        //implementing timer 2
+
+         countDownTimer2 = new CountDownTimer(3000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                pushupsTimer2.setVisibility(View.VISIBLE);
+                pushupsTimer2.setText(millisUntilFinished/1000+"");
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                //Toast.makeText(Pushups.this,"Get ready for Squats!",Toast.LENGTH_SHORT).show();
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 //exercise2.putExtra("PushupReps")
                 startActivity(exercise2);
                 onStop();
@@ -65,8 +115,11 @@ public class Pushups extends AppCompatActivity {
             }
         };
 
-        Toast.makeText(Pushups.this,"time start", Toast.LENGTH_SHORT).show();
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
+        //Toast.makeText(Pushups.this,"Get ready for Pushups!",Toast.LENGTH_SHORT).show();
+        countDownTimer.start();
+
+
+        //implementing sensor
 
         proximitySensorListener = new SensorEventListener() {
             //int reps = 0;

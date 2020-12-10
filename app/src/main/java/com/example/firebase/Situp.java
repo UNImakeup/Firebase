@@ -10,6 +10,7 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,9 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     private SensorEventListener acceleroSensorListener;
     TextView textview;
     final SitupExercise situpExercise = new SitupExercise(1);
+    private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer2;
+
     /*
     final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
     final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
@@ -32,36 +36,65 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situp);
 
+        //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(Situp.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView2);
-        final TextView situpTimer = findViewById(R.id.situpTimer);
 
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+        //init timers
+        final TextView situpTimer = findViewById(R.id.situpTimer);
+        final TextView situpTimer2 = findViewById(R.id.situpTimer2);
+
+
+        //implementing timer 1
+
+        countDownTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                situpTimer.setText(millisUntilFinished/1000 + " Seconds left");
+                situpTimer.setText(millisUntilFinished/1000 + "");
+                situpTimer2.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFinish() { //Kunne starte ny timer i stedet og ændre textviews, for at have pause før øvelsen begynder. Når den første timer er slut kunne man registerlistener.
-                Toast.makeText(Situp.this,"finish",Toast.LENGTH_SHORT).show();
-                ExerciseData exerciseData = ExerciseData.getInstance();
-                exerciseData.addExercise(situpExercise);
-                Intent exercise3 = new Intent(Situp.this, Backbends.class); //Putextra med sværhedsgrad, måske andet objekt med exercise, hvor vi gemmer reps.
-                startActivity(exercise3);
-                onStop();
-                finish();
+                Toast.makeText(Situp.this,"GO!",Toast.LENGTH_SHORT).show();
+                situpTimer.setText("");
+                countDownTimer2.start();
+
             }
         };
 
-        Toast.makeText(Situp.this,"time start", Toast.LENGTH_SHORT).show(); //Kan måske fjernes. Man kan se den er gået i gang.
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
 
+        //implementing timer2
+        countDownTimer2 = new CountDownTimer(3000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                situpTimer2.setVisibility(View.VISIBLE);
+                situpTimer.setText(millisUntilFinished/1000+"");
 
+            }
 
+            @Override
+            public void onFinish() {
+
+                Toast.makeText(Situp.this,"Get ready for Backbends!",Toast.LENGTH_SHORT).show();
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(situpExercise);
+                Intent exercise3 = new Intent(Situp.this, Backbends.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                startActivity(exercise3);
+                onStop();
+                finish();
+
+            }
+        };
+
+        Toast.makeText(Situp.this,"Get ready for Situps!", Toast.LENGTH_SHORT).show(); //Kan måske fjernes. Man kan se den er gået i gang.
+        countDownTimer.start();
     }
+
+    //imoplementing sensor
 
     @Override
     protected void onDestroy() {

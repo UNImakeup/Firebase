@@ -35,4 +35,5 @@
     <string name="createCompTxt">Create a competition by clicking the button</string>
     <string name="joinCompTxt">Join an existing competition by writing the CompID in the field below</string>
     <string name="compStatus" />
+    <string name="skip">Skip</string>
 </resources>

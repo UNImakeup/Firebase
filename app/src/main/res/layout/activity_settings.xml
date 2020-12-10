@@ -11,7 +11,7 @@
     tools:context=".Settings">
 
     <RelativeLayout
-        android:id="@+id/relativeLayout2"
+
         android:layout_width="0dp"
         android:layout_height="152dp"
         android:layout_marginStart="20dp"
@@ -24,8 +24,6 @@
         app:layout_constraintTop_toTopOf="@+id/textViewSettings">
 
         <TextView
-
-            android:id="@+id/txtsttings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Settings"

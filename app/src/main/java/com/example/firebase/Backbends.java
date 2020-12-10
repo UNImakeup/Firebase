@@ -14,14 +14,19 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 
 public class Backbends extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
+    CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer2;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -29,42 +34,72 @@ public class Backbends extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backbends);
 
+        //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         final TextView textview=(TextView) findViewById(R.id.textView4);
-        final TextView backbendTimer = findViewById(R.id.backBendTimer);
+
         final BackbendExercise backbendExercise = new BackbendExercise(1);
         final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
 
+        //init timer
+        final TextView backbendTimer = findViewById(R.id.backBendTimer);
+        final TextView backbendTimer2 = findViewById(R.id.backBendtimer2);
+
+        //impolementin timer 1
 
         if(proximitySensor == null){
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
             finish();
         }
 
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+        countDownTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                backbendTimer.setText(millisUntilFinished/1000 + " Seconds left");
+                backbendTimer.setText(millisUntilFinished/1000 + "");
+                backbendTimer2.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onFinish() {
-                Toast.makeText(Backbends.this,"Workout Done",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Backbends.this, "GO", Toast.LENGTH_SHORT).show();
+                backbendTimer.setText("");
+                countDownTimer2.start();
+
+            }
+        };
+
+        //implementin timer 2
+
+        countDownTimer2 = new CountDownTimer(5000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                backbendTimer2.setVisibility(View.VISIBLE);
+                backbendTimer2.setText(millisUntilFinished/1000+"");
+
+            }
+
+            @Override
+            public void onFinish() {
+
+                Toast.makeText(Backbends.this,"Workout Done!",Toast.LENGTH_SHORT).show();
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(backbendExercise);
                 Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);
                 onStop();
                 finish();
+
             }
         };
 
-        Toast.makeText(Backbends.this,"time start", Toast.LENGTH_SHORT).show();
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
+        Toast.makeText(Backbends.this,"Get ready for Backbends!", Toast.LENGTH_SHORT).show();
+        countDownTimer.start();
 
+        //implementing sensor
 
         proximitySensorListener = new SensorEventListener() {
             //int reps = 0;

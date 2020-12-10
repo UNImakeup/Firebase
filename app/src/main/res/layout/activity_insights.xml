@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@color/sub_btn_background"
+    android:background="@color/colorPrimaryTet"
     tools:context=".Insights"
 
     >

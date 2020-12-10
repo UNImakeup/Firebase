@@ -31,14 +31,10 @@ public class Exercises extends AppCompatActivity {
         //implementing bottom navigationBar
 
         //init and assign variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
+        final BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         final MediaPlayer lyd = MediaPlayer.create(this, R.raw.ready_2); //Create sound
         lyd.start(); //Play sound
-
-
-//Skal lige kigge på det her hjemme.
 
         RelativeLayout constraintLayout = findViewById(R.id.layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
@@ -46,11 +42,6 @@ public class Exercises extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
-
-
-
-
-
 
         //perform itemselectedlistener
 
@@ -71,7 +62,6 @@ public class Exercises extends AppCompatActivity {
                         return true;
 
 
-
                     case R.id.notifications:
                         startActivity(new Intent(getApplicationContext()
                                 ,Notifications.class));
@@ -89,25 +79,23 @@ public class Exercises extends AppCompatActivity {
         t1 = findViewById(R.id.textView);
         b1 = findViewById(R.id.button);
 
-        countDownTimer = new CountDownTimer(5000,1000) {
+        countDownTimer = new CountDownTimer(3000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                t1.setText(millisUntilFinished/1000 + "sec left");
+                t1.setText(millisUntilFinished/1000 + "");
+                t1.setVisibility(View.INVISIBLE);
+                b1.setVisibility(View.INVISIBLE);
             }
-
 
 
             @Override
             public void onFinish() {
 
-                t1.setText("time finish");
-                Toast.makeText(Exercises.this,"finish",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Exercises.this, Pushups.class); //Kan sige putExtra med sværhedsgraden.
                 startActivity(intent);
                 finish();
 
             }
-
 
         };
 
@@ -115,7 +103,7 @@ public class Exercises extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Exercises.this,"Get ready for ure Workout", Toast.LENGTH_SHORT).show();
                 countDownTimer.start();
             }
 

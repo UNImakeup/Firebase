@@ -2,6 +2,7 @@ package com.example.firebase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -10,8 +11,11 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
+
 
 
 public class Squats extends AppCompatActivity implements SensorEventListener {
@@ -20,6 +24,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     private SensorEventListener acceleroSensorListener;
     TextView textview;
     final SquatExercise squatExercise = new SquatExercise(1);
+    private CountDownTimer countDownTimer2;
+    private CountDownTimer countDownTimer;
     /*
     final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
     final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
@@ -31,38 +37,81 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_squat);
 
+        //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         sensorManager.registerListener(Squats.this, acceleroMeterSensor,  sensorManager.SENSOR_DELAY_NORMAL);
+
+        //
         textview = (TextView) findViewById(R.id.textView69);
+
+        //init timer
         final TextView squatTimer = findViewById(R.id.squatTimer);
+        final TextView squatTimer2 = findViewById(R.id.squatTimer2);
+
+        //init skip Button
+        /*final Button skipSquats = findViewById(R.id.skipSquats);
+        skipSquats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Squats.this,Situp.class);
+                startActivity(intent);
+                countDownTimer.cancel();
+                countDownTimer2.cancel();
+                finish();
+
+            }
+        });*/
 
 
+        //implementing timer 1
+         countDownTimer = new CountDownTimer(4000, 1000) {
 
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                squatTimer.setText(millisUntilFinished/1000 + " Seconds left");
+                squatTimer.setText((millisUntilFinished / 1000) + "");
+                squatTimer2.setVisibility(View.INVISIBLE);
+
             }
 
             @Override
             public void onFinish() {
-                Toast.makeText(Squats.this,"finish",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Squats.this, "GO", Toast.LENGTH_SHORT).show();
+                squatTimer.setText("");
+                countDownTimer2.start();
+
+            }
+        };
+
+        //implementing timer 2
+
+          countDownTimer2 = new CountDownTimer(3000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                squatTimer2.setVisibility(View.VISIBLE);
+                squatTimer2.setText(millisUntilFinished/1000+ "");
+
+            }
+
+            @Override
+            public void onFinish() {
+               // Toast.makeText(Squats.this,"Get ready for Situps!",Toast.LENGTH_SHORT).show();
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(squatExercise);
                 Intent exercise3 = new Intent(Squats.this, Situp.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise3);
                 onStop();
                 finish();
             }
         };
 
-        Toast.makeText(Squats.this,"time start", Toast.LENGTH_SHORT).show();
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
+        Toast.makeText(Squats.this,"Get ready for Squats!", Toast.LENGTH_SHORT).show();
+        countDownTimer.start();
 
 
 
-
+    //implementing sensor
     }
 
     @Override

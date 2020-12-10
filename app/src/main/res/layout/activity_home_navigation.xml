@@ -1,25 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout tools:context=".MainActivity" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="30sp" android:text="EXERCISES" android:layout_marginEnd="55dp" android:layout_marginTop="312dp" android:layout_alignParentEnd="true" android:layout_alignParentTop="true" android:id="@+id/exercises_text"
-        android:layout_marginRight="55dp"
-        android:layout_alignParentRight="true" />
-    <ImageView android:layout_height="176dp" android:layout_width="188dp" android:id="@+id/insight_image" app:srcCompat="@drawable/insights" android:layout_marginBottom="128dp" android:layout_marginStart="18dp" android:layout_alignParentBottom="true" android:layout_alignParentStart="true"
-        android:layout_marginLeft="18dp"
-        android:layout_alignParentLeft="true" />
-    <ImageView android:layout_height="167dp" android:layout_width="186dp" android:layout_marginTop="229dp" android:layout_alignParentTop="true" android:id="@+id/exersies_image" app:srcCompat="@drawable/exercises" android:layout_marginStart="6dp" android:layout_alignParentStart="true" android:layout_centerHorizontal="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="6dp" />
-    <ImageView android:layout_height="161dp" android:layout_width="179dp" android:layout_marginEnd="221dp" android:layout_alignParentEnd="true" android:id="@+id/profile_image" app:srcCompat="@drawable/profil" android:layout_marginBottom="524dp" android:layout_alignParentBottom="true"
-        android:layout_marginRight="221dp"
-        android:layout_alignParentRight="true" />
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="30sp" android:text="PROFILE" android:layout_marginEnd="90dp" android:layout_marginTop="130dp" android:layout_alignParentEnd="true" android:layout_alignParentTop="true" android:id="@+id/profile_text"
-        android:layout_marginRight="90dp"
-        android:layout_alignParentRight="true" />
+<androidx.constraintlayout.widget.ConstraintLayout
 
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:textSize="30sp" android:text="INSIGHT" android:layout_marginEnd="88dp" android:layout_marginTop="503dp" android:layout_alignParentEnd="true" android:layout_alignParentTop="true" android:id="@+id/insight_text"
-        android:layout_marginRight="88dp"
-        android:layout_alignParentRight="true" />
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/bottom_navigation" android:layout_alignParentBottom="true" app:menu="@menu/menu_navigation" app:itemTextColor="@drawable/selector" app:itemIconTint="@drawable/selector" app:itemBackground="@color/colorPrimary"> </com.google.android.material.bottomnavigation.BottomNavigationView>
 
-</RelativeLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/menu_navigation"
+        tools:ignore="MissingConstraints" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryTet"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/topArea"
+                android:layout_width="match_parent"
+                android:layout_height="274dp"
+                android:background="@color/black">
+
+
+                <TextView
+                    android:id="@+id/welcomeDash"
+                    android:layout_width="239dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="35dp"
+                    android:layout_toEndOf="@+id/imageMenu"
+                    android:layout_toRightOf="@+id/imageMenu"
+                    android:text="   Welcome user"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="32dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageMenu"
+                    android:layout_width="87dp"
+                    android:layout_height="107dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@drawable/zlogo"
+                    android:contentDescription="@string/app_name"
+                    android:padding="19dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="@color/white"
+                    tools:ignore="UnknownIdInLayout" />
+
+                <TextView
+                    android:id="@+id/dashboard_adminName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/welcomeDash"
+                    android:layout_alignEnd="@id/welcomeDash"
+
+                    android:layout_alignRight="@id/welcomeDash"
+                    android:layout_marginTop="-38dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginRight="22dp"
+                    android:text="Lets get started!"
+                    android:textColor="@android:color/secondary_text_dark_nodisable"
+                    android:textSize="20sp" />
+
+
+            </RelativeLayout>
+
+            <GridLayout
+                android:layout_width="398dp"
+                android:layout_height="390dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-80dp"
+                android:columnCount="1"
+                android:padding="5dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/profileDash"
+                    android:layout_width="380dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:id="@+id/firstLinear"
+                        android:layout_width="match_parent"
+                        android:layout_height="214dp"
+                        android:background="@color/sub_btn_background"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Profile"
+                            android:textColor="@color/prettyRed"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10sp"
+                            android:text="Get an overview or edit your profile"
+                            android:textColor="@android:color/secondary_text_dark_nodisable"
+
+                            android:textSize="20sp" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/workoutDash"
+                    android:layout_width="380dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/gradient3"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Work Out"
+                            android:textColor="@color/darkwhite"
+                            android:textSize="30sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10sp"
+                            android:text="Lets get started with your desired program!"
+                            android:textColor="@android:color/secondary_text_dark_nodisable"
+
+                            android:textSize="20sp" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="33dp"
+                    android:layout_marginLeft="33dp"
+                    android:text="Remember 2 calculate ure BMI"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+
+            </LinearLayout>
+
+
+            <GridLayout
+                android:layout_width="398dp"
+                android:layout_height="295dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="2dp"
+                android:columnCount="2"
+                android:padding="10dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/bmiDash"
+                    android:layout_width="180dp"
+                    android:layout_height="155dp"
+                    android:layout_margin="5dp"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/sub_btn_background"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_gravity="center_horizontal|center_vertical"
+                            android:src="@drawable/bmigrey"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="BMI Calculator"
+                            android:textColor="@color/darkwhite"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/planDash"
+                    android:layout_width="186dp"
+                    android:layout_height="156dp"
+                    android:layout_margin="5dp"
+
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="7dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/sub_btn_background"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <ImageView
+                            android:layout_width="102dp"
+                            android:layout_height="91dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="12sp"
+                            android:src="@drawable/plangrey"
+
+
+                            />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="Plan"
+                            android:textColor="@color/darkwhite"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+            </GridLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

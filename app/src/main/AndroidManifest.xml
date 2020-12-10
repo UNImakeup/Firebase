@@ -19,7 +19,7 @@
         <activity android:name=".Insights" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Exercises" />
         <activity android:name=".Profile" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".HomeNavigation" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".HomeNavigation" />
         <activity android:name=".Home" />
         <activity android:name=".MainActivity2" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
 

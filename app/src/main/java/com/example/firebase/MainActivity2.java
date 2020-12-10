@@ -25,6 +25,11 @@ public class MainActivity2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
+      //  if (getSupportActionBar().isShowing()){
+    //        getSupportActionBar().hide();
+      //  }
+
+
         final EditText userName = findViewById(R.id.editTextTextPersonName2);
 
         final EditText password = findViewById(R.id.editTextTextPersonName4);

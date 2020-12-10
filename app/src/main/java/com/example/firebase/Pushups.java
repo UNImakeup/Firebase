@@ -69,10 +69,21 @@ public class Pushups extends AppCompatActivity {
         countDownTimer.start(); //Skal måske rykkes ned til metoden?
 
         proximitySensorListener = new SensorEventListener() {
+            boolean rep;
             //int reps = 0;
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
+                float currentValue = sensorEvent.values[0];
 
+                if(currentValue == 5.0){
+                    rep = false;
+                }
+                if (currentValue == 0.0 && rep == false){
+                    //reps++;
+                    pushupExercise.addRep();
+                    rep = true;
+                }
+                /* Nedenstående virker på min telefon, men ikke andres.
                 if (sensorEvent.values[0] < proximitySensor.getMaximumRange()){
                     getWindow().getDecorView().setBackgroundColor(Color.RED);
                     //reps++;
@@ -80,6 +91,7 @@ public class Pushups extends AppCompatActivity {
                 } else {
                     getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                 }
+                 */
                 //System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(pushupExercise.getReps()));

@@ -36,4 +36,6 @@
     <string name="joinCompTxt">Join an existing competition by writing the CompID in the field below</string>
     <string name="compStatus" />
     <string name="theMagicPlaceDude">this is the magic place. enjoy :)</string>
+    <string name="vibes_magic">vibes</string>
+    <string name="zen_magic">zen</string>
 </resources>

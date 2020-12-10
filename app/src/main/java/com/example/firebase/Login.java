@@ -18,12 +18,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity2 extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_login);
 
       //  if (getSupportActionBar().isShowing()){
     //        getSupportActionBar().hide();
@@ -48,7 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         //Det vil virke, da man stadig henter fra gemmeobjekt, når man laver user objektet. Så her ser vi bare om der er hentet/om brugeren er logget ind.
         if(!/*user.isEmpty() */user1.getUser().isEmpty()/* !user1.getUser.isEmpty() */){ //Hvis der er en bruger logget ind. Burde nok gøre det på den første side. Så kan man enten lave en bruger eller logge ind, hvis man ikke er det.
-            Intent homeIntent = new Intent(MainActivity2.this, Home.class);
+            Intent homeIntent = new Intent(Login.this, Home.class);
             startActivity(homeIntent);
         }
 
@@ -101,7 +101,7 @@ public class MainActivity2 extends AppCompatActivity {
         HomeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent homeIntent = new Intent(MainActivity2.this, HomeNavigation.class);
+                Intent homeIntent = new Intent(Login.this, HomeNavigation.class);
                 startActivity(homeIntent);
             }
         });

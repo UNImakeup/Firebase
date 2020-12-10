@@ -51,7 +51,6 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        
         final TextView homeName = findViewById(R.id.homeName);
         final Button logoutBtn = findViewById(R.id.logoutButton);
         ImageView profilePic = findViewById(R.id.profilePic);
@@ -104,7 +103,7 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(user).child("BMI").exists()) {
-                    homeName.setText("hello " + user + ", your BMI is " + dataSnapshot.child(user).child("BMI").getValue().toString());
+                    homeName.setText("hello " + firebaseAuth.getCurrentUser().getDisplayName() + ", your BMI is " + dataSnapshot.child(user).child("BMI").getValue().toString());
                 } else {
                     homeName.setText("Please input your Height and Weight in Insights, to see your BMI here");
                 }

@@ -33,7 +33,7 @@ public class Backbends extends AppCompatActivity {
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         final TextView textview=(TextView) findViewById(R.id.textView4);
         final TextView backbendTimer = findViewById(R.id.backBendTimer);
-        final BackbendExercise backbendExercise = new BackbendExercise(1);
+        final BackbendExercise backbendExercise = new BackbendExercise(1); //Nok bare fjerne difficulty fra disse klasser, så man ikke skal skrive noget i contructor. Det skal alligevel i exerciseData klassen, hvis det er. 
         final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound

@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,7 @@ public class Profile extends AppCompatActivity {
     Button uploadProfilePic;
     ImageView profilePic;
     Button btnSave;
+    private FirebaseAuth firebaseAuth;
 
     private final int IMG_REQUEST_ID = 1;
     private Uri imgUri;
@@ -49,6 +51,7 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        
         final TextView homeName = findViewById(R.id.homeName);
         final Button logoutBtn = findViewById(R.id.logoutButton);
         ImageView profilePic = findViewById(R.id.profilePic);
@@ -56,6 +59,7 @@ public class Profile extends AppCompatActivity {
         btnSave = findViewById(R.id.btn_save);
         btnSave.setEnabled(false);
         final TextView compStatus = findViewById(R.id.compStatus);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         //Skrive på harddisk, gemme hvem der er login. Kunne også gemme password i guess, for at tjekke hashcode og sådan.
         final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
@@ -90,9 +94,12 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        homeName.setText(user1.getUser());
 
-        /*
+        homeName.setText(firebaseAuth.getCurrentUser().getDisplayName()); //Virker med user.getuser og med firebaseAuth.getCurrentUser().getEmail() viser username
+
+        //Nedenstående skal tilføjes igen, fjernede for at teste.
+
+
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -109,27 +116,30 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-         */
+
+
+
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 gemmeobjekt.edit().remove("username").apply(); //Kun her og ved login at gemmeobjekt skal bruges.
                 user1.logOut();
+                firebaseAuth.signOut();
                 /*
                 firebase.auth().signOut().then(function() {
                     // Sign-out successful.
                 }).catch(function(error) {
                     // An error happened.
                 });
-                
+
                  */
                 Intent logoutIntent = new Intent(Profile.this, MainActivity.class);
                 startActivity(logoutIntent);
             }
         });
 
-        /*
+
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             int competitionID;
             int userCompetitionID;
@@ -192,11 +202,11 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-         */
+
 
 
     }
-
+//Burde nok slettes
     private void requestImage () {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");

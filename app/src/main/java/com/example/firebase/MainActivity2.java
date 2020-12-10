@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity2 extends AppCompatActivity {
-    private EditText emailEt,passwordEt1,passwordEt2;
+    private EditText emailEt,passwordEt1,passwordEt2, username;
     private Button SignUpButton;
     private TextView SignInTv;
     private ProgressDialog progressDialog;
@@ -47,6 +48,7 @@ public class MainActivity2 extends AppCompatActivity {
         emailEt=findViewById(R.id.email);
         passwordEt1=findViewById(R.id.password1);
         passwordEt2=findViewById(R.id.password2);
+        username = findViewById(R.id.userName);
         SignUpButton=findViewById(R.id.register);
         final ImageView profileImage = findViewById(R.id.imageView);
         profileImage.setImageResource(R.drawable.zlogo);
@@ -81,6 +83,7 @@ public class MainActivity2 extends AppCompatActivity {
         final String email=emailEt.getText().toString();
         String password1=passwordEt1.getText().toString();
         String password2=passwordEt2.getText().toString();
+        final String username1 = username.getText().toString();
 
         //Tjekker om der er indtastet/ om er null, hvis true, bliver der returned en besked op med at der skal skrives email brr brr
         if(TextUtils.isEmpty(email)){
@@ -117,17 +120,27 @@ public class MainActivity2 extends AppCompatActivity {
             return;
         }
 
+        else if(TextUtils.isEmpty(username1)){ //Hvis man ikke har brugernavn
+            username.setError("input a username, my brother");
+            return;
+        }
+
         //Besked som kommer når brugeren har oprettet konto halla
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
-        user1.setUser(email);
-        myRefUser.child(firebaseAuth.getUid()).child("yass").setValue("yass"); //Send data to database //Er kommet i databaseSingleton, så kan bare kalde den med det objekt.
         //Når brugerens forsøg på login er succesfuld, vil det føre dem til en tom side som indeholder en knap som returner dem login siden.
         firebaseAuth.createUserWithEmailAndPassword(email,password1).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    //firebaseAuth.updateCurrentUser(firebaseAuth.getCurrentUser().getDisplayName(), "ass", ); //set display name
+                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                            .setDisplayName(username1) //Bare have endnu tekstfelt med brugernavn
+                            .build();
+                    firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
+                    user1.setUser(firebaseAuth.getUid()); //Prøver at sætte herned, da brugeren skal være logget ind. måske rykke logget ind, herind. Så den nye bruger er logget ind.
+                    myRefUser.child(firebaseAuth.getUid()).child("yass").setValue("yass"); //Send data to database //Er kommet i databaseSingleton, så kan bare kalde den med det objekt.
                     Toast.makeText(MainActivity2.this,"Successfully registered",Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(MainActivity2.this, HomeNavigation.class);
                     startActivity(intent);

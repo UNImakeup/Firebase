@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    user1.setUser(email);
+                    user1.setUser(firebaseAuth.getUid()); //Prøver at sætte herned, da brugeren skal være logget ind. måske rykke logget ind, herind. Så den nye bruger er logget ind.
                     Toast.makeText(MainActivity.this,"Login Successfully",Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(MainActivity.this, HomeNavigation.class);
                     startActivity(intent);

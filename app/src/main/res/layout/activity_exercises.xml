@@ -97,5 +97,6 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="47dp"
+        android:textSize="40sp"
         android:text="@string/choose_difficulty" />
 </RelativeLayout>

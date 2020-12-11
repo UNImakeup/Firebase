@@ -10,14 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".WorkoutDone"></activity>
-        <activity android:name=".Squats" />
-        <activity android:name=".Situp" />
-        <activity android:name=".Backbends" />
-        <activity android:name=".Pushups" />
-        <activity android:name=".Notifications" />
+        <activity android:name=".Squats"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Situp"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Backbends"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Pushups"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Notifications"/>
         <activity android:name=".Settings" />
         <activity android:name=".Insights" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".Exercises" />
+        <activity android:name=".Exercises"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Profile" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".HomeNavigation" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Home" />

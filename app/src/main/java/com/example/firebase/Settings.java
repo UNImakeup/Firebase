@@ -64,14 +64,9 @@ public class Settings extends AppCompatActivity {
                                 , Notifications.class));
                         overridePendingTransition(0,0);
                         return true;
-
-
                 }
                 return false;
             }
         });
-
-
-
     }
 }

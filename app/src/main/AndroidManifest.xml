@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WorkoutDone"></activity>
+        <activity android:name=".WorkoutDone"
+            android:screenOrientation="portrait"></activity>
         <activity android:name=".Squats"
             android:screenOrientation="portrait"/>
         <activity android:name=".Situp"
@@ -18,17 +19,23 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".Pushups"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Notifications"/>
-        <activity android:name=".Settings" />
-        <activity android:name=".Insights" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Notifications"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".Settings"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".Insights" android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Exercises"
             android:screenOrientation="portrait"/>
-        <activity android:name=".Profile" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".HomeNavigation" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".Profile" android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".HomeNavigation" android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity android:name=".Home" />
-        <activity android:name=".MainActivity2" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".MainActivity2" android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:screenOrientation="portrait"/>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

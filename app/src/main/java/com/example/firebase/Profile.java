@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,6 +70,42 @@ public class Profile extends AppCompatActivity {
         final User user1 = User.getInstance(this); //Context er ligegyldig, den henter alligevel i mainActivity
 
 
+        //init and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+
+        //perform itemselectedlistener
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected( MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext()
+                                , Settings.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext()
+                                , HomeNavigation.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.notifications:
+                        startActivity(new Intent(getApplicationContext()
+                                , Notifications.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+
+                }
+                return false;
+            }
+        });
+
+
         //Hvis pb findes på DB, set profilePic til det. Ellers hav knap hvor man kan hente det. Lige nu bare uploade.
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -92,7 +130,7 @@ public class Profile extends AppCompatActivity {
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange( DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(user).child("BMI").exists()) {
                     homeName.setText("hello " + user + ", your BMI is " + dataSnapshot.child(user).child("BMI").getValue().toString());
                 } else {
@@ -101,7 +139,7 @@ public class Profile extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled( DatabaseError databaseError) {
 
             }
         });
@@ -120,7 +158,7 @@ public class Profile extends AppCompatActivity {
             int competitionID;
             int userCompetitionID;
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
                 if(dataSnapshot.child(user1.getUser()).child("CompetitionID").exists()) {
                     competitionID =  dataSnapshot.child(user1.getUser()).child("CompetitionID").getValue(Integer.class);
@@ -131,7 +169,7 @@ public class Profile extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(DatabaseError databaseError) {
 
             }
         });
@@ -139,7 +177,7 @@ public class Profile extends AppCompatActivity {
         myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
             int otherUserCompReps;
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).exists())//Skal tjekke i comp, skal lige finde ud af hvordan. Tror ikke man kan lave listener herinde)
                     //Det kan man ikke. Enten lave databasestruktur om eller lægge CompID i sharedPreferences og hente derfra.
                     // Kunne vel egentlig også bare være i brugerobjekt. Gøre det herinde, før man lægger op.
@@ -173,7 +211,7 @@ public class Profile extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled( DatabaseError databaseError) {
 
             }
         });

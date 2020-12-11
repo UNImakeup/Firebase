@@ -20,6 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Exercises extends AppCompatActivity {
     TextView t1;
+    TextView workOut;
     Button b1;
     CountDownTimer countDownTimer;
 
@@ -74,6 +75,8 @@ public class Exercises extends AppCompatActivity {
             }
         });
 
+        workOut = findViewById(R.id.textView5);
+
 
         //start timer
         t1 = findViewById(R.id.textView);
@@ -85,6 +88,7 @@ public class Exercises extends AppCompatActivity {
                 t1.setText(millisUntilFinished/1000 + "");
                 t1.setVisibility(View.INVISIBLE);
                 b1.setVisibility(View.INVISIBLE);
+                workOut.setVisibility(View.INVISIBLE);
             }
 
 

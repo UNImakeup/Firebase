@@ -1,5 +1,6 @@
 package com.example.firebase;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.RequiresApi;
 
@@ -20,12 +21,18 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.SignInButton;
 
+import java.util.Objects;
+
 public class Pushups extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
-    CountDownTimer countDownTimer;
-    CountDownTimer countDownTimer2;
+    private CountDownTimer countDownTimer;
+    private CountDownTimer countDownTimer2;
+
+    private TextView pushupTimer;
+    private TextView pushupsTimer2;
+
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -34,18 +41,25 @@ public class Pushups extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pushups);
 
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
 
         //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
 
+        //init Reps
+        final TextView textview = (TextView) findViewById(R.id.textView);
+
        //init timer
-        final TextView textview=(TextView) findViewById(R.id.textView);
-        final TextView pushupTimer = findViewById(R.id.pushupTimer);
-        final TextView pushupsTimer2 = findViewById(R.id.pushupsTimer2);
+
+        pushupTimer = findViewById(R.id.pushupTimer);
+        pushupsTimer2 = findViewById(R.id.pushupsTimer2);
 
 
         //init reps
+
         final PushupExercise pushupExercise = new PushupExercise(1); //Starter med nul reps
 
        //init sound
@@ -54,18 +68,18 @@ public class Pushups extends AppCompatActivity {
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound]
 
         //init skip Button
-        /*final Button skipPushups = findViewById(R.id.skipPushups);
-        skipPushups.setOnClickListener(new View.OnClickListener() {
+         Button skipPushups = findViewById(R.id.skipPushups);
+         skipPushups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Pushups.this,Squats.class);
                 startActivity(intent);
                 countDownTimer.cancel();
                 countDownTimer2.cancel();
-                finish();
+
 
             }
-        });*/
+        });
 
         if(proximitySensor == null){
             Toast.makeText(this, "Proximity sensor not available!", Toast.LENGTH_LONG).show();
@@ -79,7 +93,7 @@ public class Pushups extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 pushupTimer.setText(millisUntilFinished/1000 + "");
-                pushupsTimer2.setVisibility(View.INVISIBLE);
+
             }
 
             @Override
@@ -87,12 +101,14 @@ public class Pushups extends AppCompatActivity {
                 Toast.makeText(Pushups.this,"GO",Toast.LENGTH_SHORT).show();
                pushupTimer.setText("");
               countDownTimer2.start();
+              onStop();
+
             }
         };
 
         //implementing timer 2
 
-         countDownTimer2 = new CountDownTimer(3000,1000) {
+         countDownTimer2 = new CountDownTimer(4000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 pushupsTimer2.setVisibility(View.VISIBLE);

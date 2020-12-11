@@ -1,5 +1,7 @@
 package com.example.firebase;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,22 +10,28 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
+
+import java.util.Objects;
 
 
 public class Situp extends AppCompatActivity implements SensorEventListener {
+
     private SensorManager sensorManager;
     private Sensor acceleroMeter;
     private SensorEventListener acceleroSensorListener;
-    TextView textview;
     final SitupExercise situpExercise = new SitupExercise(1);
-    private CountDownTimer countDownTimer;
-    private CountDownTimer countDownTimer2;
-
+    CountDownTimer countDownTimer;
+    CountDownTimer countDownTimer2;
+    TextView situpTimer;
+    TextView situpTimer2;
+    TextView textview;
     /*
     final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
     final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
@@ -31,10 +39,14 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
      */
 
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situp);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
 
         //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -43,9 +55,27 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         textview = (TextView) findViewById(R.id.textView2);
 
         //init timers
-        final TextView situpTimer = findViewById(R.id.situpTimer);
-        final TextView situpTimer2 = findViewById(R.id.situpTimer2);
+        situpTimer = findViewById(R.id.situpTimer);
+        situpTimer2 = findViewById(R.id.situpTimer2);
 
+        //Button
+
+        Button skipSitups = findViewById(R.id.skipSitups);
+        skipSitups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(situpExercise);
+                Intent exercise3 = new Intent(Situp.this, Backbends.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                startActivity(exercise3);
+                countDownTimer.cancel();
+                countDownTimer2.cancel();
+                onStop();
+                finish();
+
+            }
+        });
 
         //implementing timer 1
 
@@ -61,6 +91,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 Toast.makeText(Situp.this,"GO!",Toast.LENGTH_SHORT).show();
                 situpTimer.setText("");
                 countDownTimer2.start();
+                onStop();
+
 
             }
         };

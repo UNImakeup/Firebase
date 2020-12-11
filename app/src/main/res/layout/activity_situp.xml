@@ -6,91 +6,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grey"
     tools:context=".Situp">
 
 
     <RelativeLayout
 
         android:id="@+id/relativeLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="9dp"
-        android:layout_marginRight="9dp"
-        android:layout_marginBottom="45dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_marginBottom="9dp"
+        android:background="@color/colorPrimaryTet"
+        app:layout_constraintBottom_toTopOf="@+id/siups"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:text="Situps"
-            android:textColor="@color/turkis"
-            android:textSize="35sp" />
-
     </RelativeLayout>
 
+
+    <TextView
+        android:id="@+id/siups"
+        android:layout_width="107dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10dp"
+        android:text="Situps"
+        android:textColor="@color/turkis"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginLeft="28dp"
+        android:layout_marginBottom="48dp"
         android:text="Reps"
-        app:layout_constraintBottom_toTopOf="@+id/situpTimer2"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/situpTimer"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintTop_toBottomOf="@+id/siups"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/situpTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/situpTimer"
-        android:textSize="150dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/situpTimer2"
-        app:layout_constraintEnd_toStartOf="@+id/situpTimer2"
-        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginBottom="103dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="170dp"
+        app:layout_constraintBottom_toTopOf="@+id/skipSitups"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/situpTimer2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:layout_marginRight="1dp"
-        android:layout_marginBottom="92dp"
-        android:text="@string/situpTimer"
-        android:textSize="150dp"
-        app:layout_constraintBottom_toTopOf="@+id/skipSitups"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/situpTimer"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:layout_marginStart="37dp"
+        android:layout_marginLeft="37dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="170dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/situpTimer"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
         tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/skipSitups"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="3dp"
         android:layout_weight="1"
         android:background="@color/prettyRed"
         android:text="Skip"
         android:textColor="@android:color/white"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/situpTimer2"
+        app:layout_constraintTop_toBottomOf="@+id/situpTimer"
         tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,7 @@
 package com.example.firebase;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -9,6 +11,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
+import java.util.Objects;
 
 
 public class Squats extends AppCompatActivity implements SensorEventListener {
@@ -24,18 +28,25 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     private SensorEventListener acceleroSensorListener;
     TextView textview;
     final SquatExercise squatExercise = new SquatExercise(1);
-    private CountDownTimer countDownTimer2;
-    private CountDownTimer countDownTimer;
+    CountDownTimer countDownTimer2;
+    CountDownTimer countDownTimer;
+    TextView squatTimer;
+    TextView squatTimer2;
+
     /*
     final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
     final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
     final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
      */
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_squat);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
 
         //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -46,11 +57,11 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         textview = (TextView) findViewById(R.id.textView69);
 
         //init timer
-        final TextView squatTimer = findViewById(R.id.squatTimer);
-        final TextView squatTimer2 = findViewById(R.id.squatTimer2);
+       squatTimer = findViewById(R.id.squatTimer);
+       squatTimer2 = findViewById(R.id.squatTimer2);
 
         //init skip Button
-        /*final Button skipSquats = findViewById(R.id.skipSquats);
+        Button skipSquats = findViewById(R.id.skipSquats);
         skipSquats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,10 +69,10 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
                 startActivity(intent);
                 countDownTimer.cancel();
                 countDownTimer2.cancel();
-                finish();
+
 
             }
-        });*/
+        });
 
 
         //implementing timer 1
@@ -70,7 +81,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onTick(long millisUntilFinished) {
                 squatTimer.setText((millisUntilFinished / 1000) + "");
-                squatTimer2.setVisibility(View.INVISIBLE);
+
 
             }
 
@@ -79,7 +90,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
                 Toast.makeText(Squats.this, "GO", Toast.LENGTH_SHORT).show();
                 squatTimer.setText("");
                 countDownTimer2.start();
-
+            onStop();
             }
         };
 
@@ -125,6 +136,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     double currentValue;
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+
+        final TextView textview = (TextView) findViewById(R.id.textView69);
         currentValue = sensorEvent.values[1];
 
         //i++;

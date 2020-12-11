@@ -1,5 +1,6 @@
 package com.example.firebase;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.RequiresApi;
@@ -17,8 +18,12 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Button;
+
 
 import org.w3c.dom.Text;
+
+import java.util.Objects;
 
 
 public class Backbends extends AppCompatActivity {
@@ -26,7 +31,11 @@ public class Backbends extends AppCompatActivity {
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
     CountDownTimer countDownTimer;
-    private CountDownTimer countDownTimer2;
+    CountDownTimer countDownTimer2;
+    TextView backbendTimer;
+    TextView backbendTimer2;
+    TextView textview;
+    Button skipBackbends;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -34,21 +43,44 @@ public class Backbends extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backbends);
 
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
         //init sensor
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        final TextView textview=(TextView) findViewById(R.id.textView4);
 
+        //init reps
+        textview=(TextView) findViewById(R.id.textView4);
         final BackbendExercise backbendExercise = new BackbendExercise(1);
+
+
         final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
 
         //init timer
-        final TextView backbendTimer = findViewById(R.id.backBendTimer);
-        final TextView backbendTimer2 = findViewById(R.id.backBendtimer2);
+        backbendTimer = findViewById(R.id.backBendTimer);
+        backbendTimer2 = findViewById(R.id.backBendtimer2);
 
-        //impolementin timer 1
+        //init skip button
+        skipBackbends = findViewById(R.id.skipBackbends);
+        skipBackbends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(backbendExercise);
+                Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
+                startActivity(goHome);
+                countDownTimer.cancel();
+                countDownTimer2.cancel();
+
+            }
+        });
+
+
+        //implementing timer 1
 
         if(proximitySensor == null){
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
@@ -67,6 +99,7 @@ public class Backbends extends AppCompatActivity {
                 Toast.makeText(Backbends.this, "GO", Toast.LENGTH_SHORT).show();
                 backbendTimer.setText("");
                 countDownTimer2.start();
+                onStop();
 
             }
         };

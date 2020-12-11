@@ -20,8 +20,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Exercises extends AppCompatActivity {
     TextView t1;
-    Button b1;
+    Button b1, easyBtn, mediumBtn, hardBtn;
     CountDownTimer countDownTimer;
+    ExerciseData exerciseData;
+
 
 
     @Override
@@ -32,10 +34,16 @@ public class Exercises extends AppCompatActivity {
 
         //init and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        easyBtn = findViewById(R.id.easyBtn);
+        mediumBtn = findViewById(R.id.mediumBtn);
+        hardBtn = findViewById(R.id.hardBtn);
+        exerciseData = ExerciseData.getInstance();
 
 
         final MediaPlayer lyd = MediaPlayer.create(this, R.raw.ready_2); //Create sound
         lyd.start(); //Play sound
+
+
 
 
 //Skal lige kigge på det her hjemme.
@@ -87,7 +95,6 @@ public class Exercises extends AppCompatActivity {
 
         //start timer
         t1 = findViewById(R.id.textView);
-        b1 = findViewById(R.id.button);
 
         countDownTimer = new CountDownTimer(5000,1000) {
             @Override
@@ -111,15 +118,33 @@ public class Exercises extends AppCompatActivity {
 
         };
 
-        b1.setOnClickListener(new View.OnClickListener() {
+        easyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public void onClick(View view) {
                 Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
                 countDownTimer.start();
+                exerciseData.setDifficulty(1);
             }
-
-
         });
+
+        mediumBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
+                countDownTimer.start();
+                exerciseData.setDifficulty(2);
+            }
+        });
+
+        hardBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
+                countDownTimer.start();
+                exerciseData.setDifficulty(3);
+            }
+        });
+
+
     }
 }

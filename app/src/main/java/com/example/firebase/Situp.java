@@ -20,6 +20,9 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     private SensorEventListener acceleroSensorListener;
     TextView textview;
     final SitupExercise situpExercise = new SitupExercise(1);
+    ExerciseData exerciseData;
+    int millisInFuture;
+    int countDownInterval;
     /*
     final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
     final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
@@ -37,8 +40,26 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         sensorManager.registerListener(Situp.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView2);
         final TextView situpTimer = findViewById(R.id.situpTimer);
+        exerciseData = ExerciseData.getInstance();
 
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+        switch (exerciseData.getDifficulty()) {
+            case 1:
+                millisInFuture = 10000;
+                countDownInterval = 1000;
+                break;
+            case 2:
+                millisInFuture = 20000;
+                countDownInterval = 1000;
+                break;
+            case 3:
+                millisInFuture = 30000;
+                countDownInterval = 1000;
+                break;
+        }
+
+
+
+        CountDownTimer countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
                 situpTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -47,7 +68,6 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onFinish() { //Kunne starte ny timer i stedet og ændre textviews, for at have pause før øvelsen begynder. Når den første timer er slut kunne man registerlistener.
                 Toast.makeText(Situp.this,"finish",Toast.LENGTH_SHORT).show();
-                ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(situpExercise);
                 Intent exercise3 = new Intent(Situp.this, Backbends.class); //Putextra med sværhedsgrad, måske andet objekt med exercise, hvor vi gemmer reps.
                 startActivity(exercise3);

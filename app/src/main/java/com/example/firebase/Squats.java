@@ -20,6 +20,9 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     private SensorEventListener acceleroSensorListener;
     TextView textview;
     final SquatExercise squatExercise = new SquatExercise(1);
+    ExerciseData exerciseData;
+    int millisInFuture;
+    int countDownInterval;
     /*
     final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
     final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
@@ -36,10 +39,26 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         sensorManager.registerListener(Squats.this, acceleroMeterSensor,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView69);
         final TextView squatTimer = findViewById(R.id.squatTimer);
+        exerciseData = ExerciseData.getInstance();
 
 
 
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+        switch (exerciseData.getDifficulty()) {
+            case 1:
+                millisInFuture = 10000;
+                countDownInterval = 1000;
+                break;
+            case 2:
+                millisInFuture = 20000;
+                countDownInterval = 1000;
+                break;
+            case 3:
+                millisInFuture = 30000;
+                countDownInterval = 1000;
+                break;
+        }
+
+        CountDownTimer countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
                 squatTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -48,7 +67,6 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onFinish() {
                 Toast.makeText(Squats.this,"finish",Toast.LENGTH_SHORT).show();
-                ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(squatExercise);
                 Intent exercise3 = new Intent(Squats.this, Situp.class);
                 startActivity(exercise3);

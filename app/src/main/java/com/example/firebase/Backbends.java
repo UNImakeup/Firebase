@@ -22,6 +22,9 @@ public class Backbends extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
+    ExerciseData exerciseData;
+    int millisInFuture;
+    int countDownInterval;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -37,6 +40,7 @@ public class Backbends extends AppCompatActivity {
         final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
+        exerciseData = ExerciseData.getInstance();
 
 
         if(proximitySensor == null){
@@ -44,7 +48,22 @@ public class Backbends extends AppCompatActivity {
             finish();
         }
 
-        CountDownTimer countDownTimer = new CountDownTimer(5000, 1000) {
+        switch (exerciseData.getDifficulty()) {
+            case 1:
+                millisInFuture = 10000;
+                countDownInterval = 1000;
+                break;
+            case 2:
+                millisInFuture = 20000;
+                countDownInterval = 1000;
+                break;
+            case 3:
+                millisInFuture = 30000;
+                countDownInterval = 1000;
+                break;
+        }
+
+        CountDownTimer countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
                 backbendTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -53,7 +72,6 @@ public class Backbends extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Toast.makeText(Backbends.this,"Workout Done",Toast.LENGTH_SHORT).show();
-                ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(backbendExercise);
                 Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);

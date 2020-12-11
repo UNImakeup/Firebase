@@ -22,6 +22,9 @@ public class Pushups extends AppCompatActivity {
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
     CountDownTimer countDownTimer;
+    ExerciseData exerciseData;
+    int millisInFuture;
+    int countDownInterval;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -37,6 +40,7 @@ public class Pushups extends AppCompatActivity {
         final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
+        exerciseData = ExerciseData.getInstance();
 
 
 
@@ -46,7 +50,22 @@ public class Pushups extends AppCompatActivity {
             finish();
         }
 
-        countDownTimer = new CountDownTimer(10000, 1000) {
+        switch (exerciseData.getDifficulty()) {
+            case 1:
+                millisInFuture = 10000;
+                countDownInterval = 1000;
+                break;
+            case 2:
+                millisInFuture = 20000;
+                countDownInterval = 1000;
+                break;
+            case 3:
+                millisInFuture = 30000;
+                countDownInterval = 1000;
+                break;
+        }
+
+        countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
                 pushupTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -55,7 +74,6 @@ public class Pushups extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Toast.makeText(Pushups.this,"finish",Toast.LENGTH_SHORT).show();
-                ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
                 //exercise2.putExtra("PushupReps")

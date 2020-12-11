@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class ExerciseData {
     private ArrayList<Exercise> exercises = new ArrayList<>();
+    private int difficulty;
     private static ExerciseData instance;
 
 
@@ -23,6 +24,14 @@ public class ExerciseData {
     //addExercise, for at tilføje en øvelse, når den er færdig.
     public void addExercise(Exercise exercise){
         exercises.add(exercise);
+    }
+
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
     }
 
 

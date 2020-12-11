@@ -16,7 +16,7 @@
     <string name="home">Home</string>
     <string name="homeName" />
     <string name="logout">Logout</string>
-    <string name="time">time</string>
+    <string name="time"></string>
     <string name="squat">Squats</string>
     <string name="pushups">Pushups</string>
     <string name="pushupTimer">Time</string>
@@ -38,4 +38,8 @@
     <string name="theMagicPlaceDude">this is the magic place. enjoy :)</string>
     <string name="vibes_magic">vibes</string>
     <string name="zen_magic">zen</string>
+    <string name="choose_difficulty">Choose Difficulty</string>
+    <string name="easy">Easy</string>
+    <string name="hardBtn">Hard</string>
+    <string name="mediumBtn">Medium</string>
 </resources>

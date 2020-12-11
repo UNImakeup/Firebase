@@ -69,12 +69,15 @@ public class Backbends extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                countDownTimer.cancel();
+                countDownTimer2.cancel();
+                onStop();
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(backbendExercise);
                 Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);
-                countDownTimer.cancel();
-                countDownTimer2.cancel();
+                onStop();
+                finish();
 
             }
         });

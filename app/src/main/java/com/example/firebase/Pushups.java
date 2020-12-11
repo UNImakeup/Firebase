@@ -24,12 +24,12 @@ import com.google.android.gms.common.SignInButton;
 import java.util.Objects;
 
 public class Pushups extends AppCompatActivity {
+    
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
     private CountDownTimer countDownTimer;
     private CountDownTimer countDownTimer2;
-
     private TextView pushupTimer;
     private TextView pushupsTimer2;
 
@@ -72,10 +72,17 @@ public class Pushups extends AppCompatActivity {
          skipPushups.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Pushups.this,Squats.class);
-                startActivity(intent);
+
                 countDownTimer.cancel();
                 countDownTimer2.cancel();
+                onStop();
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(pushupExercise);
+                Intent exercise2 = new Intent(Pushups.this, Squats.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                //exercise2.putExtra("PushupReps")
+                startActivity(exercise2);
+                finish();
 
 
             }

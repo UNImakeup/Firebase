@@ -65,11 +65,15 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         skipSquats.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Squats.this,Situp.class);
-                startActivity(intent);
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(squatExercise);
+                Intent exercise3 = new Intent(Squats.this, Situp.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                startActivity(exercise3);
                 countDownTimer.cancel();
                 countDownTimer2.cancel();
-
+                onStop();
+                finish();
 
             }
         });

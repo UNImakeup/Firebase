@@ -1,29 +1,41 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class WorkoutDone extends AppCompatActivity {
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_done);
+
+        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
         TextView workoutSummary = findViewById(R.id.workoutResult);
-        Button workoutDoneBtn = findViewById(R.id.workoutDoneBtn);
+        //Button workoutDoneBtn = findViewById(R.id.workoutDoneBtn);
         final MediaPlayer lyd = MediaPlayer.create(this, R.raw.wow); //Create sound
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRefUser = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
@@ -31,16 +43,19 @@ public class WorkoutDone extends AppCompatActivity {
         final ExerciseData exerciseData = ExerciseData.getInstance(); //Hent exerciseData så vi kan printe resultater
         final User user = User.getInstance(this);
 
+
+
+
         //Spille anime wow lyd
         lyd.start();
 
 
         //vise tekst. Måske bruge metode i ExerciseData, print og sådan. Vise getSum til sidst.
         workoutSummary.setText("Pushups: " + exerciseData.getExercises().get(0).getReps() +
-        "\n Squats: " + exerciseData.getExercises().get(1).getReps() +
-                "\n Situps: " + exerciseData.getExercises().get(2).getReps() +
-                "\n Backbends: " + (exerciseData.getExercises().get(3).getReps() - 1) +
-                "\n\n Total Reps: " + exerciseData.getSum()
+        "\nSquats: " + exerciseData.getExercises().get(1).getReps() +
+                "\nSitups: " + exerciseData.getExercises().get(2).getReps() +
+                "\nBackbends: " + (exerciseData.getExercises().get(3).getReps() - 1) +
+                "\n\nTotal Reps: " + exerciseData.getSum()
         );
 
 
@@ -121,7 +136,45 @@ public class WorkoutDone extends AppCompatActivity {
             }
         });
 
-        //Knap til homeNavigation
+        //init and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+
+        //perform itemselectedlistener
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected( MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+
+                    case R.id.settings:
+                        exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.
+                        startActivity(new Intent(getApplicationContext()
+                                , Settings.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.home:
+                        exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.
+                        startActivity(new Intent(getApplicationContext()
+                                , HomeNavigation.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+                    case R.id.notifications:
+                        exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.
+                        startActivity(new Intent(getApplicationContext()
+                                , Notifications.class));
+                        overridePendingTransition(0,0);
+                        return true;
+
+
+                }
+                return false;
+            }
+        });
+
+       /* //Knap til homeNavigation
         workoutDoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +182,7 @@ public class WorkoutDone extends AppCompatActivity {
                 Intent goHome = new Intent(WorkoutDone.this, HomeNavigation.class);
                 startActivity(goHome);
             }
-        });
+        });*/
 
     }
 }

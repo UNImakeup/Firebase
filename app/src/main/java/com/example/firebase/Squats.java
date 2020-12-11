@@ -100,7 +100,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
 
         //implementing timer 2
 
-          countDownTimer2 = new CountDownTimer(3000,1000) {
+          countDownTimer2 = new CountDownTimer(30500,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 squatTimer2.setVisibility(View.VISIBLE);

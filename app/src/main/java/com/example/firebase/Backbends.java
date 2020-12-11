@@ -90,7 +90,7 @@ public class Backbends extends AppCompatActivity {
             finish();
         }
 
-        countDownTimer = new CountDownTimer(5000, 1000) {
+        countDownTimer = new CountDownTimer(4000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 backbendTimer.setText(millisUntilFinished/1000 + "");
@@ -109,7 +109,7 @@ public class Backbends extends AppCompatActivity {
 
         //implementin timer 2
 
-        countDownTimer2 = new CountDownTimer(5000,1000) {
+        countDownTimer2 = new CountDownTimer(30000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
 

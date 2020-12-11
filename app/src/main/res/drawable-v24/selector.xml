@@ -4,7 +4,7 @@
     <item
 
         android:state_selected="true"
-        android:color="@android:color/tertiary_text_dark"/>
+        android:color="@color/prettyRed"/>
 
     <item
 

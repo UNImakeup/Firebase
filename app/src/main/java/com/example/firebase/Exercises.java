@@ -82,11 +82,10 @@ public class Exercises extends AppCompatActivity {
         t1 = findViewById(R.id.textView);
         b1 = findViewById(R.id.button);
 
-        countDownTimer = new CountDownTimer(3000,1000) {
+        countDownTimer = new CountDownTimer(4000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 t1.setText(millisUntilFinished/1000 + "");
-                t1.setVisibility(View.INVISIBLE);
                 b1.setVisibility(View.INVISIBLE);
                 workOut.setVisibility(View.INVISIBLE);
             }

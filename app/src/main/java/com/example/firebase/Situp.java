@@ -79,7 +79,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
 
         //implementing timer 1
 
-        countDownTimer = new CountDownTimer(5000, 1000) {
+        countDownTimer = new CountDownTimer(4000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 situpTimer.setText(millisUntilFinished/1000 + "");
@@ -99,7 +99,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
 
 
         //implementing timer2
-        countDownTimer2 = new CountDownTimer(3000,1000) {
+        countDownTimer2 = new CountDownTimer(30000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 situpTimer2.setVisibility(View.VISIBLE);

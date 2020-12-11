@@ -24,7 +24,7 @@ import com.google.android.gms.common.SignInButton;
 import java.util.Objects;
 
 public class Pushups extends AppCompatActivity {
-    
+
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
@@ -115,7 +115,7 @@ public class Pushups extends AppCompatActivity {
 
         //implementing timer 2
 
-         countDownTimer2 = new CountDownTimer(4000,1000) {
+         countDownTimer2 = new CountDownTimer(30500,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 pushupsTimer2.setVisibility(View.VISIBLE);

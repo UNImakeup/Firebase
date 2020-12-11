@@ -17,7 +17,7 @@
         <activity android:name=".Notifications" />
         <activity android:name=".Settings" />
         <activity android:name=".Insights" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".Exercises" />
+        <activity android:name=".Exercises" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Profile" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".HomeNavigation" />
         <activity android:name=".Home" />

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/geometrik"
     tools:context=".Notifications">
 
     <EditText
@@ -45,6 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="159dp"
+        android:textColor="@color/white"
         android:text="@string/newCompInfo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -56,6 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="49dp"
+        android:textColor="@color/white"
         android:text="@string/createCompTxt"
         app:layout_constraintBottom_toTopOf="@id/createCompBtn"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,6 +70,7 @@
         android:layout_width="353dp"
         android:layout_height="48dp"
         android:layout_marginTop="34dp"
+        android:textColor="@color/white"
         android:text="@string/joinCompTxt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

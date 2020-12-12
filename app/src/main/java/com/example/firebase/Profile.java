@@ -35,15 +35,8 @@ import java.io.IOException;
 import java.util.UUID;
 
 public class Profile extends AppCompatActivity {
-    FirebaseStorage storage;
-    StorageReference storageReference;
-    Button uploadProfilePic;
-    ImageView profilePic;
-    Button btnSave;
     private FirebaseAuth firebaseAuth;
 
-    private final int IMG_REQUEST_ID = 1;
-    private Uri imgUri;
 
 
     @Override
@@ -54,9 +47,6 @@ public class Profile extends AppCompatActivity {
         final TextView homeName = findViewById(R.id.homeName);
         final Button logoutBtn = findViewById(R.id.logoutButton);
         ImageView profilePic = findViewById(R.id.profilePic);
-        uploadProfilePic = findViewById(R.id.uploadImage);
-        btnSave = findViewById(R.id.btn_save);
-        btnSave.setEnabled(false);
         final TextView compStatus = findViewById(R.id.compStatus);
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -70,34 +60,7 @@ public class Profile extends AppCompatActivity {
         final DatabaseReference myRefComp = database[0].getReference("Competition");
         final User user1 = User.getInstance(this); //Context er ligegyldig, den henter alligevel i mainActivity
 
-
-        //Hvis pb findes på DB, set profilePic til det. Ellers hav knap hvor man kan hente det. Lige nu bare uploade.
-
-        FirebaseStorage storage = FirebaseStorage.getInstance();
-        StorageReference storageReference = storage.getReference();
-
-
-        //Burde nok fjerne det med profilbillede, da det ikke lige fungerer.
-        uploadProfilePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                requestImage();
-            }
-        });
-
-        /*  gemmer billedet i firebase, når der bliver klikket på save.*/
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //saveInFirebase();
-            }
-        });
-
-
         homeName.setText(firebaseAuth.getCurrentUser().getDisplayName()); //Virker med user.getuser og med firebaseAuth.getCurrentUser().getEmail() viser username
-
-        //Nedenstående skal tilføjes igen, fjernede for at teste.
-
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -115,10 +78,6 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-
-
-
-
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +88,6 @@ public class Profile extends AppCompatActivity {
                 startActivity(logoutIntent);
             }
         });
-
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             int competitionID;
@@ -186,97 +144,9 @@ public class Profile extends AppCompatActivity {
                         }
                         }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
-
-
-
     }
-//Burde nok slettes
-    private void requestImage () {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        //intent.setAction(Intent.ACTION_GET_CONTENT);
-        //startActivityForResult(Intent.createChooser(intent,"select picture"), IMG_REQUEST_ID);
-        startActivityForResult(intent, IMG_REQUEST_ID);
-    }
-/*
-    private void saveInFirebase() {
-        if (imgUri != null) {
-
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Please Wait...");
-            progressDialog.show();
-            StorageReference reference = storageReference.child("picture/" + UUID.randomUUID().toString());
-
-            try {
-                reference.putFile(imgUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        progressDialog.dismiss();
-                        Toast.makeText(Profile.this, "saved succesfully", Toast.LENGTH_SHORT).show();
-
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(Profile.this, "error occurred" + e.getMessage(), Toast.LENGTH_SHORT).show();
-
-                    }
-                }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onProgress(@NonNull UploadTask.TaskSnapshot taskSnapshot) {
-                        double Progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot.getTotalByteCount());
-                        progressDialog.setMessage("saved" + (int) Progress + "%");
-
-
-                        uploadProfilePic.setEnabled(true);
-                        btnSave.setEnabled(false);
-
-
-                    }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
         }
-    }
-
- */
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == IMG_REQUEST_ID && resultCode == RESULT_OK/* && data != null && data.getData() != null*/) {
-            imgUri = data.getData();
-/*
-            try {
-                Bitmap bitmapImg = MediaStore.Images.Media.getBitmap(getContentResolver(), imgUri);
-
-                profilePic.setImageBitmap(bitmapImg);
-                uploadProfilePic.setEnabled(false);
-                btnSave.setEnabled(true);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
- */
-
-Uri imageData = data.getData();
-
-StorageReference imageName = storageReference.child("picture"+imageData.getLastPathSegment());
-
-imageName.putFile(imageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-    @Override
-    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-        Toast.makeText(Profile.this, "uploaded", Toast.LENGTH_SHORT).show();
-    }
-});
-        }
-    }
-}

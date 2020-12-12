@@ -14,6 +14,8 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class Backbends extends AppCompatActivity {
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
+    Button skipBackbends;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -49,6 +52,20 @@ public class Backbends extends AppCompatActivity {
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
             finish();
         }
+        skipBackbends = findViewById(R.id.skipBackbends);
+        skipBackbends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                countDownTimer.cancel();
+                countDownTimerBefore.cancel();
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(backbendExercise);
+                Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
+                startActivity(goHome);
+                onStop();
+                finish();
+            }
+        });
 
         switch (exerciseData.getDifficulty()) {
             case 1:

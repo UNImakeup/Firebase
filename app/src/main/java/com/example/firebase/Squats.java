@@ -10,6 +10,8 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,21 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
 
         exerciseData = ExerciseData.getInstance();
 
+        Button skipSquats = findViewById(R.id.skipSquats);
+        skipSquats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(squatExercise);
+                Intent exercise3 = new Intent(Squats.this, Situp.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                startActivity(exercise3);
+                countDownTimer.cancel();
+                countDownTimerBefore.cancel();
+                onStop();
+                finish();
+            }
+        });
 
 
         switch (exerciseData.getDifficulty()) {

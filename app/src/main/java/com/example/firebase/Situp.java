@@ -10,6 +10,8 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -45,6 +47,22 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
 
+
+        Button skipSitups = findViewById(R.id.skipSitups);
+        skipSitups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(situpExercise);
+                Intent exercise3 = new Intent(Situp.this, Backbends.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                startActivity(exercise3);
+                countDownTimer.cancel();
+                countDownTimerBefore.cancel();
+                onStop();
+                finish();
+            }
+        });
 
         switch (exerciseData.getDifficulty()) {
             case 1:

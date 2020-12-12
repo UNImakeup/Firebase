@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class Pushups extends AppCompatActivity {
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
+    Button skipPushups;
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -49,6 +51,25 @@ public class Pushups extends AppCompatActivity {
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
             finish();
         }
+
+        Button skipPushups = findViewById(R.id.skipPushups);
+        skipPushups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                countDownTimer.cancel();
+                countDownTimerBefore.cancel();
+                ExerciseData exerciseData = ExerciseData.getInstance();
+                exerciseData.addExercise(pushupExercise);
+                Intent exercise2 = new Intent(Pushups.this, Squats.class);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                startActivity(exercise2);
+                finish();
+
+
+            }
+        });
+
 
         switch (exerciseData.getDifficulty()) {
             case 1:

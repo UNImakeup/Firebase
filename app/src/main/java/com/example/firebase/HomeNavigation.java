@@ -84,7 +84,8 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
                     case R.id.notifications:
                         startActivity(new Intent(getApplicationContext()
                                 ,Notifications.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        //overridePendingTransition(0,0);
                         return true;
 
 

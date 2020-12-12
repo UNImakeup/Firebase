@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -27,6 +28,11 @@ public class Notifications extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notifications);
 
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
 
 
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
@@ -51,7 +57,8 @@ public class Notifications extends AppCompatActivity {
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext()
                                 , HomeNavigation.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        //overridePendingTransition(0,0);
                         return true;
 
                     case R.id.notifications:
@@ -68,12 +75,9 @@ public class Notifications extends AppCompatActivity {
         final TextView joinCompTxt = findViewById(R.id.joinCompTxt);
         final EditText joinCompInput = findViewById(R.id.joinCompInput);
         final Button joinCompBtn = findViewById(R.id.joinCompBtn);
-
         final TextView createCompTxt = findViewById(R.id.createCompTxt);
         final Button createCompBtn = findViewById(R.id.createCompBtn);
         final TextView createCompNewInfo = findViewById(R.id.newCompInfo);
-
-
         final User user = User.getInstance(this);
 
 
@@ -135,7 +139,7 @@ public class Notifications extends AppCompatActivity {
                             myRefComp.child(String.valueOf(randomCompNumber)).child("1").setValue(user.getUser());
                             //Alt dette er også inde i databaseSingleton, så kan gøres gennem der.
 
-                            createCompNewInfo.setText("You have now created a new competiton. Send this CompID: " + randomCompNumber + " to compete with them");
+                            createCompNewInfo.setText("You have now created a new competiton. \n\nSend this CompID: " + randomCompNumber + " to compete with them");
                         } else { //Else lav nyt nummer. fordi det allerede findes.
                             createCompNewInfo.setText("this CompID already exists, press the button again");
                         }

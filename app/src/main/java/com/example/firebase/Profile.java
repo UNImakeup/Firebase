@@ -57,8 +57,8 @@ public class Profile extends AppCompatActivity {
         actionBar.hide();
 
         final TextView homeName = findViewById(R.id.homeName);
-        final Button logoutBtn = findViewById(R.id.logoutButton);
-        ImageView profilePic = findViewById(R.id.profilePic);
+        final ImageView logoutBtn = findViewById(R.id.logoutButton);
+        profilePic = findViewById(R.id.profilePic);
         uploadProfilePic = findViewById(R.id.uploadImage);
         btnSave = findViewById(R.id.btn_save);
         btnSave.setEnabled(false);

@@ -13,6 +13,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ public class Pushups extends AppCompatActivity {
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
     CountDownTimer countDownTimer;
+    CountDownTimer countDownTimerBefore;
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
@@ -41,8 +43,6 @@ public class Pushups extends AppCompatActivity {
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
         exerciseData = ExerciseData.getInstance();
-
-
 
 
         if(proximitySensor == null){
@@ -65,6 +65,23 @@ public class Pushups extends AppCompatActivity {
                 break;
         }
 
+        countDownTimerBefore = new CountDownTimer(4000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                pushupTimer.setText(millisUntilFinished/1000 + "");
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(Pushups.this, "GO", Toast.LENGTH_SHORT).show();
+                //pushupTimer.setText("");
+                countDownTimer.start();
+                onStop();
+
+            }
+        };
+        countDownTimerBefore.start();
+
         countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -83,9 +100,6 @@ public class Pushups extends AppCompatActivity {
             }
         };
 
-        Toast.makeText(Pushups.this,"time start", Toast.LENGTH_SHORT).show();
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
-
         proximitySensorListener = new SensorEventListener() {
             boolean rep;
             //int reps = 0;
@@ -101,16 +115,6 @@ public class Pushups extends AppCompatActivity {
                     pushupExercise.addRep();
                     rep = true;
                 }
-                /* Nedenstående virker på min telefon, men ikke andres.
-                if (sensorEvent.values[0] < proximitySensor.getMaximumRange()){
-                    getWindow().getDecorView().setBackgroundColor(Color.RED);
-                    //reps++;
-                    pushupExercise.addRep();
-                } else {
-                    getWindow().getDecorView().setBackgroundColor(Color.GREEN);
-                }
-                 */
-                //System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(pushupExercise.getReps()));
                 switch (pushupExercise.getReps()){
@@ -123,21 +127,7 @@ public class Pushups extends AppCompatActivity {
                     case 20:
                         yesSound.start();
                 }
-
-                /*
-                if(reps == 2){
-                    //onStop();
-                    //onDestroy();
-
-                    Intent exercise2 = new Intent(Pushups.this, Situp.class);
-                    startActivity(exercise2);
-                    onStop();
-                }
-                 */
             }
-
-
-
             @Override
             public void onAccuracyChanged(Sensor sensor, int i) {
 

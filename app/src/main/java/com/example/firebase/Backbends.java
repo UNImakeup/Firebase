@@ -22,6 +22,8 @@ public class Backbends extends AppCompatActivity {
     private SensorManager sensorManager;
     private Sensor proximitySensor;
     private SensorEventListener proximitySensorListener;
+    CountDownTimer countDownTimerBefore;
+    CountDownTimer countDownTimer;
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
@@ -63,7 +65,24 @@ public class Backbends extends AppCompatActivity {
                 break;
         }
 
-        CountDownTimer countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
+        countDownTimerBefore = new CountDownTimer(4000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                backbendTimer.setText(millisUntilFinished/1000 + "");
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(Backbends.this, "GO", Toast.LENGTH_SHORT).show();
+                //pushupTimer.setText("");
+                countDownTimer.start();
+                onStop();
+
+            }
+        };
+        countDownTimerBefore.start();
+
+        countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
                 backbendTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -80,30 +99,21 @@ public class Backbends extends AppCompatActivity {
             }
         };
 
-        Toast.makeText(Backbends.this,"time start", Toast.LENGTH_SHORT).show();
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
-
-
         proximitySensorListener = new SensorEventListener() {
-            //int reps = 0;
             boolean rep;
 
-            //Fungerende med rygbøjninger.
+            //Tæller rygbøjninger
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
                 float currentValue = sensorEvent.values[0];
-                System.out.println(currentValue); // Skal bare lige se hvad værdierne er
-
 
                 if(currentValue == 0.0){
                     rep = false;
                 }
                 if (currentValue == 5.0 && rep == false){
-                    //reps++;
                     backbendExercise.addRep();
                     rep = true;
                 }
-                //System.out.println(reps);
                 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf((backbendExercise.getReps() - 1))); //-1, fordi den starter på 1 af en eller anden grund.
 
@@ -117,16 +127,6 @@ public class Backbends extends AppCompatActivity {
                     case 20:
                         yesSound.start();
                 }
-/*
-                if ((reps - 1) == 2){
-                    //onStop();
-                    //Burde nok tilføje en slutskærm, hvor man viser reps og sådan
-                    Intent workoutDone = new Intent(Backbends.this, HomeNavigation.class);
-                    startActivity(workoutDone);
-                    onStop();
-                }
-
- */
             }
 
             @Override

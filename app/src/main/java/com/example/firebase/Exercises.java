@@ -23,6 +23,7 @@ public class Exercises extends AppCompatActivity {
     Button b1, easyBtn, mediumBtn, hardBtn;
     CountDownTimer countDownTimer;
     ExerciseData exerciseData;
+    MediaPlayer lyd; //Create sound
 
 
 
@@ -39,8 +40,7 @@ public class Exercises extends AppCompatActivity {
         hardBtn = findViewById(R.id.hardBtn);
         exerciseData = ExerciseData.getInstance();
 
-
-        final MediaPlayer lyd = MediaPlayer.create(this, R.raw.ready_2); //Create sound
+        lyd = MediaPlayer.create(this, R.raw.ready_2); //Create sound
         lyd.start(); //Play sound
 
 
@@ -96,7 +96,7 @@ public class Exercises extends AppCompatActivity {
         //start timer
         t1 = findViewById(R.id.textView);
 
-        countDownTimer = new CountDownTimer(5000,1000) {
+        countDownTimer = new CountDownTimer(11000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 t1.setText(millisUntilFinished/1000 + "sec left");
@@ -106,7 +106,7 @@ public class Exercises extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
+                lyd.stop();
                 t1.setText("time finish");
                 Toast.makeText(Exercises.this,"finish",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Exercises.this, Pushups.class); //Kan sige putExtra med sværhedsgraden.
@@ -146,5 +146,12 @@ public class Exercises extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        lyd.stop();
+        //super.onStop();
+        super.onPause();
     }
 }

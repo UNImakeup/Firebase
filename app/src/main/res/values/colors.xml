@@ -20,6 +20,7 @@
     <color name="transparent">#212121</color>
     <color name="actionbarskrift">#FF5DFC</color>
     <color name="white">#FFFFFF</color>
+    <color name="darkwhite">#E7EDE7</color>
 
 
 </resources>

@@ -29,7 +29,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".Profile" android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="portrait"/>
-        <activity android:name=".HomeNavigation" android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        <activity android:name=".HomeNavigation"
             android:screenOrientation="portrait"/>
         <activity android:name=".Home" />
         <activity android:name=".MainActivity2" android:theme="@style/Theme.AppCompat.Light.NoActionBar"

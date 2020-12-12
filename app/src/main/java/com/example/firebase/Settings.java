@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Settings extends AppCompatActivity {
+    MediaPlayer zen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +28,7 @@ public class Settings extends AppCompatActivity {
 
         bottomNavigationView.setSelectedItemId(R.id.settings);
 
-        final MediaPlayer zen = MediaPlayer.create(this, R.raw.shiloh); //Create sound
+        zen = MediaPlayer.create(this, R.raw.shiloh); //Create sound
         zen.start();
         zen.setLooping(true); //Play sound
 
@@ -68,5 +69,12 @@ public class Settings extends AppCompatActivity {
                 return false;
             }
         });
+    }
+    @Override
+    protected void onPause() {
+        zen.stop();
+        zen.setLooping(false);
+        //super.onStop();
+        super.onPause();
     }
 }

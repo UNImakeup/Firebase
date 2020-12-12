@@ -1,13 +1,19 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,19 +22,46 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import android.os.Bundle;
 
-public class HomeNavigation extends AppCompatActivity {
-    private ImageView profileImage;
-    private ImageView exercisesImage;
-    private ImageView insightsImage;
+import java.util.Objects;
 
-    @SuppressLint("WrongViewCast")
+public class HomeNavigation extends AppCompatActivity implements View.OnClickListener{
+
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_navigation);
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
+        //Skrive på harddisk, gemme hvem der er login. Kunne også gemme password i guess, for at tjekke hashcode og sådan.
+        final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
+        final String user = gemmeobjekt.getString("username", "");
+        final TextView displayName = findViewById(R.id.welcomeDash);
+
+        //Database
+        final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
+        final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
+        final DatabaseReference myRefComp = database[0].getReference("Competition");
+        final User user1 = User.getInstance(this);
+
+        FirebaseStorage storage = FirebaseStorage.getInstance();
+        StorageReference storageReference = storage.getReference();
+
+        displayName.setText("Welcome " + user + "!");
 
         //init and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -40,23 +73,24 @@ public class HomeNavigation extends AppCompatActivity {
         //perform itemselectedlistener
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                switch (menuItem.getItemId()){
 
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;
+            @Override
+            public boolean onNavigationItemSelected(MenuItem menuItem) {
+                switch (menuItem.getItemId()){
 
                     case R.id.home:
                         return true;
 
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext()
+                                ,Settings.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        return true;
                     case R.id.notifications:
                         startActivity(new Intent(getApplicationContext()
                                 ,Notifications.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        //overridePendingTransition(0,0);
                         return true;
 
 
@@ -65,52 +99,57 @@ public class HomeNavigation extends AppCompatActivity {
             }
         });
 
-
-        profileImage = findViewById(R.id.profile_image);
-        profileImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openProfile();
-
-            }
-        });
-
-        exercisesImage = findViewById(R.id.exersies_image);
-        exercisesImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openExercises();
-
-            }
-        });
-
-        insightsImage = findViewById(R.id.insight_image);
-        insightsImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openInsight();
-
-            }
-        });
+        initObjects();
 
     }
 
+    private void initObjects(){
 
-    private void openProfile() {
-        Intent intent = new Intent(this, Profile.class);
-        startActivity(intent);
+        CardView profileDash = findViewById(R.id.profileDash);
+        CardView workoutDash = findViewById(R.id.workoutDash);
+        CardView bmiDash = findViewById(R.id.bmiDash);
+        CardView planDash = findViewById(R.id.planDash);
+
+        profileDash.setOnClickListener(this);
+        workoutDash.setOnClickListener(this);
+        bmiDash.setOnClickListener(this);
+        planDash.setOnClickListener(this);
+
 
     }
 
-    private void openExercises() {
+    //setting board clickable
 
-        Intent intent = new Intent(this, Exercises.class);
-        startActivity(intent);
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            case R.id.profileDash:
+                Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeNavigation.this,Profile.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                break;
+
+
+            case R.id.workoutDash:
+                // Toast.makeText(this, "Workout", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeNavigation.this,Exercises.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                break;
+
+            case R.id.bmiDash:
+                Toast.makeText(this, "BMI Calculator", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(HomeNavigation.this,Insights.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                break;
+
+            case R.id.planDash:
+                Toast.makeText(this, "Plan", Toast.LENGTH_SHORT).show();
+                //startActivity(new Intent(HomeNavigation.this,Profile.class));
+                // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                break;
+
+        }
 
     }
-    private void openInsight() {
-
-        Intent intent = new Intent(this, Insights.class);
-        startActivity(intent);
-    }
-    }
+}

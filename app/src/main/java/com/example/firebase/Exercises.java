@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -23,12 +24,20 @@ public class Exercises extends AppCompatActivity {
     TextView workOut;
     Button b1;
     CountDownTimer countDownTimer;
+    RelativeLayout topRelative;
+    BottomNavigationView navigation;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises);
+
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         //implementing bottom navigationBar
 
         //init and assign variable
@@ -56,11 +65,6 @@ public class Exercises extends AppCompatActivity {
                         overridePendingTransition(0,0);
                         return true;
 
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;
 
 
                     case R.id.notifications:
@@ -76,6 +80,8 @@ public class Exercises extends AppCompatActivity {
         });
 
         workOut = findViewById(R.id.textView5);
+        topRelative = findViewById(R.id.topRelative);
+        navigation = findViewById(R.id.bottom_navigation);
 
 
         //start timer
@@ -88,6 +94,9 @@ public class Exercises extends AppCompatActivity {
                 t1.setText(millisUntilFinished/1000 + "");
                 b1.setVisibility(View.INVISIBLE);
                 workOut.setVisibility(View.INVISIBLE);
+                topRelative.setVisibility(View.INVISIBLE);
+                navigation.setVisibility(View.INVISIBLE);
+
             }
 
 

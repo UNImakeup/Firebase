@@ -43,8 +43,9 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_navigation);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         //Skrive på harddisk, gemme hvem der er login. Kunne også gemme password i guess, for at tjekke hashcode og sådan.
         final SharedPreferences gemmeobjekt = PreferenceManager.getDefaultSharedPreferences(this);
@@ -76,12 +77,6 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 switch (menuItem.getItemId()){
-
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;
 
                     case R.id.home:
                         return true;

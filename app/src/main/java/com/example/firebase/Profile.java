@@ -2,6 +2,7 @@ package com.example.firebase;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -51,6 +52,10 @@ public class Profile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         final TextView homeName = findViewById(R.id.homeName);
         final Button logoutBtn = findViewById(R.id.logoutButton);
         ImageView profilePic = findViewById(R.id.profilePic);
@@ -81,11 +86,6 @@ public class Profile extends AppCompatActivity {
             public boolean onNavigationItemSelected( MenuItem menuItem) {
                 switch (menuItem.getItemId()){
 
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;
 
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext()

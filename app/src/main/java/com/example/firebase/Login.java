@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -25,9 +26,10 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-      //  if (getSupportActionBar().isShowing()){
-    //        getSupportActionBar().hide();
-      //  }
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
 
         final EditText userName = findViewById(R.id.editTextTextPersonName2);
@@ -48,7 +50,7 @@ public class Login extends AppCompatActivity {
 
         //Det vil virke, da man stadig henter fra gemmeobjekt, når man laver user objektet. Så her ser vi bare om der er hentet/om brugeren er logget ind.
         if(!/*user.isEmpty() */user1.getUser().isEmpty()/* !user1.getUser.isEmpty() */){ //Hvis der er en bruger logget ind. Burde nok gøre det på den første side. Så kan man enten lave en bruger eller logge ind, hvis man ikke er det.
-            Intent homeIntent = new Intent(Login.this, Home.class);
+            Intent homeIntent = new Intent(Login.this, Profile.class);
             startActivity(homeIntent);
         }
 

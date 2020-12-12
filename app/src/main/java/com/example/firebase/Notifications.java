@@ -47,11 +47,6 @@ public class Notifications extends AppCompatActivity {
             public boolean onNavigationItemSelected( MenuItem menuItem) {
                 switch (menuItem.getItemId()){
 
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;
 
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext()

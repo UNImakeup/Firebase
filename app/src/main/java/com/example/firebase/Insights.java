@@ -1,5 +1,6 @@
 package com.example.firebase;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.SharedPreferences;
@@ -24,6 +25,10 @@ public class Insights extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insights);
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         //implementation of BMI calculator
 

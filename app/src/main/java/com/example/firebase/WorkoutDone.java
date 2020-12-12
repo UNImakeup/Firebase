@@ -31,8 +31,12 @@ public class WorkoutDone extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_done);
 
-        Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+        //Objects.requireNonNull(getSupportActionBar()).setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        //getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         TextView workoutSummary = findViewById(R.id.workoutResult);
         //Button workoutDoneBtn = findViewById(R.id.workoutDoneBtn);
@@ -147,12 +151,6 @@ public class WorkoutDone extends AppCompatActivity {
             public boolean onNavigationItemSelected( MenuItem menuItem) {
                 switch (menuItem.getItemId()){
 
-                    case R.id.settings:
-                        exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.
-                        startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
-                        overridePendingTransition(0,0);
-                        return true;
 
                     case R.id.home:
                         exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.

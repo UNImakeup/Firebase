@@ -125,14 +125,6 @@ public class Profile extends AppCompatActivity {
                 gemmeobjekt.edit().remove("username").apply(); //Kun her og ved login at gemmeobjekt skal bruges.
                 user1.logOut();
                 firebaseAuth.signOut();
-                /*
-                firebase.auth().signOut().then(function() {
-                    // Sign-out successful.
-                }).catch(function(error) {
-                    // An error happened.
-                });
-
-                 */
                 Intent logoutIntent = new Intent(Profile.this, MainActivity.class);
                 startActivity(logoutIntent);
             }
@@ -172,9 +164,9 @@ public class Profile extends AppCompatActivity {
                             otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
                             int userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
                             if(otherUserCompReps > userCompReps){
-                                compStatus.setText("you are losing your competition, get to work " + user1.getUser());
+                                compStatus.setText("you are losing your competition, get to work " + firebaseAuth.getCurrentUser().getDisplayName());
                             } else {
-                                compStatus.setText("You are winning your competition, "  + user1.getUser()  + " you absolute champion");
+                                compStatus.setText("You are winning your competition, "  + firebaseAuth.getCurrentUser().getDisplayName()  + " you absolute champion");
                             }
                         } else{
                             compStatus.setText("No one has joined your comp yet. Send the CompID to them, so they can join: " + user1.getCompetitionID());

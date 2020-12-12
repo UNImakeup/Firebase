@@ -23,11 +23,11 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
-    /*
-    final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
-    final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
-    final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
-     */
+    MediaPlayer haidokenSound;
+    MediaPlayer bruhexplosionSound;
+    MediaPlayer yesSound;
+    CountDownTimer countDownTimer;
+    CountDownTimer countDownTimerBefore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +36,13 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(Squats.this, acceleroMeterSensor,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView69);
         final TextView squatTimer = findViewById(R.id.squatTimer);
+
+        haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
+        bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
+        yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
+
         exerciseData = ExerciseData.getInstance();
 
 
@@ -58,7 +62,23 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
                 break;
         }
 
-        CountDownTimer countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
+
+        countDownTimerBefore = new CountDownTimer(4000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                squatTimer.setText(millisUntilFinished/1000 + "");
+            }
+
+            @Override
+            public void onFinish() {
+                Toast.makeText(Squats.this, "GO", Toast.LENGTH_SHORT).show();
+                sensorManager.registerListener(Squats.this, acceleroMeterSensor,  sensorManager.SENSOR_DELAY_NORMAL);
+                countDownTimer.start();
+            }
+        };
+        countDownTimerBefore.start();
+
+            countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
                 squatTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -74,13 +94,6 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
                 finish();
             }
         };
-
-        Toast.makeText(Squats.this,"time start", Toast.LENGTH_SHORT).show();
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
-
-
-
-
     }
 
     @Override
@@ -95,26 +108,17 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         currentValue = sensorEvent.values[1];
-
-        //i++;
-        //System.out.println(i);
-
-        //for(int i = 0; reps < 10; i++){
-        if(/*sensorEvent.values[1] > 0 lastValue < 0.0 && */currentValue < 1.0) {
+        if(currentValue < 1.0) {
             squat = true;
-            //int a = 1;
         }
         if(squat == true && currentValue > 8.0){
-            //reps++;
             squat =false;
-            reps++;
             squatExercise.addRep();
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
         textview.setText("Squats: " + squatExercise.getReps());
         double lastValue = currentValue;
 
-        /*
         switch (squatExercise.getReps()){
             case 10:
                 haidokenSound.start();
@@ -125,24 +129,9 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             case 20:
                 yesSound.start();
         }
-
-         */
-
-/*
-        if(reps == 2){
-            //onStop();
-            //onDestroy();
-            Intent exercise3 = new Intent(Squats.this, Situp.class);
-            startActivity(exercise3);
-            onStop();
-        }
-
- */
     }
 
-    //System.out.println(sensorEvent.values[1]);
 
-    //}
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {

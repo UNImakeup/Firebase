@@ -24,6 +24,7 @@ public class Exercises extends AppCompatActivity {
     CountDownTimer countDownTimer;
     ExerciseData exerciseData;
     MediaPlayer lyd; //Create sound
+    TextView chooseDifficulty;
 
 
 
@@ -38,6 +39,8 @@ public class Exercises extends AppCompatActivity {
         easyBtn = findViewById(R.id.easyBtn);
         mediumBtn = findViewById(R.id.mediumBtn);
         hardBtn = findViewById(R.id.hardBtn);
+        chooseDifficulty = findViewById(R.id.choosedifficulty);
+
         exerciseData = ExerciseData.getInstance();
 
         lyd = MediaPlayer.create(this, R.raw.ready_2); //Create sound
@@ -124,6 +127,10 @@ public class Exercises extends AppCompatActivity {
                 Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
                 countDownTimer.start();
                 exerciseData.setDifficulty(1);
+                easyBtn.setVisibility(View.INVISIBLE);
+                mediumBtn.setVisibility(View.INVISIBLE);
+                hardBtn.setVisibility(View.INVISIBLE);
+                chooseDifficulty.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -133,6 +140,10 @@ public class Exercises extends AppCompatActivity {
                 Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
                 countDownTimer.start();
                 exerciseData.setDifficulty(2);
+                easyBtn.setVisibility(View.INVISIBLE);
+                mediumBtn.setVisibility(View.INVISIBLE);
+                hardBtn.setVisibility(View.INVISIBLE);
+                chooseDifficulty.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -142,6 +153,10 @@ public class Exercises extends AppCompatActivity {
                 Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
                 countDownTimer.start();
                 exerciseData.setDifficulty(3);
+                easyBtn.setVisibility(View.INVISIBLE);
+                mediumBtn.setVisibility(View.INVISIBLE);
+                hardBtn.setVisibility(View.INVISIBLE);
+                chooseDifficulty.setVisibility(View.INVISIBLE);
             }
         });
 

@@ -76,7 +76,8 @@ public class Pushups extends AppCompatActivity {
                 Toast.makeText(Pushups.this, "GO", Toast.LENGTH_SHORT).show();
                 //pushupTimer.setText("");
                 countDownTimer.start();
-                onStop();
+                sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
+                //onStop();
 
             }
         };
@@ -134,7 +135,7 @@ public class Pushups extends AppCompatActivity {
             }
         };
 
-        sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
+        //sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
     }
     @Override
     protected void onStop(){

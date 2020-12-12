@@ -74,10 +74,8 @@ public class Backbends extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Toast.makeText(Backbends.this, "GO", Toast.LENGTH_SHORT).show();
-                //pushupTimer.setText("");
+                sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
                 countDownTimer.start();
-                onStop();
-
             }
         };
         countDownTimerBefore.start();
@@ -118,13 +116,13 @@ public class Backbends extends AppCompatActivity {
                 textview.setText(String.valueOf((backbendExercise.getReps() - 1))); //-1, fordi den starter på 1 af en eller anden grund.
 
                 switch (backbendExercise.getReps()){
-                    case 10:
+                    case 11:
                         haidokenSound.start();
                         break;
-                    case 15:
+                    case 16:
                         bruhexplosionSound.start();
                         break;
-                    case 20:
+                    case 21:
                         yesSound.start();
                 }
             }
@@ -134,8 +132,6 @@ public class Backbends extends AppCompatActivity {
 
             }
         };
-
-        sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
     }
     @Override
     protected void onStop(){

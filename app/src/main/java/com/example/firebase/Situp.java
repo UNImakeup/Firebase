@@ -23,11 +23,11 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
-    /*
-    final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
-    final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
-    final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
-     */
+    CountDownTimer countDownTimer;
+    CountDownTimer countDownTimerBefore;
+    MediaPlayer haidokenSound;
+    MediaPlayer bruhexplosionSound;
+    MediaPlayer yesSound;
 
 
     @Override
@@ -37,10 +37,14 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        sensorManager.registerListener(Situp.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
         textview = (TextView) findViewById(R.id.textView2);
         final TextView situpTimer = findViewById(R.id.situpTimer);
         exerciseData = ExerciseData.getInstance();
+
+        haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
+        bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
+        yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
+
 
         switch (exerciseData.getDifficulty()) {
             case 1:
@@ -57,9 +61,22 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 break;
         }
 
+        countDownTimerBefore = new CountDownTimer(4000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                situpTimer.setText(millisUntilFinished/1000 + "");
+            }
 
+            @Override
+            public void onFinish() {
+                Toast.makeText(Situp.this, "GO", Toast.LENGTH_SHORT).show();
+                sensorManager.registerListener(Situp.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
+                countDownTimer.start();
+            }
+        };
+        countDownTimerBefore.start();
 
-        CountDownTimer countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
+        countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
                 situpTimer.setText(millisUntilFinished/1000 + " Seconds left");
@@ -75,12 +92,6 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 finish();
             }
         };
-
-        Toast.makeText(Situp.this,"time start", Toast.LENGTH_SHORT).show(); //Kan måske fjernes. Man kan se den er gået i gang.
-        countDownTimer.start(); //Skal måske rykkes ned til metoden?
-
-
-
     }
 
     @Override
@@ -89,32 +100,23 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         super.onDestroy();
     }
 
-    int reps = 0;
     boolean situp;
     double currentValue;
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         currentValue = sensorEvent.values[1];
 
-        //i++;
-        //System.out.println(i);
-
-        //for(int i = 0; reps < 10; i++){
-        if(/*sensorEvent.values[1] > 0 lastValue < 0.0 && */currentValue < 1.0) { //Kunne nok være i egen klasse, metode man kalder
+        if(currentValue < 1.0) { //Kunne nok være i egen klasse, metode man kalder
             situp = true;
-            //int a = 1;
         }
         if(situp==true && currentValue > 4.0){
-            //reps++;
             situp=false;
-            reps++;
             situpExercise.addRep();
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
         textview.setText("Situps: " + situpExercise.getReps());
         double lastValue = currentValue;
 
-        /*
         switch (situpExercise.getReps()){
             case 10:
                 haidokenSound.start();
@@ -125,22 +127,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             case 20:
                 yesSound.start();
         }
-         */
-
-        /*
-        if(reps == 2){
-            //onStop();
-            //onDestroy();
-            Intent exercise3 = new Intent(Situp.this, Backbends.class);
-            startActivity(exercise3);
-            onStop();
-        }
-         */
     }
-
-    //System.out.println(sensorEvent.values[1]);
-
-    //}
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {

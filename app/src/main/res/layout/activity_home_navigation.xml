@@ -140,7 +140,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10sp"
-                            android:text="Get an overview or edit your profile"
+                            android:text="Get an overview of your profile"
                             android:textColor="@android:color/secondary_text_dark_nodisable"
 
                             android:textSize="20sp" />
@@ -181,7 +181,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10sp"
-                            android:text="Lets get started with your desired program!"
+                            android:text="Get started!"
                             android:textColor="@android:color/secondary_text_dark_nodisable"
 
                             android:textSize="20sp" />
@@ -198,11 +198,10 @@
                 android:layout_height="30dp">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="33dp"
-                    android:layout_marginLeft="33dp"
-                    android:text="Remember 2 calculate ure BMI"
+                    android:gravity="center"
+                    android:text="Calculate your BMI"
                     android:textColor="@color/darkwhite"
                     android:textSize="25sp"
                     android:textStyle="bold" />
@@ -230,6 +229,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+
                         android:background="@color/sub_btn_background"
                         android:orientation="vertical"
                         android:padding="10dp">
@@ -256,44 +256,7 @@
 
                 </androidx.cardview.widget.CardView>
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/planDash"
-                    android:layout_width="186dp"
-                    android:layout_height="156dp"
-                    android:layout_margin="5dp"
 
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="7dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/sub_btn_background"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <ImageView
-                            android:layout_width="102dp"
-                            android:layout_height="91dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="12sp"
-                            android:src="@drawable/plangrey"
-
-
-                            />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="Plan"
-                            android:textColor="@color/darkwhite"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-
-                </androidx.cardview.widget.CardView>
 
 
             </GridLayout>

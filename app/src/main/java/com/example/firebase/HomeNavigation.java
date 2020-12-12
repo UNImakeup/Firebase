@@ -108,12 +108,12 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
         CardView profileDash = findViewById(R.id.profileDash);
         CardView workoutDash = findViewById(R.id.workoutDash);
         CardView bmiDash = findViewById(R.id.bmiDash);
-        CardView planDash = findViewById(R.id.planDash);
+        //CardView planDash = findViewById(R.id.planDash);
 
         profileDash.setOnClickListener(this);
         workoutDash.setOnClickListener(this);
         bmiDash.setOnClickListener(this);
-        planDash.setOnClickListener(this);
+        //planDash.setOnClickListener(this);
 
 
     }
@@ -141,12 +141,6 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
                 Toast.makeText(this, "BMI Calculator", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeNavigation.this,Insights.class));
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
-                break;
-
-            case R.id.planDash:
-                Toast.makeText(this, "Plan", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(HomeNavigation.this,Profile.class));
-                // overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 break;
 
         }

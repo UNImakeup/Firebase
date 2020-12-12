@@ -76,6 +76,7 @@ public class Backbends extends AppCompatActivity {
                 exerciseData.addExercise(backbendExercise);
                 Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
 
@@ -126,6 +127,7 @@ public class Backbends extends AppCompatActivity {
                 exerciseData.addExercise(backbendExercise);
                 Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
 

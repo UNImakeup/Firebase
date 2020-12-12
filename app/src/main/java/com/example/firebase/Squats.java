@@ -68,8 +68,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(squatExercise);
                 Intent exercise3 = new Intent(Squats.this, Situp.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 countDownTimer.cancel();
                 countDownTimer2.cancel();
                 onStop();
@@ -114,8 +114,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(squatExercise);
                 Intent exercise3 = new Intent(Squats.this, Situp.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
             }

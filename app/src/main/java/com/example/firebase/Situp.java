@@ -67,8 +67,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(situpExercise);
                 Intent exercise3 = new Intent(Situp.this, Backbends.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 countDownTimer.cancel();
                 countDownTimer2.cancel();
                 onStop();
@@ -114,8 +114,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(situpExercise);
                 Intent exercise3 = new Intent(Situp.this, Backbends.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
 

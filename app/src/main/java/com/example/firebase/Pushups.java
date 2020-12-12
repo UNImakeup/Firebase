@@ -79,9 +79,11 @@ public class Pushups extends AppCompatActivity {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+
                 //exercise2.putExtra("PushupReps")
                 startActivity(exercise2);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+
                 finish();
 
 
@@ -130,9 +132,10 @@ public class Pushups extends AppCompatActivity {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+
                 //exercise2.putExtra("PushupReps")
                 startActivity(exercise2);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
             }

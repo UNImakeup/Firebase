@@ -11,7 +11,7 @@
         android:layout_gravity="center"
         android:text="ZensoMotion"
 
-        android:textColor="#B948AA"
+        android:textColor="@color/prettyRed"
         android:textSize="40dp"
 
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

@@ -4,12 +4,12 @@
     <item
 
         android:state_selected="true"
-        android:color="@android:color/white"/>
+        android:color="@color/prettyRed"/>
 
     <item
 
         android:state_selected="false"
-        android:color="@android:color/black"/>
+        android:color="@android:color/tertiary_text_light"/>
 
 
 </selector>

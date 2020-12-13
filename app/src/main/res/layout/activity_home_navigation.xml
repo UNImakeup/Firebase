@@ -82,21 +82,6 @@
                     app:tint="@color/white"
                     tools:ignore="UnknownIdInLayout" />
 
-                <TextView
-                    android:id="@+id/dashboard_adminName"
-                    android:layout_width="240dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/welcomeDash"
-                    android:layout_alignEnd="@id/welcomeDash"
-
-                    android:layout_alignRight="@id/welcomeDash"
-                    android:layout_marginTop="-33dp"
-                    android:layout_marginEnd="40dp"
-                    android:layout_marginRight="40dp"
-                    android:text="Lets get started!"
-                    android:textColor="@android:color/secondary_text_dark_nodisable"
-                    android:textSize="20sp" />
-
 
             </RelativeLayout>
 
@@ -111,7 +96,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/profileDash"
-                    android:layout_width="380dp"
+                    android:layout_width="370dp"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
                     app:cardCornerRadius="10dp"
@@ -154,7 +139,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/workoutDash"
-                    android:layout_width="380dp"
+                    android:layout_width="370dp"
                     android:layout_height="150dp"
                     android:layout_margin="10dp"
                     app:cardCornerRadius="10dp"
@@ -181,7 +166,7 @@
                             android:layout_marginStart="10dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="10sp"
-                            android:text="Get started!"
+                            android:text="Get started with these 4 exercises"
                             android:textColor="@android:color/secondary_text_dark_nodisable"
 
                             android:textSize="20sp" />
@@ -215,26 +200,25 @@
                 android:layout_height="295dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="2dp"
-                android:columnCount="2"
+                android:columnCount="1"
                 android:padding="10dp">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/bmiDash"
-                    android:layout_width="180dp"
-                    android:layout_height="155dp"
-                    android:layout_margin="5dp"
+                    android:layout_width="370dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="7dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-
+                        android:layout_height="214dp"
                         android:background="@color/sub_btn_background"
                         android:orientation="vertical"
                         android:padding="10dp">
 
-                        <ImageView
+                    <ImageView
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             android:layout_gravity="center_horizontal|center_vertical"

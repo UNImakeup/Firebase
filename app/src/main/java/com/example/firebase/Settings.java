@@ -1,5 +1,6 @@
 package com.example.firebase;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -19,6 +20,13 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
+
         //implementing bottom navigationBar
 
         //init and assign variable
@@ -55,7 +63,7 @@ public class Settings extends AppCompatActivity {
                         zen.setLooping(false);
                         startActivity(new Intent(getApplicationContext()
                                 , HomeNavigation.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         return true;
 
                     case R.id.notifications:
@@ -63,7 +71,7 @@ public class Settings extends AppCompatActivity {
                         zen.setLooping(false);
                         startActivity(new Intent(getApplicationContext()
                                 , Notifications.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         return true;
                 }
                 return false;

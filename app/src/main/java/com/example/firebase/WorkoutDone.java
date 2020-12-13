@@ -1,15 +1,18 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,8 +25,14 @@ public class WorkoutDone extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_done);
+
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         TextView workoutSummary = findViewById(R.id.workoutResult);
-        Button workoutDoneBtn = findViewById(R.id.workoutDoneBtn);
+       // Button workoutDoneBtn = findViewById(R.id.workoutDoneBtn);
         final MediaPlayer lyd = MediaPlayer.create(this, R.raw.wow); //Create sound
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRefUser = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
@@ -36,7 +45,7 @@ public class WorkoutDone extends AppCompatActivity {
 
 
         //vise tekst. Måske bruge metode i ExerciseData, print og sådan. Vise getSum til sidst.
-        workoutSummary.setText("Pushups: " + exerciseData.getExercises().get(0).getReps() +
+        workoutSummary.setText(" Pushups: " + exerciseData.getExercises().get(0).getReps() +
         "\n Squats: " + exerciseData.getExercises().get(1).getReps() +
                 "\n Situps: " + exerciseData.getExercises().get(2).getReps() +
                 "\n Backbends: " + (exerciseData.getExercises().get(3).getReps() - 1) +
@@ -121,7 +130,7 @@ public class WorkoutDone extends AppCompatActivity {
             }
         });
 
-        //Knap til homeNavigation
+       /* //Knap til homeNavigation
         workoutDoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -129,7 +138,47 @@ public class WorkoutDone extends AppCompatActivity {
                 Intent goHome = new Intent(WorkoutDone.this, HomeNavigation.class);
                 startActivity(goHome);
             }
+        });*/
+
+
+        //init and assign variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+
+        //perform itemselectedlistener
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected( MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+
+
+                    case R.id.home:
+                        exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.
+                        startActivity(new Intent(getApplicationContext()
+                                , HomeNavigation.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        return true;
+
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext()
+                                ,Settings.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        return true;
+
+                    case R.id.notifications:
+                        exerciseData.clearExercises(); //For at cleare øvelserne, så man kan træne igen.
+                        startActivity(new Intent(getApplicationContext()
+                                , Notifications.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        return true;
+
+
+                }
+                return false;
+            }
         });
+
 
     }
 }

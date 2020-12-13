@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -28,6 +29,11 @@ public class Notifications extends AppCompatActivity {
         setContentView(R.layout.activity_notifications);
 
 
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
 
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRefComp = database[0].getReference("Competition"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
@@ -50,13 +56,13 @@ public class Notifications extends AppCompatActivity {
                     case R.id.settings:
                         startActivity(new Intent(getApplicationContext()
                                 , Settings.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         return true;
 
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext()
                                 , HomeNavigation.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         return true;
 
                     case R.id.notifications:

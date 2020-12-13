@@ -99,10 +99,10 @@ public class Exercises extends AppCompatActivity {
         //start timer
         t1 = findViewById(R.id.textView);
 
-        countDownTimer = new CountDownTimer(11000,1000) {
+        countDownTimer = new CountDownTimer(1000,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                t1.setText(millisUntilFinished/1000 + "sec left");
+                t1.setText(millisUntilFinished/1000 + "");
             }
 
 

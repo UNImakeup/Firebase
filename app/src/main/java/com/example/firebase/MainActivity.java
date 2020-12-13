@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Hvis brugeren ikke er logget ind.
-        if(/*user.isEmpty()*/ user1.getUser().isEmpty()){ //Har gjort det med brugerobjektet og det virker.
+        if(user1.getUser().isEmpty()){ //Har gjort det med brugerobjektet og det virker.
             System.out.println("user not logged in");
         } else { //Hvis brugeren er logget ind, kommer vi til hjemmeskærmen.
             Intent loggedIn = new Intent(MainActivity.this, HomeNavigation.class);

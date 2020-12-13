@@ -9,17 +9,16 @@ import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.RelativeLayout;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Settings extends AppCompatActivity {
+public class MagicPlace extends AppCompatActivity {
     MediaPlayer zen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_magic_place);
 
         //actionbar hide
         ActionBar actionBar = getSupportActionBar();
@@ -70,7 +69,7 @@ public class Settings extends AppCompatActivity {
                         zen.stop();
                         zen.setLooping(false);
                         startActivity(new Intent(getApplicationContext()
-                                , Notifications.class));
+                                , Competition.class));
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         return true;
                 }

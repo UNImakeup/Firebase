@@ -14,13 +14,13 @@
         <activity android:name=".Situp"/>
         <activity android:name=".Backbends"/>
         <activity android:name=".Pushups"/>
-        <activity android:name=".Notifications"/>
-        <activity android:name=".Settings"/>
+        <activity android:name=".Competition"/>
+        <activity android:name=".MagicPlace"/>
         <activity android:name=".Insights" />
         <activity android:name=".Exercises"/>
         <activity android:name=".Profile"/>
         <activity android:name=".HomeNavigation"/>
-        <activity android:name=".MainActivity2" />
+        <activity android:name=".Signup" />
 
         <activity android:name=".MainActivity" >
             <intent-filter>

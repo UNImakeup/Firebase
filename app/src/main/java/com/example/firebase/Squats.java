@@ -2,6 +2,8 @@ package com.example.firebase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -31,10 +33,15 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     CountDownTimer countDownTimer;
     CountDownTimer countDownTimerBefore;
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_squat);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -54,8 +61,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(squatExercise);
                 Intent exercise3 = new Intent(Squats.this, Situp.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 countDownTimer.cancel();
                 countDownTimerBefore.cancel();
                 onStop();
@@ -103,10 +110,11 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
 
             @Override
             public void onFinish() {
-                Toast.makeText(Squats.this,"finish",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Squats.this,"Get ready for Situps!",Toast.LENGTH_SHORT).show();
                 exerciseData.addExercise(squatExercise);
                 Intent exercise3 = new Intent(Squats.this, Situp.class);
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
             }

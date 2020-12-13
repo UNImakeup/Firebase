@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.RequiresApi;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -31,11 +33,16 @@ public class Backbends extends AppCompatActivity {
     int countDownInterval;
     Button skipBackbends;
 
+    @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_backbends);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -62,6 +69,7 @@ public class Backbends extends AppCompatActivity {
                 exerciseData.addExercise(backbendExercise);
                 Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
             }
@@ -105,10 +113,11 @@ public class Backbends extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Toast.makeText(Backbends.this,"Workout Done",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Backbends.this,"Workout Done!!!",Toast.LENGTH_SHORT).show();
                 exerciseData.addExercise(backbendExercise);
                 Intent goHome = new Intent(Backbends.this, WorkoutDone.class);
                 startActivity(goHome);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
             }

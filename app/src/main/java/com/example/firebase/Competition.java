@@ -21,12 +21,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.Random;
 
-public class Notifications extends AppCompatActivity {
+public class Competition extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_notifications);
+        setContentView(R.layout.activity_competition);
 
 
         //actionbar hide
@@ -55,7 +55,7 @@ public class Notifications extends AppCompatActivity {
 
                     case R.id.settings:
                         startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
+                                , MagicPlace.class));
                         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         return true;
 

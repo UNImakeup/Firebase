@@ -3,6 +3,8 @@ package com.example.firebase;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.RequiresApi;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
@@ -30,11 +32,16 @@ public class Pushups extends AppCompatActivity {
     int countDownInterval;
     Button skipPushups;
 
+    @SuppressLint("WrongConstant")
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pushups);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
@@ -46,6 +53,7 @@ public class Pushups extends AppCompatActivity {
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
         exerciseData = ExerciseData.getInstance();
 
+        Toast.makeText(Pushups.this,"Starting pushups in...",Toast.LENGTH_SHORT).show();
 
         if(proximitySensor == null){
             Toast.makeText(this, "Proximity sensor not available !", Toast.LENGTH_LONG).show();
@@ -62,8 +70,8 @@ public class Pushups extends AppCompatActivity {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise2);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
 
 
@@ -89,7 +97,10 @@ public class Pushups extends AppCompatActivity {
         countDownTimerBefore = new CountDownTimer(4000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+
                 pushupTimer.setText(millisUntilFinished/1000 + "");
+
+
             }
 
             @Override
@@ -112,7 +123,7 @@ public class Pushups extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-                Toast.makeText(Pushups.this,"finish",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Pushups.this,"Get ready for Squats!",Toast.LENGTH_SHORT).show();
                 exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
                 //exercise2.putExtra("PushupReps")

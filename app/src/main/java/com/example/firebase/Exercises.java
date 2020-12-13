@@ -1,9 +1,9 @@
 package com.example.firebase;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -12,19 +12,24 @@ import android.os.CountDownTimer;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Exercises extends AppCompatActivity {
+public class Exercises extends AppCompatActivity implements View.OnClickListener {
+
     TextView t1;
+    TextView exercisesHeader;
     Button b1, easyBtn, mediumBtn, hardBtn;
     CountDownTimer countDownTimer;
     ExerciseData exerciseData;
     MediaPlayer lyd; //Create sound
     TextView chooseDifficulty;
+    CardView easyCard, hardCard, mediumCard;
+    GridLayout gridlayoutexercises;
+    BottomNavigationView bottomNavigationView;
+    TextView greyHeader;
 
 
 
@@ -32,61 +37,70 @@ public class Exercises extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises);
-        //implementing bottom navigationBar
+
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
 
         //init and assign variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-        easyBtn = findViewById(R.id.easyBtn);
-        mediumBtn = findViewById(R.id.mediumBtn);
-        hardBtn = findViewById(R.id.hardBtn);
-        chooseDifficulty = findViewById(R.id.choosedifficulty);
+      bottomNavigationView = findViewById(R.id.bottom_navigation);
 
+      easyCard = findViewById(R.id.easyCard);
+      mediumCard = findViewById(R.id.mediumCard);
+      hardCard = findViewById(R.id.hardCard);
+
+      easyCard.setOnClickListener(this);
+      mediumCard.setOnClickListener(this);
+      hardCard.setOnClickListener(this);
+
+
+        chooseDifficulty = findViewById(R.id.choosedifficulty);
+        exercisesHeader = findViewById(R.id.textView5);
+        gridlayoutexercises = findViewById(R.id.gridLayoutexercises);
         exerciseData = ExerciseData.getInstance();
+        greyHeader = findViewById(R.id.textView11);
+        chooseDifficulty.setVisibility(View.VISIBLE);
+
 
         lyd = MediaPlayer.create(this, R.raw.ready_2); //Create sound
         lyd.start(); //Play sound
 
 
+        //animeret bacggrund
 
-
-//Skal lige kigge på det her hjemme.
-
-        RelativeLayout constraintLayout = findViewById(R.id.layout);
+        ConstraintLayout constraintLayout = findViewById(R.id.layout);
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
 
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-
-
-
-
-
+        //implementing bottom navigationBar
         //perform itemselectedlistener
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+            public boolean onNavigationItemSelected( MenuItem menuItem) {
                 switch (menuItem.getItemId()){
+
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext()
                                 ,MainActivity.class));
-                        overridePendingTransition(0,0);
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         return true;
 
                     case R.id.settings:
                         startActivity(new Intent(getApplicationContext()
-                                , Settings.class));
-                        overridePendingTransition(0,0);
+                                , MagicPlace.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         return true;
-
-
 
                     case R.id.notifications:
                         startActivity(new Intent(getApplicationContext()
-                                ,Notifications.class));
-                        overridePendingTransition(0,0);
+                                , Competition.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         return true;
 
 
@@ -98,22 +112,23 @@ public class Exercises extends AppCompatActivity {
 
         //start timer
         t1 = findViewById(R.id.textView);
+        t1.setVisibility(View.INVISIBLE);
 
-        countDownTimer = new CountDownTimer(1000,1000) {
+        countDownTimer = new CountDownTimer(5500,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 t1.setText(millisUntilFinished/1000 + "");
             }
 
 
-
             @Override
             public void onFinish() {
                 lyd.stop();
-                t1.setText("time finish");
-                Toast.makeText(Exercises.this,"finish",Toast.LENGTH_SHORT).show();
+               // t1.setText("time finish");
+              //  Toast.makeText(Exercises.this,"finish",Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(Exercises.this, Pushups.class); //Kan sige putExtra med sværhedsgraden.
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 finish();
 
             }
@@ -121,44 +136,6 @@ public class Exercises extends AppCompatActivity {
 
         };
 
-        easyBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
-                countDownTimer.start();
-                exerciseData.setDifficulty(1);
-                easyBtn.setVisibility(View.INVISIBLE);
-                mediumBtn.setVisibility(View.INVISIBLE);
-                hardBtn.setVisibility(View.INVISIBLE);
-                chooseDifficulty.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        mediumBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
-                countDownTimer.start();
-                exerciseData.setDifficulty(2);
-                easyBtn.setVisibility(View.INVISIBLE);
-                mediumBtn.setVisibility(View.INVISIBLE);
-                hardBtn.setVisibility(View.INVISIBLE);
-                chooseDifficulty.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        hardBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(Exercises.this,"time start", Toast.LENGTH_SHORT).show();
-                countDownTimer.start();
-                exerciseData.setDifficulty(3);
-                easyBtn.setVisibility(View.INVISIBLE);
-                mediumBtn.setVisibility(View.INVISIBLE);
-                hardBtn.setVisibility(View.INVISIBLE);
-                chooseDifficulty.setVisibility(View.INVISIBLE);
-            }
-        });
 
 
     }
@@ -168,5 +145,61 @@ public class Exercises extends AppCompatActivity {
         lyd.stop();
         //super.onStop();
         super.onPause();
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()) {
+
+            case R.id.easyCard:
+                Toast.makeText(Exercises.this,"Get ready for your program!",Toast.LENGTH_SHORT).show();
+                t1.setVisibility(View.VISIBLE);
+                countDownTimer.start();
+                exerciseData.setDifficulty(1);
+                exercisesHeader.setVisibility(View.INVISIBLE);
+                chooseDifficulty.setVisibility(View.INVISIBLE);
+                gridlayoutexercises.setVisibility(View.INVISIBLE);
+                bottomNavigationView.setVisibility(View.INVISIBLE);
+                greyHeader.setVisibility(View.INVISIBLE);
+
+
+
+            break;
+
+
+            case R.id.mediumCard:
+                Toast.makeText(Exercises.this,"Get ready for your program!",Toast.LENGTH_SHORT).show();
+                countDownTimer.start();
+                exerciseData.setDifficulty(2);
+                chooseDifficulty.setVisibility(View.INVISIBLE);
+                exercisesHeader.setVisibility(View.INVISIBLE);
+                gridlayoutexercises.setVisibility(View.INVISIBLE);
+                bottomNavigationView.setVisibility(View.INVISIBLE);
+                t1.setVisibility(View.VISIBLE);
+                greyHeader.setVisibility(View.INVISIBLE);
+
+            break;
+
+
+            case R.id.hardCard:
+                Toast.makeText(Exercises.this,"Get ready for your program!",Toast.LENGTH_SHORT).show();
+                countDownTimer.start();
+                exerciseData.setDifficulty(3);
+                chooseDifficulty.setVisibility(View.INVISIBLE);
+                exercisesHeader.setVisibility(View.INVISIBLE);
+                gridlayoutexercises.setVisibility(View.INVISIBLE);
+                bottomNavigationView.setVisibility(View.INVISIBLE);
+                t1.setVisibility(View.VISIBLE);
+                greyHeader.setVisibility(View.INVISIBLE);
+                break;
+
+
+
+        }
+
+
+
     }
 }

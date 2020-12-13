@@ -2,6 +2,8 @@ package com.example.firebase;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -32,10 +34,15 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     MediaPlayer yesSound;
 
 
+    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situp);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -55,8 +62,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 ExerciseData exerciseData = ExerciseData.getInstance();
                 exerciseData.addExercise(situpExercise);
                 Intent exercise3 = new Intent(Situp.this, Backbends.class);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 countDownTimer.cancel();
                 countDownTimerBefore.cancel();
                 onStop();
@@ -102,10 +109,11 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
 
             @Override
             public void onFinish() { //Kunne starte ny timer i stedet og ændre textviews, for at have pause før øvelsen begynder. Når den første timer er slut kunne man registerlistener.
-                Toast.makeText(Situp.this,"finish",Toast.LENGTH_SHORT).show();
+                Toast.makeText(Situp.this,"Get ready for Backbends!",Toast.LENGTH_SHORT).show();
                 exerciseData.addExercise(situpExercise);
                 Intent exercise3 = new Intent(Situp.this, Backbends.class); //Putextra med sværhedsgrad, måske andet objekt med exercise, hvor vi gemmer reps.
                 startActivity(exercise3);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
             }

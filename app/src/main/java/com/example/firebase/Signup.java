@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.View;
@@ -22,13 +20,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity2 extends AppCompatActivity {
+public class Signup extends AppCompatActivity {
     private EditText emailEt,passwordEt1,passwordEt2, username;
     private Button SignUpButton;
     private TextView SignInTv;
@@ -42,7 +37,7 @@ public class MainActivity2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_signup);
         firebaseAuth=FirebaseAuth.getInstance();
 
         emailEt=findViewById(R.id.email);
@@ -58,7 +53,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         //Det vil virke, da man stadig henter fra gemmeobjekt, når man laver user objektet. Så her ser vi bare om der er hentet/om brugeren er logget ind.
         if(!user1.getUser().isEmpty()){ //Hvis der er en bruger logget ind. Burde nok gøre det på den første side. Så kan man enten lave en bruger eller logge ind, hvis man ikke er det.
-            Intent homeIntent = new Intent(MainActivity2.this, Profile.class);
+            Intent homeIntent = new Intent(Signup.this, Profile.class);
             startActivity(homeIntent);
         }
 
@@ -72,7 +67,7 @@ public class MainActivity2 extends AppCompatActivity {
         SignInTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(MainActivity2.this,MainActivity.class);
+                Intent intent=new Intent(Signup.this,MainActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left); //Ikke hokuspokus
                 finish();
@@ -141,14 +136,14 @@ public class MainActivity2 extends AppCompatActivity {
                     firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
                     user1.setUser(firebaseAuth.getUid()); //Prøver at sætte herned, da brugeren skal være logget ind. måske rykke logget ind, herind. Så den nye bruger er logget ind.
                     myRefUser.child(firebaseAuth.getUid()).child("yass").setValue("yass"); //Send data to database //Er kommet i databaseSingleton, så kan bare kalde den med det objekt.
-                    Toast.makeText(MainActivity2.this,"Successfully registered",Toast.LENGTH_LONG).show();
-                    Intent intent=new Intent(MainActivity2.this, HomeNavigation.class);
+                    Toast.makeText(Signup.this,"Successfully registered",Toast.LENGTH_LONG).show();
+                    Intent intent=new Intent(Signup.this, HomeNavigation.class);
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     finish();
                 }
                 else{
-                    Toast.makeText(MainActivity2.this,"Sign up fail!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(Signup.this,"Sign up fail!",Toast.LENGTH_LONG).show();
                 }
                 progressDialog.dismiss();
             }

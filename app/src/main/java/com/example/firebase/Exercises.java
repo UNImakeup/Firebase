@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -30,7 +31,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
     GridLayout gridlayoutexercises;
     BottomNavigationView bottomNavigationView;
     TextView greyHeader;
-
+    RelativeLayout relativeNederst;
 
 
     @Override
@@ -41,6 +42,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
 
         //actionbar hide
         ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
         actionBar.hide();
 
 
@@ -59,6 +61,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
         chooseDifficulty = findViewById(R.id.choosedifficulty);
         exercisesHeader = findViewById(R.id.textView5);
         gridlayoutexercises = findViewById(R.id.gridLayoutexercises);
+        relativeNederst = findViewById(R.id.relativeLayoutnederst);
         exerciseData = ExerciseData.getInstance();
         greyHeader = findViewById(R.id.textView11);
         chooseDifficulty.setVisibility(View.VISIBLE);
@@ -163,6 +166,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
                 gridlayoutexercises.setVisibility(View.INVISIBLE);
                 bottomNavigationView.setVisibility(View.INVISIBLE);
                 greyHeader.setVisibility(View.INVISIBLE);
+                relativeNederst.setVisibility(View.INVISIBLE);
 
 
 
@@ -179,7 +183,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
                 bottomNavigationView.setVisibility(View.INVISIBLE);
                 t1.setVisibility(View.VISIBLE);
                 greyHeader.setVisibility(View.INVISIBLE);
-
+                relativeNederst.setVisibility(View.INVISIBLE);
             break;
 
 
@@ -193,6 +197,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
                 bottomNavigationView.setVisibility(View.INVISIBLE);
                 t1.setVisibility(View.VISIBLE);
                 greyHeader.setVisibility(View.INVISIBLE);
+                relativeNederst.setVisibility(View.INVISIBLE);
                 break;
 
 

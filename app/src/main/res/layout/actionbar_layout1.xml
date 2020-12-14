@@ -10,7 +10,7 @@
         android:id="@+id/zensoTitle"
         android:layout_gravity="center"
         android:text="ZensoMotion"
-
+        android:fontFamily="sans-serif-light"
         android:textColor="@color/prettyRed"
         android:textSize="40dp"
 

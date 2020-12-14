@@ -11,9 +11,9 @@
 
     <TextView
         android:id="@+id/textView11"
-        android:layout_width="match_parent"
-        android:layout_height="207dp"
-        android:layout_marginBottom="73dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="30dp"
         android:background="@color/colorPrimaryTet"
         app:layout_constraintBottom_toTopOf="@+id/gridLayoutexercises"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,31 +28,35 @@
         android:layout_row="1"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="100dp"
 
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginRight="18dp"
         android:gravity="center_horizontal"
         android:text="1"
         android:textSize="350sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/choosedifficulty"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:layout_marginLeft="100dp" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="36dp"
-        android:text="EXERCISES"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="25dp"
+        android:text="Workout"
         android:textColor="@color/prettyRed"
         android:textSize="50sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/choosedifficulty"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -61,33 +65,29 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="9dp"
-
-        android:text="@string/choose_difficulty"
+        android:layout_marginBottom="39dp"
+        android:text="  4 Work Outs  ·  3 Difficulties"
         android:textColor="@color/darkwhite"
         android:textSize="22dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayoutexercises"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
         tools:ignore="MissingConstraints" />
 
     <GridLayout
         android:id="@+id/gridLayoutexercises"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginEnd="7dp"
-        android:layout_marginRight="7dp"
-        android:layout_marginBottom="265dp"
+        android:layout_width="399dp"
+        android:layout_height="158dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="320dp"
         android:columnCount="3"
         android:padding="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/choosedifficulty"
         tools:ignore="MissingConstraints">
 
         <androidx.cardview.widget.CardView
@@ -96,35 +96,38 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_margin="5dp"
-            android:background="@color/black"
+            android:background="@color/prettyRed"
             app:cardCornerRadius="10dp"
             app:cardElevation="7dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black"
+                android:background="@color/prettyRed"
                 android:orientation="vertical"
                 android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="95dp"
-                    android:layout_height="44dp"
-                    android:layout_gravity="center_horizontal|center_vertical"
-
-
-                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"
                     android:text="EASY"
-
-                    android:textColor="@color/prettyRed"
-                    android:textSize="20sp"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="25dp"
 
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10 seconds"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_horizontal"
+
+                    />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -135,33 +138,36 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_margin="5dp"
-            android:background="@color/black"
+            android:background="@color/prettyRed"
             app:cardCornerRadius="10dp"
             app:cardElevation="7dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black"
+                android:background="@color/prettyRed"
                 android:orientation="vertical"
                 android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="98dp"
-                    android:layout_height="42dp"
-                    android:layout_gravity="center_horizontal|center_vertical"
-
-
-                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="MEDIUM"
-                    android:textColor="@color/prettyRed"
-                    android:textSize="20sp"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="25dp"
+                    android:layout_marginTop="20dp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="20 seconds"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_horizontal"
+
+                    />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -172,33 +178,36 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_margin="5dp"
-            android:background="@color/black"
+            android:background="@color/prettyRed"
             app:cardCornerRadius="10dp"
             app:cardElevation="7dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/black"
+                android:background="@color/prettyRed"
                 android:orientation="vertical"
                 android:padding="10dp">
-
-                <ImageView
-                    android:layout_width="102dp"
-                    android:layout_height="44dp"
-                    android:layout_gravity="center_horizontal|center_vertical"
-
-
-                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="HARD"
-                    android:textColor="@color/prettyRed"
-                    android:textSize="20sp"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="25sp"
+                    android:layout_marginTop="20dp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30 seconds"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_horizontal"
+
+                    />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -206,20 +215,33 @@
 
     </GridLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_navigation"
+    <RelativeLayout
+        android:id="@+id/relativeLayoutnederst"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+
+        android:layout_height="0dp"
         android:background="@color/colorPrimaryTet"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="@drawable/selector"
-        app:itemTextColor="@drawable/selector"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridLayoutexercises"
-        app:menu="@menu/menu_navigation"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintVertical_bias="1.0">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryTet"
+            app:itemBackground="@color/colorPrimary"
+            app:itemIconTint="@drawable/selector"
+            app:itemTextColor="@drawable/selector"
+            app:menu="@menu/menu_navigation"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="676dp" />
+    </RelativeLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

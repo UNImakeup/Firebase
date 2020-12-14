@@ -44,7 +44,7 @@ public class Competition extends AppCompatActivity {
 
         //set home selected
 
-        bottomNavigationView.setSelectedItemId(R.id.notifications);
+        bottomNavigationView.setSelectedItemId(R.id.competition);
 
         //perform itemselectedlistener
 
@@ -53,7 +53,7 @@ public class Competition extends AppCompatActivity {
             public boolean onNavigationItemSelected( MenuItem menuItem) {
                 switch (menuItem.getItemId()){
 
-                    case R.id.settings:
+                    case R.id.magic_place:
                         startActivity(new Intent(getApplicationContext()
                                 , MagicPlace.class));
                         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
@@ -65,7 +65,7 @@ public class Competition extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         return true;
 
-                    case R.id.notifications:
+                    case R.id.competition:
 
                         return true;
 

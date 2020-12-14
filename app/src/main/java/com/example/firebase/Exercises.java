@@ -30,7 +30,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
     CardView easyCard, hardCard, mediumCard;
     GridLayout gridlayoutexercises;
     BottomNavigationView bottomNavigationView;
-    TextView greyHeader;
+    RelativeLayout relativeLayoutØverst;
     RelativeLayout relativeNederst;
 
 
@@ -48,7 +48,6 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
 
         //init and assign variable
       bottomNavigationView = findViewById(R.id.bottom_navigation);
-
       easyCard = findViewById(R.id.easyCard);
       mediumCard = findViewById(R.id.mediumCard);
       hardCard = findViewById(R.id.hardCard);
@@ -62,8 +61,9 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
         exercisesHeader = findViewById(R.id.textView5);
         gridlayoutexercises = findViewById(R.id.gridLayoutexercises);
         relativeNederst = findViewById(R.id.relativeLayoutnederst);
+        relativeLayoutØverst = findViewById(R.id.relativeLayoutHeader);
         exerciseData = ExerciseData.getInstance();
-        greyHeader = findViewById(R.id.textView11);
+
         chooseDifficulty.setVisibility(View.VISIBLE);
 
 
@@ -91,16 +91,16 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext()
                                 ,MainActivity.class));
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         return true;
 
-                    case R.id.settings:
+                    case R.id.magic_place:
                         startActivity(new Intent(getApplicationContext()
                                 , MagicPlace.class));
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         return true;
 
-                    case R.id.notifications:
+                    case R.id.competition:
                         startActivity(new Intent(getApplicationContext()
                                 , Competition.class));
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
@@ -165,7 +165,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
                 chooseDifficulty.setVisibility(View.INVISIBLE);
                 gridlayoutexercises.setVisibility(View.INVISIBLE);
                 bottomNavigationView.setVisibility(View.INVISIBLE);
-                greyHeader.setVisibility(View.INVISIBLE);
+                relativeLayoutØverst.setVisibility(View.INVISIBLE);
                 relativeNederst.setVisibility(View.INVISIBLE);
 
 
@@ -182,7 +182,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
                 gridlayoutexercises.setVisibility(View.INVISIBLE);
                 bottomNavigationView.setVisibility(View.INVISIBLE);
                 t1.setVisibility(View.VISIBLE);
-                greyHeader.setVisibility(View.INVISIBLE);
+                relativeLayoutØverst.setVisibility(View.INVISIBLE);
                 relativeNederst.setVisibility(View.INVISIBLE);
             break;
 
@@ -196,7 +196,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
                 gridlayoutexercises.setVisibility(View.INVISIBLE);
                 bottomNavigationView.setVisibility(View.INVISIBLE);
                 t1.setVisibility(View.VISIBLE);
-                greyHeader.setVisibility(View.INVISIBLE);
+                relativeLayoutØverst.setVisibility(View.INVISIBLE);
                 relativeNederst.setVisibility(View.INVISIBLE);
                 break;
 

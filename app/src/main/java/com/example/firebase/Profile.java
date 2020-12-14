@@ -1,51 +1,79 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.IOException;
-import java.util.UUID;
 
 public class Profile extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
 
-
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
+
+        //implementing bottom navigationBar
+        //perform itemselectedlistener
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected( MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext()
+                                ,MainActivity.class));
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
+                        return true;
+
+                    case R.id.magic_place:
+                        startActivity(new Intent(getApplicationContext()
+                                , MagicPlace.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        return true;
+
+                    case R.id.competition:
+                        startActivity(new Intent(getApplicationContext()
+                                , Competition.class));
+                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        return true;
+
+
+                }
+                return false;
+            }
+        });
+
+
         final TextView homeName = findViewById(R.id.homeName);
-        final Button logoutBtn = findViewById(R.id.logoutButton);
+        final ImageView logoutBtn = findViewById(R.id.logoutButton);
         ImageView profilePic = findViewById(R.id.profilePic);
         final TextView compStatus = findViewById(R.id.compStatus);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -87,8 +115,8 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(user).child("BMI").exists()) {
-                    homeName.setText("hello " + firebaseAuth.getCurrentUser().getDisplayName() +
-                            ", your BMI is " + dataSnapshot.child(user).child("BMI").getValue().toString());
+                    homeName.setText("Hello " + firebaseAuth.getCurrentUser().getDisplayName() +
+                            ",\nYour BMI is " + dataSnapshot.child(user).child("BMI").getValue().toString());
                 } else {
                     homeName.setText("Please input your Height and Weight in Insights, to see your BMI here");
                 }

@@ -43,26 +43,20 @@
             <RelativeLayout
                 android:id="@+id/topArea"
                 android:layout_width="match_parent"
-                android:layout_height="256dp"
+                android:layout_height="253dp"
                 android:background="@color/black">
 
 
                 <TextView
                     android:id="@+id/welcomeDash"
-                    android:layout_width="296dp"
-                    android:layout_height="44dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginStart="-6dp"
-                    android:layout_marginLeft="-6dp"
-                    android:layout_marginTop="64dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginRight="25dp"
-                    android:layout_marginBottom="35dp"
-                    android:layout_toEndOf="@+id/imageMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="70dp"
                     android:layout_toRightOf="@+id/imageMenu"
-                    android:text="     Welcome user"
-                    android:textColor="@android:color/secondary_text_dark_nodisable"
-                    android:textSize="32dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="Welcome user"
+                    android:textColor="@color/darkwhite"
+                    android:textSize="20dp"
                     android:textStyle="bold" />
 
                 <ImageView
@@ -86,11 +80,11 @@
             </RelativeLayout>
 
             <GridLayout
-                android:layout_width="398dp"
-                android:layout_height="390dp"
+                android:layout_width="396dp"
+                android:layout_height="360dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="-80dp"
+                android:layout_marginTop="-100dp"
                 android:columnCount="1"
                 android:padding="5dp">
 

@@ -33,7 +33,7 @@ public class MagicPlace extends AppCompatActivity {
 
         //set home selected
 
-        bottomNavigationView.setSelectedItemId(R.id.settings);
+        bottomNavigationView.setSelectedItemId(R.id.magic_place);
 
         zen = MediaPlayer.create(this, R.raw.shiloh); //Create sound
         zen.start();
@@ -54,7 +54,7 @@ public class MagicPlace extends AppCompatActivity {
             public boolean onNavigationItemSelected( MenuItem menuItem) {
                 switch (menuItem.getItemId()){
 
-                    case R.id.settings:
+                    case R.id.magic_place:
                         return true;
 
                     case R.id.home:
@@ -65,7 +65,7 @@ public class MagicPlace extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         return true;
 
-                    case R.id.notifications:
+                    case R.id.competition:
                         zen.stop();
                         zen.setLooping(false);
                         startActivity(new Intent(getApplicationContext()

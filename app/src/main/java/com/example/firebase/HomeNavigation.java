@@ -49,7 +49,7 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReference();
 
-        displayName.setText("Welcome " + user + "!"); //Burde måske være displayname vi viste. Men lige nu er det ikke på skærmen.
+        displayName.setText("Welcome \n" + user + "!"); //Burde måske være displayname vi viste. Men lige nu er det ikke på skærmen.
 
         //init and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -69,12 +69,12 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
                     case R.id.home:
                         return true;
 
-                    case R.id.settings:
+                    case R.id.magic_place:
                         startActivity(new Intent(getApplicationContext()
                                 , MagicPlace.class));
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                         return true;
-                    case R.id.notifications:
+                    case R.id.competition:
                         startActivity(new Intent(getApplicationContext()
                                 , Competition.class));
                         overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);

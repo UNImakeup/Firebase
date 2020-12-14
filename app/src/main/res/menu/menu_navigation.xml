@@ -10,7 +10,7 @@
 
     <item
 
-        android:id="@+id/settings"
+        android:id="@+id/magic_place"
         android:title="Magic Place"
         android:icon="@drawable/magic"/>
 
@@ -18,7 +18,7 @@
 
     <item
 
-        android:id="@+id/notifications"
+        android:id="@+id/competition"
         android:title="Competition"
         android:icon="@drawable/competition"/>
 

@@ -60,13 +60,35 @@ public class Profile extends AppCompatActivity {
         final DatabaseReference myRefComp = database[0].getReference("Competition");
         final User user1 = User.getInstance(this); //Context er ligegyldig, den henter alligevel i mainActivity
 
-        homeName.setText(firebaseAuth.getCurrentUser().getDisplayName()); //Virker med user.getuser og med firebaseAuth.getCurrentUser().getEmail() viser username
+        //homeName.setText(firebaseAuth.getCurrentUser().getDisplayName()); //Virker med user.getuser og med firebaseAuth.getCurrentUser().getEmail() viser username
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            int competitionID;
+            int userCompetitionID;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if(dataSnapshot.child(user1.getUser()).child("CompetitionID").exists()) {
+                    competitionID =  dataSnapshot.child(user1.getUser()).child("CompetitionID").getValue(Integer.class);
+                    user1.setCompetitionID(competitionID);
+                    userCompetitionID = Integer.parseInt(dataSnapshot.child(user1.getUser()).child("CompetitionID" + competitionID).
+                            child(user1.getUser() + "UserValue").getValue(String.class));
+                    user1.setUserCompetitionID(userCompetitionID);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(user).child("BMI").exists()) {
-                    homeName.setText("hello " + firebaseAuth.getCurrentUser().getDisplayName() + ", your BMI is " + dataSnapshot.child(user).child("BMI").getValue().toString());
+                    homeName.setText("hello " + firebaseAuth.getCurrentUser().getDisplayName() +
+                            ", your BMI is " + dataSnapshot.child(user).child("BMI").getValue().toString());
                 } else {
                     homeName.setText("Please input your Height and Weight in Insights, to see your BMI here");
                 }
@@ -77,6 +99,8 @@ public class Profile extends AppCompatActivity {
 
             }
         });
+
+
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,64 +113,59 @@ public class Profile extends AppCompatActivity {
             }
         });
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            int competitionID;
-            int userCompetitionID;
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                if(dataSnapshot.child(user1.getUser()).child("CompetitionID").exists()) {
-                    competitionID =  dataSnapshot.child(user1.getUser()).child("CompetitionID").getValue(Integer.class);
-                    user1.setCompetitionID(competitionID);
-                    userCompetitionID = Integer.parseInt(dataSnapshot.child(user1.getUser()).child("CompetitionID" + competitionID).child(user1.getUser() + "UserValue").getValue(String.class));
-                    user1.setUserCompetitionID(userCompetitionID);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
         myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
             int otherUserCompReps;
+            int userCompReps;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).exists())//Skal tjekke i comp, skal lige finde ud af hvordan. Tror ikke man kan lave listener herinde)
-                    //Det kan man ikke. Enten lave databasestruktur om eller lægge CompID i sharedPreferences og hente derfra.
-                    // Kunne vel egentlig også bare være i brugerobjekt. Gøre det herinde, før man lægger op.
-                    if(user1.getUserCompetitionID() == 1){ //Finder den anden brugers id baseret på ens egen, da der kun burde være 2 i konkurrencen.
+                if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).exists()) { //denne ender forkert, burde dække hele sætningen.
+
+                    if (user1.getUserCompetitionID() == 1) { //Finder den anden brugers id baseret på ens egen, da der kun burde være 2 i konkurrencen.
                         int otherUserCompID = 2;
-                        if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
+
+                        if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
+                            //if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
                             otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
-                            int userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
-                            if(otherUserCompReps > userCompReps){
-                                compStatus.setText("you are losing your competition, get to work " + firebaseAuth.getCurrentUser().getDisplayName());
-                            } else {
-                                compStatus.setText("You are winning your competition, "  + firebaseAuth.getCurrentUser().getDisplayName()  + " you absolute champion");
-                            }
-                        } else{
+                            //}
+                        } else {
                             compStatus.setText("No one has joined your comp yet. Send the CompID to them, so they can join: " + user1.getCompetitionID());
                         }
-                        }else if (user1.getUserCompetitionID() == 2){
+
+                        if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").exists()) {
+                            userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
+                        }
+
+                        if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists() && otherUserCompReps > userCompReps) {
+                            compStatus.setText("you are losing your competition, get to work " + firebaseAuth.getCurrentUser().getDisplayName());
+
+                        } else if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists() && otherUserCompReps < userCompReps){
+                            compStatus.setText("You are winning your competition, " + firebaseAuth.getCurrentUser().getDisplayName() + " you absolute champion");
+                        }
+                    } else if (user1.getUserCompetitionID() == 2) {
                         int otherUserCompID = 1;
-                        if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
-                            otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
-                            int userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
-                            if(otherUserCompReps > userCompReps){
+                        if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
+                            if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
+                                otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
+                            } //Behøver ikke tjekke om den anden bruger er oprette og skrive at de ikke er, da man er nummer 2 og altså ikke den der oprettede. Der er et andet medlem. 
+                            if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").exists()) {
+                                userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
+                            }
+                            if (otherUserCompReps > userCompReps) {
                                 compStatus.setText("you are losing your competition, get to work " + user1.getUser());
                             } else {
-                                compStatus.setText("You are winning your competition, "  + user1.getUser()  + " you absolute champion");
+                                compStatus.setText("You are winning your competition, " + user1.getUser() + " you absolute champion");
                             }
-                        } else{
-                            compStatus.setText("No one has joined your comp yet. Send the CompID to them, so they can join: " + user1.getCompetitionID());
                         }
-                        }
+                    }
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+
+
+
     }
         }

@@ -39,6 +39,7 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
         final String user = gemmeobjekt.getString("username", "");
         final TextView displayName = findViewById(R.id.welcomeDash);
 
+        //Tror ikke der er brug for databaseting her.
         //Database
         final FirebaseDatabase[] database = {FirebaseDatabase.getInstance()}; //Get instance of database
         final DatabaseReference myRef = database[0].getReference("User"); //Get reference to certain spot in database, tror det er til når jeg prøvede at hente data. Også når jeg indsætter data.
@@ -48,7 +49,7 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageReference = storage.getReference();
 
-        displayName.setText("Welcome " + user + "!");
+        displayName.setText("Welcome " + user + "!"); //Burde måske være displayname vi viste. Men lige nu er det ikke på skærmen.
 
         //init and assign variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -131,6 +132,5 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
                 break;
 
         }
-
     }
 }

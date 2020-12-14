@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
             Intent loggedIn = new Intent(MainActivity.this, HomeNavigation.class);
             startActivity(loggedIn);
         }
+
+
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
 

@@ -129,18 +129,17 @@ public class MainActivity2 extends AppCompatActivity {
         progressDialog.setMessage("Please wait...");
         progressDialog.show();
         progressDialog.setCanceledOnTouchOutside(false);
-        //Når brugerens forsøg på login er succesfuld, vil det føre dem til en tom side som indeholder en knap som returner dem login siden.
+        //Når brugerens forsøg på login er succesfuld, vil det føre dem til hjemme siden.
         firebaseAuth.createUserWithEmailAndPassword(email,password1).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
-                    //firebaseAuth.updateCurrentUser(firebaseAuth.getCurrentUser().getDisplayName(), "ass", ); //set display name
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                            .setDisplayName(username1) //Bare have endnu tekstfelt med brugernavn
+                            .setDisplayName(username1)
                             .build();
                     firebaseAuth.getCurrentUser().updateProfile(profileUpdates);
                     user1.setUser(firebaseAuth.getUid()); //Prøver at sætte herned, da brugeren skal være logget ind. måske rykke logget ind, herind. Så den nye bruger er logget ind.
-                    myRefUser.child(firebaseAuth.getUid()).child("yass").setValue("yass"); //Send data to database //Er kommet i databaseSingleton, så kan bare kalde den med det objekt.
+                    myRefUser.child(firebaseAuth.getUid()).setValue(""); //Send data to database //Er kommet i databaseSingleton, så kan bare kalde den med det objekt.
                     Toast.makeText(MainActivity2.this,"Successfully registered",Toast.LENGTH_LONG).show();
                     Intent intent=new Intent(MainActivity2.this, HomeNavigation.class);
                     startActivity(intent);

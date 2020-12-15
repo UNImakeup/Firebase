@@ -81,16 +81,6 @@
                 android:textSize="20dp" />
 
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="320dp"
-                android:text="Total Reps"
-                android:textColor="@color/white"
-                android:textSize="20dp" />
 
         </RelativeLayout>
 

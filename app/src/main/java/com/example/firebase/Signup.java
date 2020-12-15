@@ -1,6 +1,7 @@
 package com.example.firebase;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
@@ -38,7 +39,15 @@ public class Signup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+
+        //actionbar hide
+        ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
         firebaseAuth=FirebaseAuth.getInstance();
+
 
         emailEt=findViewById(R.id.email);
         passwordEt1=findViewById(R.id.password1);

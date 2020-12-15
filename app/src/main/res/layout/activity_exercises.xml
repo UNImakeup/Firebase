@@ -15,25 +15,27 @@
         android:layout_row="1"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="150dp"
         android:gravity="center_horizontal"
         android:text="1"
         android:textSize="350sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/gridLayoutexercises" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <RelativeLayout
         android:id="@+id/relativeLayoutHeader"
         android:layout_width="match_parent"
-        android:layout_height="240dp"
-        android:layout_marginBottom="96dp"
+        android:layout_height="295dp"
+        android:layout_marginBottom="62dp"
         android:background="@color/colorPrimaryTet"
         app:layout_constraintBottom_toTopOf="@+id/relativeLayoutnederst"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <TextView
             android:id="@+id/choosedifficulty"
@@ -41,7 +43,7 @@
             android:layout_height="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="150dp"
             android:text="  3 Difficulties · 4 Work Outs    "
             android:textColor="@color/darkwhite"
             android:textSize="22dp" />
@@ -52,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="80dp"
             android:text="Workout"
             android:textColor="@color/prettyRed"
             android:textSize="50sp"
@@ -61,21 +63,16 @@
 
     </RelativeLayout>
 
-
     <GridLayout
         android:id="@+id/gridLayoutexercises"
-        android:layout_width="0dp"
-        android:layout_height="156dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:layout_width="401dp"
+        android:layout_height="168dp"
+        android:layout_marginTop="220dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:columnCount="3"
         android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints">
 
@@ -99,23 +96,30 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="EASY"
+                    android:layout_marginLeft="25dp"
+                    android:text="10 sec"
                     android:textColor="@color/darkwhite"
-                    android:textSize="25dp"
+                    android:textSize="14dp"
+                    android:textStyle="bold"
 
-                    android:textStyle="bold" />
+                    />
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/prettyRed"
+                    android:src="@drawable/rotate" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="10 seconds"
+                    android:text="EASY"
                     android:textColor="@color/darkwhite"
-                    android:textSize="15dp"
-
-                    />
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -141,22 +145,32 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="MEDIUM"
+                    android:layout_marginLeft="25dp"
+                    android:text="20 sec"
                     android:textColor="@color/darkwhite"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+
+                    />
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/prettyRed"
+                    android:src="@drawable/rotate" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="20 seconds"
+                    android:text="MEDIUM"
                     android:textColor="@color/darkwhite"
-                    android:textSize="15dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
 
-                    />
+
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -173,7 +187,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="126dp"
                 android:background="@color/prettyRed"
                 android:orientation="vertical"
                 android:padding="10dp">
@@ -181,22 +195,30 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
-                    android:text="HARD"
+                    android:layout_marginLeft="25dp"
+                    android:text="30 sec"
                     android:textColor="@color/darkwhite"
-                    android:textSize="25sp"
-                    android:textStyle="bold" />
+                    android:textSize="14dp"
+                    android:textStyle="bold"
+
+                    />
+
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@color/prettyRed"
+                    android:src="@drawable/rotate" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="30 seconds"
+                    android:text="HARD"
                     android:textColor="@color/darkwhite"
-                    android:textSize="15dp"
-
-                    />
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
@@ -221,11 +243,12 @@
             android:background="@color/colorPrimaryTet">
 
             <TextView
-                android:layout_width="397dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="15dp"
                 android:layout_marginTop="15dp"
                 android:text="The Program"
-                android:layout_marginStart="15dp"
                 android:textColor="@color/prettyRed"
                 android:textSize="37sp"
                 android:textStyle="bold" />
@@ -235,23 +258,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="80dp"
+                android:background="@color/grey"
                 app:layout_constraintBottom_toTopOf="@id/squatsLayout"
 
                 >
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
-                    android:background="@color/prettyRed" />
+
+                    android:src="@drawable/pushups" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
                     android:text="PUSH-UPS"
                     android:textColor="@color/darkwhite"
                     android:textSize="22sp"
@@ -265,22 +291,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="140dp"
-
+                android:background="@color/grey"
                 app:layout_constraintBottom_toTopOf="@id/situpsLayout">
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
-                    android:background="@color/prettyRed" />
+
+                    android:src="@drawable/squats" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="20dp"
                     android:text="SQUATS"
                     android:textColor="@color/darkwhite"
                     android:textSize="22sp"
@@ -294,22 +321,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="200dp"
+                android:background="@color/grey"
                 app:layout_constraintBottom_toTopOf="@id/backbendsLayout">
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="80dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
 
-                    android:background="@color/prettyRed" />
+                    android:src="@drawable/situps"
+
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="120dp"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="20dp"
                     android:text="SITUPS"
                     android:textColor="@color/darkwhite"
                     android:textSize="22sp"
@@ -322,22 +352,24 @@
                 android:id="@+id/backbendsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:layout_marginTop="260dp">
+                android:layout_marginTop="260dp"
+                android:background="@color/grey">
 
                 <ImageView
-                    android:layout_width="50dp"
+                    android:layout_width="80dp"
                     android:layout_height="50dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
-
-                    android:background="@color/prettyRed" />
+                    android:src="@drawable/plank"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="80dp"
+                    android:layout_marginStart="120dp"
                     android:layout_marginLeft="80dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:text="BACKBENDS"
                     android:textColor="@color/darkwhite"
                     android:textSize="22sp"

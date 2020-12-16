@@ -40,7 +40,7 @@ public class Pushups extends AppCompatActivity {
         proximitySensor = sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
         final TextView textview=(TextView) findViewById(R.id.textView);
         final TextView pushupTimer = findViewById(R.id.pushupTimer);
-        final PushupExercise pushupExercise = new PushupExercise(1); //Starter med nul reps
+        final PushupExercise pushupExercise = new PushupExercise(); //Starter med nul reps
         final MediaPlayer haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
         final MediaPlayer bruhexplosionSound = MediaPlayer.create(this, R.raw.bruhexplosion); //Create sound
         final MediaPlayer yesSound = MediaPlayer.create(this, R.raw.yes); //Create sound
@@ -124,7 +124,6 @@ public class Pushups extends AppCompatActivity {
 
         proximitySensorListener = new SensorEventListener() {
             boolean rep;
-            //int reps = 0;
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
                 float currentValue = sensorEvent.values[0];
@@ -133,7 +132,6 @@ public class Pushups extends AppCompatActivity {
                     rep = false;
                 }
                 if (currentValue == 0.0 && rep == false){
-                    //reps++;
                     pushupExercise.addRep();
                     rep = true;
                 }

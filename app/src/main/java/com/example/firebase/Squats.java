@@ -21,7 +21,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     private Sensor acceleroMeterSensor;
     private SensorEventListener acceleroSensorListener;
     TextView textview;
-    final SquatExercise squatExercise = new SquatExercise(1);
+    final SquatExercise squatExercise = new SquatExercise();
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
@@ -119,7 +119,6 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         super.onDestroy();
     }
 
-    int reps = 0;
     boolean squat;
     double currentValue;
     @Override
@@ -129,12 +128,11 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             squat = true;
         }
         if(squat == true && currentValue > 8.0){
-            squat =false;
+            squat=false;
             squatExercise.addRep();
         }
 //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
         textview.setText("Squats: " + squatExercise.getReps());
-        double lastValue = currentValue;
 
         switch (squatExercise.getReps()){
             case 10:

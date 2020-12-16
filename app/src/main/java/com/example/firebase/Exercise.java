@@ -2,7 +2,6 @@ package com.example.firebase;
 
 public abstract class Exercise {
     private int reps; //Kunne have liste med exercises. polymorphi
-    private int difficulty;
 
     /*
     private static Exercise instance;
@@ -15,9 +14,8 @@ public abstract class Exercise {
     }
     */
 
-    public Exercise(int difficulty) {
+    public Exercise() {
         this.reps = 0;
-        this.difficulty = difficulty;
     }
 
 

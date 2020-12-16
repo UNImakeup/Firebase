@@ -49,7 +49,7 @@ public class Insights extends AppCompatActivity {
 
                 BMIModel bmiModel = new BMIModel(height, weight);
 
-                myRef.child(user1.getUser().toString()).child("BMI").setValue(bmiModel.calculateBMI()); //Også inde i databaseSingleton
+                myRef.child(user1.getUser().toString()).child("BMI").setValue(bmiModel.calculateBMI()); //Også inde i databaseSingleton. Kunne have gemt i anden klasse.
 
 
                 answer.setText(bmiModel.displayBMI(bmiModel.calculateBMI()));

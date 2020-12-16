@@ -1,8 +1,8 @@
 package com.example.firebase;
 
 public class SquatExercise extends Exercise {
-    public SquatExercise(int difficulty) {
-        super(difficulty);
+    public SquatExercise() {
+
     }
 
     @Override

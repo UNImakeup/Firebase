@@ -6,8 +6,8 @@ public class PushupExercise extends Exercise{
 
     //private static PushupExercise instance;
 
-    public PushupExercise(int difficulty) { //Difficulty vil så kunne sætte hvor man reps man skal lave. Man kan sætte reps ud fra hvad folk vælger i skærmen før øvelsen.
-        super(difficulty);
+    public PushupExercise() { //Difficulty vil så kunne sætte hvor man reps man skal lave. Man kan sætte reps ud fra hvad folk vælger i skærmen før øvelsen.
+
     }
 
     @Override

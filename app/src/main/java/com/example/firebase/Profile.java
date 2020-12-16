@@ -120,34 +120,34 @@ public class Profile extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).exists()) { //denne ender forkert, burde dække hele sætningen.
-
                     if (user1.getUserCompetitionID() == 1) { //Finder den anden brugers id baseret på ens egen, da der kun burde være 2 i konkurrencen.
                         int otherUserCompID = 2;
-
                         if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
                             //if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
-                            otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
+                            otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).
+                                    child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
                             //}
                         } else {
                             compStatus.setText("No one has joined your comp yet. Send the CompID to them, so they can join: " + user1.getCompetitionID());
                         }
-
                         if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").exists()) {
-                            userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
+                            userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).
+                                    child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
                         }
-
-                        if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists() && otherUserCompReps > userCompReps) {
+                        if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()
+                                && otherUserCompReps > userCompReps) {
                             compStatus.setText("you are losing your competition, get to work " + firebaseAuth.getCurrentUser().getDisplayName());
-
-                        } else if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists() && otherUserCompReps < userCompReps){
+                        } else if(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()
+                                && otherUserCompReps < userCompReps){
                             compStatus.setText("You are winning your competition, " + firebaseAuth.getCurrentUser().getDisplayName() + " you absolute champion");
                         }
+
                     } else if (user1.getUserCompetitionID() == 2) {
                         int otherUserCompID = 1;
                         if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
                             if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
                                 otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
-                            } //Behøver ikke tjekke om den anden bruger er oprette og skrive at de ikke er, da man er nummer 2 og altså ikke den der oprettede. Der er et andet medlem. 
+                            } //Behøver ikke tjekke om den anden bruger er oprette og skrive at de ikke er, da man er nummer 2 og altså ikke den der oprettede. Der er et andet medlem.
                             if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").exists()) {
                                 userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
                             }

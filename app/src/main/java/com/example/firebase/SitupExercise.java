@@ -1,8 +1,8 @@
 package com.example.firebase;
 
 public class SitupExercise extends Exercise {
-    public SitupExercise(int difficulty) {
-        super(difficulty);
+    public SitupExercise() {
+
     }
 
     @Override

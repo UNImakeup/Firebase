@@ -21,7 +21,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     private Sensor acceleroMeter;
     private SensorEventListener acceleroSensorListener;
     TextView textview;
-    final SitupExercise situpExercise = new SitupExercise(1);
+    final SitupExercise situpExercise = new SitupExercise();
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;

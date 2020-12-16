@@ -81,8 +81,6 @@ public class Notifications extends AppCompatActivity {
 
         final User user = User.getInstance(this);
 
-
-        //onButtonClick: //Ved tryk på join competition knap
         //Skal have skrevet i tekstfelt. Hvis child med det id eksisterer, så skriv deres navn ind og sig "you have now joined". Ellers sig wrong number.
         joinCompBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +89,7 @@ public class Notifications extends AppCompatActivity {
                     myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) { //Burde måske tjekke om den nuværende bruger allerede er på databasen under denne comp, så man ikke kan konkurrerere med sig selv.
-                            if(!dataSnapshot.child(joinCompInput.getText().toString()).child("2").exists()) {//myRefComp.child(joinCompInput.getText().toString()).child("2").setValue(user.getUser());
+                            if(!dataSnapshot.child(joinCompInput.getText().toString()).child("2").exists()) {
                             if(dataSnapshot.child(joinCompInput.getText().toString()).exists()) { //if competition with inputtet ID exists.
                                     //add user to competition
                                 //databaseSingleton.joinComp(user.getUser(), joinCompInput.getText().toString()); //Kan erstatte nedestående.
@@ -118,19 +116,17 @@ public class Notifications extends AppCompatActivity {
         });
 
 
-        //nedenstående virker nu.
         createCompBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Random random = new Random();
-                final int randomCompNumber = random.nextInt(1000);
+                final int randomCompNumber = random.nextInt(1000) + 1;
                 createCompNewInfo.setText("Competition Number: " + randomCompNumber);
                 myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {//Kune tjekke om man allerede er gang med en comp, for at man ikke kan være med i flere på en gang. Så kunne man også stoppe compen ved at fjerne det ID der er.
                         //Se om comp eksisterer, ellers lave den.
                         if(!dataSnapshot.child(String.valueOf(randomCompNumber)).exists()){ //Man skal ikke skrive child("Competition"), da det er fra myRefComp allerede
-
                             //databaseSingleton.createComp(user.getUser(), randomCompNumber); kan erstate nedenstående
                             myRefComp.child(String.valueOf(randomCompNumber)).setValue(null); //Læg den nye comp op på database. Kan bare ikke finde ud af at gøre uden value. Men den må vel godt have value. Men kunne være smart bare at tilføje child. Tror det er uden value nu, da string er tom.
                             //Så inde i workoutDone sige hvis bruger har comp, sæt værdi derind og tilføj nuværende oveni hvis den findes.
@@ -139,22 +135,11 @@ public class Notifications extends AppCompatActivity {
                             myRefUser.child(user.getUser()).child("CompetitionID").setValue(randomCompNumber);
                             myRefComp.child(String.valueOf(randomCompNumber)).child("1").setValue(user.getUser());
                             //Alt dette er også inde i databaseSingleton, så kan gøres gennem der.
-
                             createCompNewInfo.setText("You have now created a new competiton. Send this CompID: " + randomCompNumber + " to compete with them");
                         } else { //Else lav nyt nummer. fordi det allerede findes.
                             createCompNewInfo.setText("this CompID already exists, press the button again");
                         }
                     }
-                    /*
-                        if(Totalreps(på database).exists) { //Burde nok lave ny totalReps som vi kan gemme på hvis den findes i workoutDone, så der er all time totalReps og comp totalReps.
-                            myRef.child(String.valueOf(randomCompNumber)).child(user.getUser).setValue(myRefUser.child(user.getUser).child(TotalReps));
-                        }
-                        setText("Exercise to win the Competition" +
-                                "\n Send the code to a friend, for them to join the Competition");
-
-                         */
-
-
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {

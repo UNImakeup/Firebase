@@ -117,7 +117,7 @@ public class Exercises extends AppCompatActivity implements View.OnClickListener
         t1 = findViewById(R.id.textView);
         t1.setVisibility(View.INVISIBLE);
 
-        countDownTimer = new CountDownTimer(5500,1000) {
+        countDownTimer = new CountDownTimer(1500,1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 t1.setText(millisUntilFinished/1000 + "");

@@ -300,7 +300,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
 
-                    android:src="@drawable/squats" />
+                    android:src="@drawable/squats2" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -330,7 +330,7 @@
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
 
-                    android:src="@drawable/situps"
+                    android:src="@drawable/situps2"
 
                     />
 

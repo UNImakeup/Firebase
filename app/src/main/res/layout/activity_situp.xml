@@ -11,65 +11,79 @@
 
         android:id="@+id/relativeLayout6"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
-        android:layout_marginBottom="481dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
         android:background="@color/colorPrimaryTet"
-        app:layout_constraintBottom_toTopOf="@+id/skipPushups"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:layout_width="250dp"
+        <ImageView
+            android:layout_width="213dp"
             android:layout_height="match_parent"
-            android:layout_marginStart="190dp"
+            android:background="@color/colorPrimaryTet"
+            android:src="@drawable/situps2" />
+
+        <TextView
+            android:layout_width="260dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="180dp"
             android:layout_marginLeft="150dp"
+            android:layout_marginTop="100dp"
             android:gravity="center_vertical"
             android:text="SIT-UPS"
-            android:layout_marginTop="110dp"
             android:textColor="@color/turkis"
-            android:textSize="40dp"
+            android:textSize="60dp"
             android:textStyle="bold"
 
 
             />
 
 
-        <ImageView
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="15dp"
-            android:background="@color/colorPrimaryTet"
-            android:src="@drawable/situps" />
     </RelativeLayout>
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Situps"
-        android:textColor="@color/turkis"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="487dp"
+        android:text="Reps: "
+        android:textColor="@color/darkwhite"
         android:textSize="30dp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout6"
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/situpTimer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="170dp"
+        android:layout_marginBottom="216dp"
         android:text="10"
         android:textColor="@color/darkwhite"
-        android:textSize="40dp"
+        android:textSize="150sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.387" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBarSitups"
+        style="@style/CircularDeterminateProgressBar"
+        android:layout_width="307dp"
+        android:layout_height="436dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.691"
+        tools:progress="100" />
+
 
     <Button
         android:id="@+id/skipSitups"

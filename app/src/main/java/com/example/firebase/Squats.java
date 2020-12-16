@@ -12,8 +12,10 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,25 +29,35 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
+    int delayMillis;
+    int i = 0;
     MediaPlayer haidokenSound;
     MediaPlayer bruhexplosionSound;
     MediaPlayer yesSound;
     CountDownTimer countDownTimer;
     CountDownTimer countDownTimerBefore;
 
-    @SuppressLint("WrongConstant")
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_squat);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
 
+        //actionbar hide
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
+        final Handler handler = new Handler();
+        final ProgressBar progressBar = findViewById(R.id.progressBarSquats);
+        progressBar.setVisibility(View.INVISIBLE);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeterSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         textview = (TextView) findViewById(R.id.textView69);
+        textview.setVisibility(View.INVISIBLE);
         final TextView squatTimer = findViewById(R.id.squatTimer);
 
         haidokenSound = MediaPlayer.create(this, R.raw.haidoken); //Create sound
@@ -71,20 +83,25 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
         });
 
 
+
         switch (exerciseData.getDifficulty()) {
             case 1:
-                millisInFuture = 10000;
+                millisInFuture = 10500;
                 countDownInterval = 1000;
+                delayMillis = 90;
                 break;
             case 2:
-                millisInFuture = 20000;
+                millisInFuture = 20500;
                 countDownInterval = 1000;
+                delayMillis = 180;
                 break;
             case 3:
-                millisInFuture = 30000;
+                millisInFuture = 30500;
                 countDownInterval = 1000;
+                delayMillis = 270;
                 break;
         }
+
 
 
         countDownTimerBefore = new CountDownTimer(4000, 1000) {
@@ -95,9 +112,29 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
 
             @Override
             public void onFinish() {
+
                 Toast.makeText(Squats.this, "GO", Toast.LENGTH_SHORT).show();
                 sensorManager.registerListener(Squats.this, acceleroMeterSensor,  sensorManager.SENSOR_DELAY_NORMAL);
                 countDownTimer.start();
+                progressBar.setVisibility(View.VISIBLE);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(i<=100){
+
+                            //progressText.setText(""+ i);
+                            progressBar.setProgress(i);
+                            i++;
+                            handler.postDelayed(this,delayMillis);
+
+                        }else{
+                            handler.removeCallbacks(this);
+                        }
+                    }
+                },1000);
+
+                onStop();
+
             }
         };
         countDownTimerBefore.start();
@@ -105,7 +142,8 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
-                squatTimer.setText(millisUntilFinished/1000 + " Seconds left");
+                squatTimer.setText(millisUntilFinished/1000 + "");
+                textview.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -130,6 +168,7 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
     int reps = 0;
     boolean squat;
     double currentValue;
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         currentValue = sensorEvent.values[1];

@@ -12,8 +12,10 @@ import android.hardware.SensorManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,11 +29,15 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     ExerciseData exerciseData;
     int millisInFuture;
     int countDownInterval;
+    int delayMillis;
+    int i =0;
     CountDownTimer countDownTimer;
     CountDownTimer countDownTimerBefore;
     MediaPlayer haidokenSound;
     MediaPlayer bruhexplosionSound;
     MediaPlayer yesSound;
+
+
 
 
     @SuppressLint("WrongConstant")
@@ -40,13 +46,22 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_situp);
 
-        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        getSupportActionBar().setCustomView(R.layout.actionbar_layout1);
+
+        //actionbar hide
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        assert actionBar != null;
+        actionBar.hide();
+
+
+        final Handler handler = new Handler();
+        final ProgressBar progressBarSitups = findViewById(R.id.progressBarSitups);
+        progressBarSitups.setVisibility(View.INVISIBLE);
 
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acceleroMeter = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         textview = (TextView) findViewById(R.id.textView2);
+        textview.setVisibility(View.INVISIBLE);
         final TextView situpTimer = findViewById(R.id.situpTimer);
         exerciseData = ExerciseData.getInstance();
 
@@ -64,6 +79,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 Intent exercise3 = new Intent(Situp.this, Backbends.class);
                 startActivity(exercise3);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                progressBarSitups.setVisibility(View.INVISIBLE);
                 countDownTimer.cancel();
                 countDownTimerBefore.cancel();
                 onStop();
@@ -71,20 +87,25 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
             }
         });
 
+
         switch (exerciseData.getDifficulty()) {
             case 1:
-                millisInFuture = 10000;
+                millisInFuture = 10500;
                 countDownInterval = 1000;
+                delayMillis = 90;
                 break;
             case 2:
-                millisInFuture = 20000;
+                millisInFuture = 20500;
                 countDownInterval = 1000;
+                delayMillis = 170;
                 break;
             case 3:
-                millisInFuture = 30000;
+                millisInFuture = 30500;
                 countDownInterval = 1000;
+                delayMillis = 270;
                 break;
         }
+
 
         countDownTimerBefore = new CountDownTimer(4000, 1000) {
             @Override
@@ -97,6 +118,25 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 Toast.makeText(Situp.this, "GO", Toast.LENGTH_SHORT).show();
                 sensorManager.registerListener(Situp.this, acceleroMeter,  sensorManager.SENSOR_DELAY_NORMAL);
                 countDownTimer.start();
+                progressBarSitups.setVisibility(View.VISIBLE);
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(i<=100){
+
+                            progressBarSitups.setProgress(i);
+                            i++;
+                           handler.postDelayed(this,delayMillis);
+                        }else{
+                            handler.removeCallbacks(this);
+                        }
+                    }
+                },1000);
+
+                onStop();
+
+
             }
         };
         countDownTimerBefore.start();
@@ -104,7 +144,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
         countDownTimer = new CountDownTimer(millisInFuture, countDownInterval) {
             @Override
             public void onTick(long millisUntilFinished) {
-                situpTimer.setText(millisUntilFinished/1000 + " Seconds left");
+                situpTimer.setText(millisUntilFinished/1000 + "");
+                textview.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -113,6 +154,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
                 exerciseData.addExercise(situpExercise);
                 Intent exercise3 = new Intent(Situp.this, Backbends.class); //Putextra med sværhedsgrad, måske andet objekt med exercise, hvor vi gemmer reps.
                 startActivity(exercise3);
+                progressBarSitups.setVisibility(View.INVISIBLE);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 onStop();
                 finish();
@@ -128,6 +170,7 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
 
     boolean situp;
     double currentValue;
+    @SuppressLint("SetTextI18n")
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         currentValue = sensorEvent.values[1];

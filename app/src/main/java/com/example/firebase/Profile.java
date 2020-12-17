@@ -152,9 +152,9 @@ public class Profile extends AppCompatActivity {
                                 userCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(user1.getUserCompetitionID())).child("CompReps").getValue(String.class));
                             }
                             if (otherUserCompReps > userCompReps) {
-                                compStatus.setText("you are losing your competition, get to work " + user1.getUser());
+                                compStatus.setText("you are losing your competition, get to work " + firebaseAuth.getCurrentUser().getDisplayName());
                             } else {
-                                compStatus.setText("You are winning your competition, " + user1.getUser() + " you absolute champion");
+                                compStatus.setText("You are winning your competition, " + firebaseAuth.getCurrentUser().getDisplayName() + " you absolute champion");
                             }
                         }
                     }

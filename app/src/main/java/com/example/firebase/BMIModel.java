@@ -4,7 +4,8 @@ public class BMIModel {
         static String height;
         static String weight;
 
-    public BMIModel(String height, String weight) {
+    public BMIModel(String height, String weight) {  https://l.facebook.com/l.php?u=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DWbYQN5rRqUQ%26fbclid%3DIwAR1BCNjz3LWLMBkitBKcN9UFIvw4xWl4zu-P0i2B0xd1Zn04l94B7f9MCbk&h=AT3GA-WNNaiUNkLffnj6-P_9acfuALfWUxLsLWzi_l5zwuAa_zUAXNCe-UwqKXM9fub5fNu8a5gHNim9qJgkyjkC0FNSMjLqyFxQ1BsUlnKFfM8VprI0p7zlNtBi_2DzqHz-W14VF6nk1tTOXJxdyw
+    //Vi lavede det om til en klasse, ifht youtube linket
         this.height = height;
         this.weight = weight;
     }

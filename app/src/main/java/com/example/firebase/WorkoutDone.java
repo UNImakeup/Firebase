@@ -75,7 +75,7 @@ public class WorkoutDone extends AppCompatActivity {
 
             }
         });
-        
+
         myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
             int compReps = 0;
             @Override

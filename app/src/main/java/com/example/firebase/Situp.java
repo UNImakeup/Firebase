@@ -122,7 +122,8 @@ public class Situp extends AppCompatActivity implements SensorEventListener {
     double currentValue;
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-        currentValue = sensorEvent.values[1];
+        currentValue = sensorEvent.values[1]; //https://www.youtube.com/watch?v=LsWJipo4knk
+        //Fra video kan den måle, vi laver funktionalitet, der tæller reps
 
         if(currentValue < 1.0) { //Kunne nok være i egen klasse, metode man kalder
             situp = true;

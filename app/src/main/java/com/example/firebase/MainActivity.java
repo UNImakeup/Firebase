@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         // Når brugerens forsøg på login er succesfuld, vil det føre dem til en tom side som indeholder en knap som returner dem login siden.
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
+            public void onComplete(@NonNull Task<AuthResult> task) { //https://www.youtube.com/watch?v=Z-RE1QuUWPg
                 if(task.isSuccessful()){
                     user1.setUser(firebaseAuth.getUid()); //Prøver at sætte herned, da brugeren skal være logget ind. måske rykke logget ind, herind. Så den nye bruger er logget ind.
                     Toast.makeText(MainActivity.this,"Login Successfully",Toast.LENGTH_LONG).show();

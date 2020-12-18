@@ -123,7 +123,8 @@ public class Pushups extends AppCompatActivity {
             boolean rep;
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
-                float currentValue = sensorEvent.values[0];
+                float currentValue = sensorEvent.values[0]; //https://www.youtube.com/watch?v=3N5C7M961-k&t=60s
+                //vi lavede funktionalitet, videoen viste hvordan man brugte sensor. 
 
                 if(currentValue == 5.0){
                     rep = false;

@@ -75,32 +75,7 @@ public class WorkoutDone extends AppCompatActivity {
 
             }
         });
-
-        //Fik nedenstående til at virke, tester upload nu.
-        //Alt herunder er for at lægge rep op under comp. Det virker ikke, ved ikke hvorfor. Tror jeg vil prøve at lave databasen om, så man kan kigge i både user og comp i en valueeventlistener. Så de begge  ligger ud for et child/reference.
-/*
-        myRefUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            //int totalReps = 0;
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Først finde compID, så bruge det til at finde brugerID i comp, stadig i brugeren.
-                //Så kan man gå under Comp og gemme ens total reps på samme måde som den anden.
-                //Først tjekke om bruger er i Comp. Derefter, indeni, tjekke om der er compværdi, hvis ja læg oveni. Så læg nuværende sum oveni og gem på DB.
-                if(dataSnapshot.child(user.getUser()).child("CompetitionID").exists()) {
-                    int competitionID = (int) dataSnapshot.child(user.getUser()).child("CompetitionID").getValue(Integer.class);
-                    user.setCompetitionID(competitionID);
-                    int userCompetitionID = (int) dataSnapshot.child(user.getUser()).child("CompetitionID" + competitionID).child(user.getUser() + "UserValue").getValue(Integer.class);
-                    user.setUserCompetitionID(userCompetitionID);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-*/
+        
         myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
             int compReps = 0;
             @Override

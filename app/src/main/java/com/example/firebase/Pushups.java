@@ -95,10 +95,8 @@ public class Pushups extends AppCompatActivity {
             @Override
             public void onFinish() {
                 Toast.makeText(Pushups.this, "GO", Toast.LENGTH_SHORT).show();
-                //pushupTimer.setText("");
                 countDownTimer.start();
                 sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
-                //onStop();
 
             }
         };
@@ -115,7 +113,6 @@ public class Pushups extends AppCompatActivity {
                 Toast.makeText(Pushups.this,"finish",Toast.LENGTH_SHORT).show();
                 exerciseData.addExercise(pushupExercise);
                 Intent exercise2 = new Intent(Pushups.this, Squats.class);
-                //exercise2.putExtra("PushupReps")
                 startActivity(exercise2);
                 onStop();
                 finish();
@@ -135,7 +132,6 @@ public class Pushups extends AppCompatActivity {
                     pushupExercise.addRep();
                     rep = true;
                 }
-                //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf(pushupExercise.getReps()));
                 switch (pushupExercise.getReps()){
                     case 10:
@@ -154,7 +150,6 @@ public class Pushups extends AppCompatActivity {
             }
         };
 
-        //sensorManager.registerListener(proximitySensorListener, proximitySensor, 2*1000*1000, 1000);
     }
     @Override
     protected void onStop(){

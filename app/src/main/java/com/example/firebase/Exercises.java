@@ -166,7 +166,6 @@ public class Exercises extends AppCompatActivity {
     @Override
     protected void onPause() {
         lyd.stop();
-        //super.onStop();
         super.onPause();
     }
 }

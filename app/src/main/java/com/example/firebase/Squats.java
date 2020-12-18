@@ -131,7 +131,6 @@ public class Squats extends AppCompatActivity implements SensorEventListener {
             squat=false;
             squatExercise.addRep();
         }
-//Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
         textview.setText("Squats: " + squatExercise.getReps());
 
         switch (squatExercise.getReps()){

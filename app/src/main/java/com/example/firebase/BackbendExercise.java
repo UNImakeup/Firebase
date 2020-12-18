@@ -1,7 +1,5 @@
 package com.example.firebase;
 
-import android.media.MediaPlayer;
-
 public class BackbendExercise extends Exercise {
     public BackbendExercise() {
     }
@@ -11,13 +9,6 @@ public class BackbendExercise extends Exercise {
         return super.getReps();
     }
 
-    /*
-    //Fjerner da den starter på nul når man laver objektet og den ikke er singleton.
-    @Override
-    public void setReps(int reps) { //For at sætte reps lig nul, når øvelsen begynder.
-        super.setReps(reps);
-    }
-     */
 
     @Override
     public void addRep() { //Lægge til reps.

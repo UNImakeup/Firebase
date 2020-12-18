@@ -129,7 +129,6 @@ public class Backbends extends AppCompatActivity {
                     backbendExercise.addRep();
                     rep = true;
                 }
-                //Bare fjerne sensorværdien, have et billede der ændrer sig, og et tal over. Timer under billedet, der måske kunne være rundt.
                 textview.setText(String.valueOf((backbendExercise.getReps() - 1))); //-1, fordi den starter på 1 af en eller anden grund.
 
                 switch (backbendExercise.getReps()){

@@ -74,7 +74,6 @@ public class Settings extends AppCompatActivity {
     protected void onPause() {
         zen.stop();
         zen.setLooping(false);
-        //super.onStop();
         super.onPause();
     }
 }

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -39,8 +40,6 @@ public class Notifications extends AppCompatActivity {
         //set home selected
 
         bottomNavigationView.setSelectedItemId(R.id.notifications);
-
-        //perform itemselectedlistener
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -85,7 +84,7 @@ public class Notifications extends AppCompatActivity {
         joinCompBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!joinCompInput.getText().equals("")){ //Hvis den ikke er tom.
+                if(!TextUtils.isEmpty((joinCompInput.getText()))){ //Hvis den ikke er tom.
                     myRefComp.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) { //Burde måske tjekke om den nuværende bruger allerede er på databasen under denne comp, så man ikke kan konkurrerere med sig selv.

@@ -46,7 +46,6 @@ public class Profile extends AppCompatActivity {
 
         final TextView homeName = findViewById(R.id.homeName);
         final Button logoutBtn = findViewById(R.id.logoutButton);
-        ImageView profilePic = findViewById(R.id.profilePic);
         final TextView compStatus = findViewById(R.id.compStatus);
         firebaseAuth = FirebaseAuth.getInstance();
 
@@ -60,7 +59,6 @@ public class Profile extends AppCompatActivity {
         final DatabaseReference myRefComp = database[0].getReference("Competition");
         final User user1 = User.getInstance(this); //Context er ligegyldig, den henter alligevel i mainActivity
 
-        //homeName.setText(firebaseAuth.getCurrentUser().getDisplayName()); //Virker med user.getuser og med firebaseAuth.getCurrentUser().getEmail() viser username
 
         myRef.addListenerForSingleValueEvent(new ValueEventListener() {
             int competitionID;
@@ -123,10 +121,8 @@ public class Profile extends AppCompatActivity {
                     if (user1.getUserCompetitionID() == 1) { //Finder den anden brugers id baseret på ens egen, da der kun burde være 2 i konkurrencen.
                         int otherUserCompID = 2;
                         if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
-                            //if (dataSnapshot.child(String.valueOf(user1.getCompetitionID())).child(String.valueOf(otherUserCompID)).child("CompReps").exists()) {
                             otherUserCompReps = Integer.parseInt(dataSnapshot.child(String.valueOf(user1.getCompetitionID())).
                                     child(String.valueOf(otherUserCompID)).child("CompReps").getValue(String.class));
-                            //}
                         } else {
                             compStatus.setText("No one has joined your comp yet. Send the CompID to them, so they can join: " + user1.getCompetitionID());
                         }

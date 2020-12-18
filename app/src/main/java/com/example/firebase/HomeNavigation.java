@@ -133,7 +133,6 @@ public class HomeNavigation extends AppCompatActivity implements View.OnClickLis
 
 
             case R.id.workoutDash:
-                // Toast.makeText(this, "Workout", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(HomeNavigation.this,Exercises.class));
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 break;

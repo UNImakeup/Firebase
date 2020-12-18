@@ -46,7 +46,6 @@ public class BMIModel {
             }
 
             bmiLabel = bmi + "\n\n" + bmiLabel;
-            //answer.setText(bmiLabel);
             return bmiLabel;
         }
 }
